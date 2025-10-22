@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { GeographicalSearchesModule } from './pages/geographical-searches/geographical-searches.module';
@@ -121,14 +120,3 @@ export const route: Routes = [
   // Redirect to the login page if the route is not found
   { path: '**', redirectTo: 'account', pathMatch: 'full' },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(route,      
-    {
-    anchorScrolling: 'enabled',
-    scrollPositionRestoration: 'enabled',      
-    onSameUrlNavigation: 'reload'
-  })],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
