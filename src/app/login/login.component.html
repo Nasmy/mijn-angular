@@ -1,0 +1,36 @@
+<img class="login-form-logo" src="../../assets/img/logo.png" />
+<form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+    <nz-form-label nzFor="email">{{'Email'|translate}}</nz-form-label>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="">
+            <!-- <nz-input-group nzPrefixIcon="user"> -->
+            <nz-input-group>
+                <input type="text" nz-input formControlName="email" [placeholder]="'Enter your email address' | translate" />
+            </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-label nzFor="password">{{'Password'|translate}}</nz-form-label>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="">
+            <nz-input-group [nzSuffix]="suffixTemplate">
+                <input [type]="!isPasswordVisible ? 'password' : 'text'" nz-input formControlName="password" class="pwdInput" [placeholder]="'Enter your password'|translate" />
+            </nz-input-group>
+            <ng-template #suffixTemplate>
+                <i nz-icon [nzType]="isPasswordVisible ? 'eye-invisible' : 'eye'" (click)="isPasswordVisible = !isPasswordVisible"></i>
+            </ng-template> 
+        </nz-form-control>
+    </nz-form-item>
+    <div nz-row class="login-form-margin">
+        <!-- <div nz-col [nzSpan]="12">
+            <label nz-checkbox formControlName="remember">
+            <span>Remember me</span>
+            </label>
+        </div> -->
+        <div nz-col [nzSpan]="12">
+            <a class="login-form-forgot" href="/account/password-reset">{{'Forgotten Password?' | translate}}</a>
+        </div>
+    </div>
+    <button nz-button class="login-form-button login-form-margin">{{'Log in' | translate}}</button>
+    <!-- Or
+        <a>register now!</a> -->
+</form>

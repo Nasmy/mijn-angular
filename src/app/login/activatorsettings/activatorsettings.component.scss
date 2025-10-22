@@ -1,0 +1,71 @@
+
+.row-margin {
+    margin-bottom: 5px;
+}
+.cardLogin {
+    margin-top: 200px;
+}
+.row-center {
+    text-align:center;
+}
+.row-left {
+    text-align:left;
+}
+
+.login-form-button {
+    width: 100%;
+    background-color: #E43B4E;
+    border-radius: 6px;
+}
+
+#two-factor-input{
+    .ant-input {
+        border: 1px solid #999;
+        border-radius: 6px !important;
+        padding: 10px 15px !important;
+    }       
+}
+
+a {
+    color: #E43B4E;
+    font-size: 10px!important;
+    margin-bottom: 10px;
+}
+label.grayed {
+    color: #777777!important;
+    font-size: 10px!important;
+}
+
+p.grayed {
+    color: #777777!important;
+    
+}
+
+.ant-form-item {
+    margin-bottom: 20px;
+}
+
+#twoFaInputGroup {
+    margin-bottom: 15px;
+}
+
+p { text-align: center; }
+
+h3 { font-weight: 600; }
+
+.row-qr {
+    padding-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 20px 0 40px;
+}
+
+::ng-deep .login-container {
+    height: auto;
+}
+
+button {
+    height: 59px !important;
+}

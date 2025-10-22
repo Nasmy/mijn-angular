@@ -1,0 +1,67 @@
+<div nz-row class="componentHead">
+    <div nz-col [nzSpan]="selectedOption==1?12:12" style="display: block">
+        <!--
+        <nz-button-group>
+            <button nz-button class="mp-group-button right-margin button-left-radius" (click)="openComponent()">
+                <span><span nz-icon nzType="plus" nzTheme="outline"> </span> {{'Create Basic Request'|translate}}</span>
+            </button>
+            <button nz-button nz-dropdown [nzDropdownMenu]="menu_request" nzPlacement="bottomRight" class="mp-group-button button-right-radius">
+                <span nz-icon nzType="down" nzTheme="outline"></span>
+            </button>
+            <nz-dropdown-menu id="request_menu" #menu_request="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item (click)="openComponent()">{{'Create Basic Request' | translate}}</li>
+                    <li nz-menu-item (click)="openComponentKlim()">{{'Create Klim Request' | translate}}</li>                   
+                </ul>
+            </nz-dropdown-menu>
+        </nz-button-group> 
+        -->
+        @if(selectedOption==0){  
+            <nz-button-group>
+                <button nz-button nz-button nzType="primary" id="basic-request" class="geo-buttons" [nzSize]="'large'" nzDanger (click)="openComponent()">
+                    <span><span nz-icon nzType="plus" nzTheme="outline"> </span> {{'Create Basic Request'|translate}}</span>
+                </button>
+
+                <button nz-button nz-button nzType="primary" class="geo-buttons" [nzSize]="'large'" nzDanger (click)="openComponentKlim()">
+                    <span><span nz-icon nzType="plus" nzTheme="outline"> </span> {{'Create Klim Request' | translate}}</span>
+                </button>
+            </nz-button-group>
+        }
+
+        @if(selectedOption==1){   
+            <button nz-button  nzPlacement="bottomRight" class="mp-button-light map-options"  (click)="MapOptions()">
+                {{'Map options'|translate}}
+            </button>
+        }
+
+    </div>
+    <!-- @if(selectedOption==1){   
+        <div nz-col [nzSpan]="selectedOption==1?15:2" style="margin-left: 15px;">
+            <button nz-button  nzPlacement="bottomRight" class="mp-button-light map-options" (click)="MapOptions()">
+                {{'Map options'|translate}}
+            </button>
+    
+        </div>  
+    }
+    <div nz-col [nzSpan]="2">
+
+    </div>    --> 
+    <div nz-col [nzSpan]="selectedOption==1?12:12" style="text-align: right;">
+        <nz-segmented [(ngModel)]="selectedOption" (nzValueChange)="valueChanged($event)" class="switch-menu" [nzOptions]="options" style="margin-right: 20px;"></nz-segmented>
+        <button nz-button  nzPlacement="bottomRight" class="mp-button-light" (click)="openConfigurationDrawer()">
+            {{'Configurations'|translate}}
+        </button>
+    </div>
+</div>
+<!-- <div nz-row>
+    <div nz-col [nzSpan]="24">
+        <br>
+    </div>
+</div> -->
+
+@if(selectedOption==0){   
+    <app-geographical-searches-table></app-geographical-searches-table>    
+}@else{
+    <app-map-viewer [leftDriverDisplay]="leftDriverDisplay"></app-map-viewer>
+    <!--<app-mapviewer-test></app-mapviewer-test>-->
+}

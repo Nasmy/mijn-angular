@@ -1,0 +1,69 @@
+<!--<p (click)="onSave()" class="btn btn-success">Save</p>
+<p (click)="addSamleText('')" class="btn btn-success">add text</p>-->
+<div class="control-section">
+    <div>
+            @if(hideButtons==false){
+                <div nz-row [nzGutter]="8" style="width: 100%; margin-bottom: 25px;">
+                   <div nz-col nzSpan="20">
+                         <!--@if(beditName==false){
+                            <h4 id="fileTitle">{{fileManagment?.name}}  <i class="material-icons" (click)="beditName=true">edit</i></h4> 
+                        }@else if(beditName==true){
+                            <input style="width: 70%;" type="text" nz-input [(ngModel)]="fileManagment.name" placeholder="Title" />
+                            <button ejs-button (click)="saveTitle()" class="btn-save-title" ><i nz-icon nzType="save" nzTheme="outline"></i></button>
+           
+                        }-->
+                    </div>
+                    <!--<div nz-col [nzSpan]="4" style="max-width: 100%; text-align: right" class="btn-right-corner">
+                        <button nz-button  class="mp-button-light" style="margin-right: 15px;" (click)="close()" >
+                          {{'Cancel'|translate}}
+                        </button>
+                        <button  nz-button nzType="primary" nzDanger class="mp-button-primary" (click)="saveToDB()" >
+                            {{'Save'|translate}}
+                        </button>
+                    </div>-->
+                
+                    <div nz-col nzSpan="2">
+                        <button nz-button nzBlock style="width: 100%; cursor: pointer;" class="btn-cancel"
+                            (click)="close()">{{'Back'|translate}}</button>
+                    </div>
+                    <div nz-col nzSpan="2">
+                        <button nz-button nzBlock style="width: 100%; cursor: pointer;"
+                            class="btn-save"
+                            (click)="saveToDB()">{{('Save' )|translate}}</button>
+                    </div>
+                </div>
+            }
+
+            @if(allertMessage.message){ 
+                <div nz-row [nzGutter]="8" style="width: 100%;">
+                    <div nz-col nzSpan="20">
+                        <nz-alert  [nzType]="allertMessage.type" [nzMessage]="allertMessage.message" nzShowIcon></nz-alert>
+                    </div>
+                </div>
+            }
+            <!--<div><button ejs-button (click)="saveToDB()" class="btn-save-document" ><i nz-icon nzType="save" nzTheme="outline"></i></button></div>-->
+        
+        
+        <div id="default_title_bar" class="e-de-ctn-title"></div>
+        <div>
+            <ejs-documenteditorcontainer 
+                #documenteditor_default 
+                id="container"                 
+                [enableToolbar]=true                  
+                [showPropertiesPane]=false
+                [locale]="culture" 
+                (created)="onCreate()" 
+                (documentChange)="onDocumentChange()" 
+                (contentChange)="onEditorContentChange($event)"
+                height="1800px" 
+                style="display:block;">
+            </ejs-documenteditorcontainer>
+            <br>
+        </div>
+    </div>
+</div>
+<script>
+    window.onbeforeunload = function () {
+        return 'Want to save your changes?';
+    };    
+</script>

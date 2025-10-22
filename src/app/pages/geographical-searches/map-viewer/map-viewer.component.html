@@ -1,0 +1,527 @@
+<!--<arcgis-map item-id="05e015c5f0314db9a487a9b46cb37eca" (arcgisViewChange)="arcgisViewChange($event)">
+    <arcgis-zoom position="top-left"></arcgis-zoom>
+ </arcgis-map>-->
+ <div #mapViewNode></div>
+ <div id="topbar">
+  <button  id="areaButton" class="action-button esri-icon-measure-area"  type="button" [title]="'Measure area' |translate"></button>
+  <button  id="distanceButton" class="action-button esri-icon-measure-line" type="button" [title]="'Measure distance between two or more points' |translate"></button>
+  <button  #clear id="clear" class="action-button esri-icon-trash" [title]="'Clear Measurements' |translate"   ></button>
+</div>
+ <!--<div id="toolbarDiv">
+    <div class="esri-component esri-widget left">
+      <button #mapDistances
+      id="distance"
+      class="esri-widget--button esri-interactive esri-icon-measure-line"
+      title="Distance Measurement Tool"
+      ></button>
+      <button  #mapArea
+        id="area"
+        class="esri-widget--button esri-interactive esri-icon-measure-area"
+        title="Area Measurement Tool"
+      ></button>
+      <button  #clear
+        id="clear"
+        class="esri-widget--button esri-interactive esri-icon-trash"
+        title="Clear Measurements"
+      ></button>
+    </div>
+      <div id="shetch" #shetch  class="esri-component esri-widget right">
+      <div > 
+      </div>
+      </div>
+  
+  </div>-->
+
+
+<div id="capakeysearch" class="capakey" [formGroup]="form">   
+    <mat-form-field class="matblock" appearance="outline"   [hideRequiredMarker]="true">
+      <!--<mat-label>{{'Capakey' | translate}}</mat-label>-->
+      <input type="text" placeholder="{{'Enter a Capakey or an Address'| translate}}" matInput formControlName="capakey"
+          [matAutocomplete]="auto" >                 
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let item of autoFilter | async" [value]="item.name"
+              (onSelectionChange)="changeSelection(item)">
+              {{item.name}}
+          </mat-option>
+      </mat-autocomplete>
+      <mat-hint >{{f['capakeyAdress'].value}}</mat-hint>
+     <div *ngIf="submitted && f['capakey'].errors" class="invalid-feedback">
+          <div *ngIf="f['capakey'].errors['required']">{{'Capakey or Address' | translate}} {{'is required' | translate}}</div>
+     </div>
+  </mat-form-field>
+</div>
+
+<div style="display:none;visibility: hidden;"> 
+<calcite-shell id="calcite_menu">
+  <calcite-shell-panel slot="panel-start" width-scale="l" id="shell-panel-start">
+      <calcite-panel heading='Informatie'>
+         <!-- <calcite-action icon="question" text="Favorite" slot="header-actions-start"></calcite-action>
+          <calcite-action icon="save" text="Save" slot="header-actions-end"></calcite-action>
+          <calcite-action icon="reset" text-enabled text="Reset" slot="header-menu-actions"></calcite-action>
+          <calcite-action icon="pencil" text-enabled text="Rename" slot="header-menu-actions"></calcite-action>-->          
+
+          <!--<calcite-button width="half" slot="footer" appearance="outline">
+              {{"Environmental check" |translate}}
+          </calcite-button>
+          <calcite-button width="half" slot="footer">
+            {{"Zone request" |translate}}
+          </calcite-button>-->
+
+          <calcite-action icon="print" class="calcBorder" text="Print" slot="footer" (click)="isVisibleCadgisPrint=true ; cadgisSubmitedSuccessfull=false;openCadGisPrint()"></calcite-action>
+          <button nz-button  slot="footer"  class="mp-button-light" style="width: 90%;margin-right: 15px;" (click)="prepareEnvironmentalCheckData()">
+            {{'Environmental check'|translate}}
+          </button>
+          <button nz-button slot="footer" class="mp-button-primary" style="width: 90%;" (click)="addZoneRequest()">
+            {{'Zone request'|translate}}
+          </button>
+          <!--<calcite-block collapsible heading="Layer effects" description="Adjust blur, highlight, and more"
+              icon-start="effects">
+              <calcite-notice open>
+                  <div slot="message">Use layer effects sparingly, for emphasis</div>
+              </calcite-notice>
+          </calcite-block>
+          <calcite-block collapsible heading="Symbology" description="Select type, color, and transparency"
+              icon-start="map-pin">
+              <calcite-notice open>
+                  <div slot="message">The viewers are going to love this</div>
+              </calcite-notice>
+          </calcite-block>-->
+          <calcite-block heading="Features Widget" resizable>
+          </calcite-block>
+          <div id="features-widget" class="calcite-match-height" style="overflow-y: auto; height: 350px;"></div>
+          <calcite-fab slot="fab"></calcite-fab>
+      </calcite-panel>
+  </calcite-shell-panel>
+  <!--<calcite-panel heading="Content">
+  </calcite-panel>-->
+</calcite-shell>
+</div>
+
+<div style="display:none;visibility: hidden;"> 
+    <calcite-shell id="calcite_menu_environment">
+      <calcite-shell-panel slot="panel-start" width-scale="l" id="shell-panel-start">
+        <calcite-panel heading="Omgevings Check">      
+          @if((onEnvironmentLoading$$|async)==true){
+            <div class="loading-container">
+              <nz-spin nzSimple  nzTip="Loading..."  slot="header-actions-end"></nz-spin>
+            </div>    
+          }@else if((onEnvironmentLoading$$|async)==false){
+            <app-dash-environmentalcheck *ngIf="items.length>0"  [arrDisplayData]="items" (displayLayer)="onAddLayer($event)" ></app-dash-environmentalcheck>
+          }
+        </calcite-panel>               
+     </calcite-shell-panel>  
+    </calcite-shell>
+</div>
+
+
+
+
+<!--<div  id="capakeyinfo"  class="capakey-info">   
+  <div nz-row >
+
+  </div>
+  <nz-divider></nz-divider>
+ 
+  <calcite-button width="half" slot="footer" appearance="outline">
+    Cancel
+</calcite-button>
+<calcite-button width="half" slot="footer">
+    Next
+</calcite-button>
+  <div nz-row class="ant-drawer-footer modal-right-footer" >
+    <div nz-col [nzSpan]="4">
+      <button nz-button nzType="primary" nzDanger class="mp-button-primary" style="width: 90%;">
+        {{'Complete'|translate}}
+      </button>
+    </div>
+
+    <div nz-col [nzSpan]="10">
+      <button nz-button nzType="primary" nzDanger class="mp-button-primary" style="width: 90%;">
+        {{'Complete'|translate}}
+      </button>
+    </div>
+    <div nz-col [nzSpan]="10">
+        <button nz-button nzType="primary" nzDanger class="mp-button-primary" style="width: 90%;">
+          {{'Complete'|translate}}
+        </button>
+    </div>
+  </div>
+</div>
+-->
+
+
+<ng-template #drawerTemplate let-data let-drawerRef="drawerRef" style="z-index: 99999!important;">
+  <nz-tabset>
+    <nz-tab nzTitle="{{'Layers' | translate}}">
+      <!--value: {{ data?.value }}-->
+      <div class="combo-region">
+        <mat-form-field class="drawer-dropdown" appearance="outline">
+          <mat-label>{{'Region' | translate}}</mat-label>
+          <mat-select #regSelector id="regSelector" disableRipple (selectionChange)="onRegioChange($event)" [(ngModel)]="nRegionId" >
+              <mat-option selected value="0">{{'Select an option'| translate}}</mat-option>
+              <mat-option *ngFor="let regio of this.arrCombos['REGION']" [value]="regio.id">{{regio.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
+        <div *ngIf="nRegionId" class="combo-region">
+          <mat-form-field floatPlaceholder="never" class="drawer-dropdown" appearance="outline">          
+          <mat-label>{{'Search' | translate}} </mat-label>
+          <input matInput (keyup)="applyFilterLinked($event)" [(ngModel)]="mapSearchFilter" autocomplete="off">
+          <mat-icon matPrefix>manage_search</mat-icon>
+         <!--<mat-icon matPrefix>search</mat-icon>-->
+          </mat-form-field>
+      </div>
+
+      <div *ngIf="nRegionId" style="border-bottom: 1px solid rgb(233, 233, 233); padding-bottom: 16px">
+        <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllCheckedCategorized()" [nzIndeterminate]="indeterminate">
+          {{'Select all' |translate}}
+        </label>
+      </div>
+
+      <div class="accordion accordion--custom" id="accordionMaps">
+        @for (categoryOption of lstLayersCategory$$|async; track categoryOption) { 
+          <div class="accordion-item">
+            <div class="accordion-header" id="heading6">
+                  <label nz-checkbox [(ngModel)]="categoryOption.checked" (ngModelChange)="updateAllCheckedInCategory(categoryOption)" [id]="categoryOption.id" [nzIndeterminate]="categoryOption.indeterminate"> </label> 
+                  <p class="accordion-button collapsed" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    [attr.data-bs-target]="'#'+categoryOption.guid" 
+                    [attr.aria-expanded]="false" 
+                    [attr.aria-controls]="categoryOption.guid">
+                  {{categoryOption.name}}
+                  </p>
+            </div>
+          </div>
+          <div [id]="categoryOption.guid" style="margin-left:5px;" class="accordion-collapse collapse ml-4" aria-labelledby="heading6" [attr.data-bs-parent]="'#'+categoryOption.guid">
+            @for (categoryMap of categoryOption.mapsFiltered; track categoryMap) {
+            <div class="form-group form-check pl-4 mapname-checkbox">
+              <label nz-checkbox  [(ngModel)]="categoryMap.checked" (ngModelChange)="updateSingleCheckedCategorized(categoryOption)" [id]="categoryMap.id"></label>               
+              <!--<label class="form-check-label map-name" [nzTooltipVisible]="true" nz-tooltip [attr.nzTooltipTitle]="categoryMap.name" nzTooltipPlacement="top" >{{categoryMap.name}}</label> -->
+              <label  class="form-check-label  map-name" [nzTooltipTitle]="categoryMap.name" nzTooltipPlacement="top" nz-button nz-tooltip>{{categoryMap.name}}</label>            
+            </div>
+           }            
+          </div>
+        }
+      </div>
+
+     <!-- <nz-collapse>
+        <ng-content>
+          @for (option of lstLayersCategory$$|async; track option) {      
+            <p>
+              <nz-collapse-panel [nzActive]="option.checked"  (ngModelChange)="updateSingleChecked()">
+                {{ option.name }}
+              </nz-collapse-panel>   
+              <nz-collapse>
+                @for (childPanel of option.maps; track childPanel) {
+                  <p>
+                    <nz-collapse-panel [nzHeader]="childPanel.name" [nzActive]="childPanel.checked">
+
+                    </nz-collapse-panel>
+                  
+                  </p>
+                  
+                }
+              </nz-collapse>
+            </p>     
+          }
+        </ng-content>
+      </nz-collapse>-->
+
+     <!--<nz-collapse>
+        @for (panel of  lstLayersCategory$$|async; track panel) {
+          <nz-collapse-panel [nzHeader]="panel.name" [nzActive]="panel.checked" [nzExtra]="select">
+            <p>{{ panel.name }}</p>
+            @if (panel.maps && panel.maps.length > 0) {
+              <div>
+                <nz-collapse>
+                  @for (childPanel of panel.maps; track childPanel) {
+                    <nz-collapse-panel [nzHeader]="childPanel.name" [nzActive]="childPanel.checked">
+                      <p>
+                        A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as
+                        a welcome guest in many households across the world.
+                      </p>
+                    </nz-collapse-panel>
+                  }
+                </nz-collapse>
+              </div>
+            }
+          </nz-collapse-panel>
+        }
+      </nz-collapse>
+
+      <ng-template #select>
+      <label nz-checkbox [(ngModel)]="allChecked"(ngModelChange)="updateAllChecked()" [nzIndeterminate]="indeterminate">
+        {{'Select all' |translate}}
+      </label>
+      </ng-template>-->
+
+      <!-- 
+       <div style="border-bottom: 1px solid rgb(233, 233, 233); padding-bottom: 16px">
+        <label nz-checkbox [(ngModel)]="allChecked"(ngModelChange)="updateAllChecked()" [nzIndeterminate]="indeterminate">
+          {{'Select all' |translate}}
+        </label>
+      </div>
+
+
+        <ng-content>
+          @for (option of arrLayers; track option) {      
+            <p>
+              <label nz-checkbox [nzValue]="option.checked" [(ngModel)]="option.checked"   (ngModelChange)="updateSingleChecked()">
+                {{ option.name }}
+              </label>   
+            </p>     
+          }
+        </ng-content>-->
+                 
+    </nz-tab>
+    <nz-tab nzTitle="{{'Plots'| translate}}">
+      <div class="accordion accordion--custom" id="accordionMaps">        
+          <div class="accordion-item">
+            <div class="accordion-header" id="heading6">
+                  <!--<label nz-checkbox [(ngModel)]="categoryOption.checked" (ngModelChange)="updateAllCheckedInCategory(categoryOption)" [id]="categoryOption.id" [nzIndeterminate]="categoryOption.indeterminate"> </label>-->
+                  <p class="text-withoutcollapse collapsed" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    >
+                  {{'Total Capakeys' |translate}} : <b  style="color: #E43B4E;"> &nbsp;{{SelectedPlots.length}}</b>
+                  </p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" id="heading6">                  
+                  <p class="accordion-button collapsed" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#id_capakey" 
+                    [attr.aria-expanded]="false" 
+                    aria-controls="id_capakey">
+                  {{'Total surface' |translate}} : <b  style="color: #E43B4E;">&nbsp; {{SelectedPlotsSurface}} &nbsp; &#13217; </b>
+                  </p>
+            </div>
+          </div>
+          <div id="id_capakey" style="margin-left:5px;" class="accordion-collapse collapse ml-4" aria-labelledby="heading6" data-bs-parent="#id_capakey">
+            @for (capakey of SelectedPlots; track capakey) {
+            <div class="form-group form-check pl-4 mapname-checkbox">            
+              <label  class="form-check-label  capakey-name" style="font-size: 15px;" (mouseleave)="onMouseLeaveCapakey()" (mouseover)="onMouseOverCapakey(capakey.capakey)">{{capakey.capakey}}</label>         
+              <span nz-icon [nzType]="'trash_custom'" [nzTheme]="'outline'" style="color: #E43B4E; font-size: 20px" (click)="deleteCapakey(capakey.capakey)"></span>   
+            </div>
+           }            
+          </div>
+        
+      </div>
+    </nz-tab>
+</nz-tabset>
+
+  
+
+
+
+
+
+
+ 
+<!--
+
+  <ng-content>
+    @for (option of arrLayers; track option.id) {
+      <label
+        nz-checkbox
+        [nzValue]="option.id"
+        
+       
+      >
+        {{ option.name }}
+      </label>
+    }
+  </ng-content>
+
+    <nz-checkbox-group>
+    <nz-che *ngFor="let option of options" [value]="option.value">
+        <span example-directive>{{ option.label }}</span>    
+    </nz-checkbox-group-option>
+    </nz-checkbox-group>
+
+
+   <nz-checkbox-group  [(ngModel)]="options"  (ngModelChange)="updateSingleChecked()"></nz-checkbox-group>
+    @for (layer of arrLayers; track layer) {
+    <p>{{layer.name}}</p>
+  }
+-->
+</ng-template>
+
+
+
+<nz-modal [(nzVisible)]="isVisibleZoneRequest" [nzFooter]="null" [nzContent]="modalContentZoneRequest" (nzOnCancel)="handleCancel()" style="border-radius:10px">
+<ng-template #modalContentZoneRequest >
+  @if(requestSubmitedSuccessfull==true){ 
+    <div nz-row  style="height: 100%;" >
+      <h4>{{'Zone Request Submitted Successfully' | translate }}</h4>
+    </div>
+    <div nz-row  style="height: 100%; color: #807b7b !important" >
+      <p style="margin: 0px;">{{'Your zone request has been submitted and is now being processed.'|translate}}</p>
+      <p style="margin: 0px;">{{'View and track the status of it in the table with all requests.'|translate}}</p>
+    </div>
+    <div nz-row  style="height: 100%;" >
+      <img nz-image width="435px" height="311px" style="padding:25px" nzSrc="../../../../assets/img/icons/svg/zone_requested.svg" alt=""/>    
+    </div>
+  }
+  @if(requestSubmitedSuccessfull==false){ 
+    <div nz-row  style="height: 100%;" >
+      <div nz-col [nzSpan]="24" style="max-width: 100%" >
+            <h4>{{'Zone Request' | translate }}
+              @if(totalCreditUsed==false){ 
+                <span class="badge badge-light text-dark text-license">{{oRequestsAcces?.totalRequests}}/{{oRequestsAcces?.totalRequestsAccess}} &nbsp; {{'requests'|translate}}</span>
+              }@else{
+                <span class="badge badge-light text-dark text-license" style="color: #807b7b !important">{{'No screenings left' |translate}} &nbsp; <a style="text-decoration: underline;color: #E43B4E;">{{'upgrade plan'|translate}}</a></span>
+              }
+              </h4>          
+      </div>
+    </div>
+    <div nz-row  style="height: 100%;" >
+      <div nz-col [nzSpan]="24" style="max-width: 100%; margin-top: 25px; margin-bottom: 25px;" >
+        {{'Total Capakeys'}} : <b  style="color: #E43B4E;"> &nbsp;{{SelectedPlots.length}}</b>
+      </div>
+    </div>  
+    <div nz-row  style="height: 100%;" [formGroup]="formrequest" >
+          <mat-form-field appearance="outline" class="matblock">
+            <mat-label>{{'Reference' | translate}}</mat-label>
+            <input type="text" placeholder="{{'Reference'| translate}}" matInput formControlName="reference" autocomplete="off"  [ngClass]="{ 'is-invalid': submitted && frequest['reference'].errors }">
+            <div *ngIf=" submitted && frequest['reference'].errors" class="invalid-feedback">
+                <div *ngIf="frequest['reference'].errors['required']">{{'Reference' | translate}} {{'is required' | translate}}</div>
+            </div>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="matblock">
+            <mat-label>{{'Dossier' | translate}}</mat-label>
+           <input type="text" placeholder="{{'Dossier'| translate}}" matInput formControlName="filenumber" autocomplete="off">
+          </mat-form-field>
+  
+         <mat-form-field appearance="outline" class="matblock">
+           <mat-label>{{'Configuration' | translate}}</mat-label>
+              <mat-select multiple formControlName="config_array">
+              <mat-option *ngFor="let conf of this.arrCombos['CONFIGURATION']" [value]="conf.id">{{conf.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="matblock">
+            <mat-label>{{'Processing type' | translate}}</mat-label>
+               <mat-select formControlName="type">
+               <mat-option *ngFor="let conf of this.arrCombos['PROCESSINGTYPE']" [value]="conf.id">{{conf.name |translate}}</mat-option>
+             </mat-select>
+           </mat-form-field>
+    </div>
+  
+    <div nz-row  style="height: 100%; margin-top: 50px;">
+      <div nz-col [nzSpan]="12" style="max-width: 80%;" class="submit-buttons-center">
+        <button nz-button  class="mp-button-light" style="width: 80%;margin-right: 15px;" (click)="handleCancel()">
+          {{'Close'|translate}}
+        </button>
+      </div>
+      <div nz-col [nzSpan]="12" style="max-width: 80%;" class="submit-buttons-center">
+        <button [disabled]="totalCreditUsed==true"  nz-button nzType="primary" nzDanger class="mp-button-primary" style="width: 80%;" (click)="submitZoneRequest()">
+          {{'Submit'|translate}}
+        </button>
+      </div>
+    </div>
+  }
+</ng-template>
+</nz-modal>
+
+<nz-modal id="cadgis_print" [(nzVisible)]="isVisibleCadgisPrint" [nzFooter]="null" [nzContent]="cadgisprint" (nzOnCancel)="isVisibleCadgisPrint=false" style="border-radius:10px;width: 750px;">
+  <ng-template #cadgisprint >
+    @if(oncadgisloading==true){ 
+        <div class="loading-container">
+          <nz-spin nzSimple  nzTip="Loading..."  slot="header-actions-end"></nz-spin>
+        </div> 
+      }@else{
+        @if(cadgisSubmitedSuccessfull==true){ 
+          <div nz-row  style="height: 100%;" >
+            <h4>{{'Print Request Submitted Successfully' | translate }}</h4>
+          </div>
+          <div nz-row  style="height: 100%; color: #807b7b !important" >
+            <p style="margin: 0px;">{{'Your print request has been successfully submitted! Your document is now in the queue and will be processed shortly.'|translate}}</p>
+            
+          </div>
+          <div nz-row  style="height: 100%;" >
+            <img nz-image width="435px" height="311px" style="padding:25px" nzSrc="../../../../assets/img/icons/svg/print_request_submitted.svg" alt=""/>    
+          </div>
+        }
+        @if(cadgisSubmitedSuccessfull==false){ 
+          <div nz-row  style="height: 100%;" >
+            <div nz-col [nzSpan]="24" style="max-width: 100%" >
+                  <h4>{{'Print' | translate }}</h4>          
+            </div>
+          </div>
+          <div nz-row  style="height: 100%;">   
+            <div nz-col [nzSpan]="12" style="max-width: 100%" >
+              <mat-form-field appearance="outline">
+                <mat-label>{{'Page format' | translate}}</mat-label>
+                  <mat-select disableRipple [(ngModel)]="oCadGisPrint.pageFormat" (selectionChange)="cadgisImage()">
+                      <mat-option selected value="0">{{'Select an option'| translate}}</mat-option>
+                      <mat-option *ngFor="let page of this.arrCombos['PAGEFORMAT']" [value]="page.id">{{page.name}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+              <mat-label>{{'Scale' | translate}}</mat-label>
+                <mat-select disableRipple [(ngModel)]="oCadGisPrint.scale" (selectionChange)="cadgisImage()">
+                    <mat-option selected value="0">{{'Select an option'| translate}}</mat-option>
+                    <mat-option *ngFor="let scale of this.arrCombos['SCALE']" [value]="scale.id">{{scale.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>   
+        
+              <mat-form-field appearance="outline">
+              <mat-label>{{'Resolution' | translate}}</mat-label>
+                <mat-select disableRipple [(ngModel)]="oCadGisPrint.resolution" (selectionChange)="cadgisImage()">
+                    <mat-option selected value="0">{{'Select an option'| translate}}</mat-option>
+                    <mat-option *ngFor="let resolution of this.arrCombos['RESOLUTION']" [value]="resolution.id">{{resolution.name}} dpi
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>        
+              <mat-form-field appearance="outline">
+              <mat-label>{{'Page orientation' | translate}}</mat-label>
+                <mat-select disableRipple [(ngModel)]="oCadGisPrint.pageorientation" (selectionChange)="cadgisImage()">
+                    <mat-option selected value="0">{{'Select an option'| translate}}</mat-option>
+                    <mat-option *ngFor="let page of this.arrCombos['PAGE']" [value]="page.id">{{page.name}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>    
+            <div nz-col [nzSpan]="12" style="max-width: 100%">
+              @if(allertMessage.message){ 
+                <nz-alert  [nzType]="allertMessage.type" [nzMessage]="allertMessage.message" nzShowIcon></nz-alert>
+              }
+              <img nz-image width="auto" height="auto" style="padding:25px; max-width: 400px;max-height: 400px;" [src]="imgCadgis$$ |async" alt=""/>
+            </div>                 
+              
+          </div>
+
+          <div nz-row  style="height: 100%; margin-top: 50px;">
+            <div nz-col [nzSpan]="12" style="max-width: 100%">
+                 
+            </div>
+            <div nz-col [nzSpan]="12" style="max-width: 100%">
+              <div nz-row  style="height: 100%;">
+                <div nz-col [nzSpan]="12" style="max-width: 80%;" class="submit-buttons-center">
+                  <button nz-button  class="mp-button-light" style="width: 80%;margin-right: 15px;" (click)="isVisibleCadgisPrint=false">
+                    {{'Close'|translate}}
+                  </button>
+                </div>
+                <div nz-col [nzSpan]="12" style="max-width: 80%;" class="submit-buttons-center">
+                  <button [disabled]="totalCreditUsed==true"  nz-button nzType="primary" nzDanger class="mp-button-primary" style="width: 80%;" (click)="uitrekselUitvoeren()">
+                    {{'Print'|translate}}
+                  </button>
+                </div>
+
+              </div>
+             
+            </div>
+           
+          </div>
+        
+
+        }
+      }
+      
+  </ng-template>
+  </nz-modal>

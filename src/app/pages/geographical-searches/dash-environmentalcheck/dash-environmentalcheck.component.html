@@ -1,0 +1,77 @@
+<!--<div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-sm-12 col-md-4 card" [ngStyle]="{'color':getTotalFeatures(item)> 0 ? '#800000' : '#dadada' }"  *ngFor="let item of arrDisplayData ">
+                <div class="card-body p-3">
+                    <span class="ti-briefcase"></span>
+                    <div class="d-inline-block ms-2">
+                        <h5>{{item.naam | translate}}</h5>
+                        <h4>{{getTotalFeatures(item)}}</h4>
+                    </div>
+                </div>
+
+             <app-dash-element [displayTotalsSubLevel]="true" [item]="item" (displayLayer)="onDisplayLayer($event)" [displayEye]="_displayEye"></app-dash-element>
+            </div>
+        </div>
+
+</div> -->
+@for (item of arrDisplayData; track item) {
+<div class="environmental-card">
+    <div class="environmental-container">
+        
+            <div nz-col [nzSpan]="22"   class="environmental-dash" > 
+                {{item.naam | translate}}
+                &nbsp;
+                {{getTotalFeatures(item)}}
+            </div>
+            <div nz-col [nzSpan]="2"   class="environmental-dash" >                 
+                <app-dash-element [displayTotalsSubLevel]="true" [item]="item" (displayLayer)="onDisplayLayer($event)" [displayEye]="_displayEye"></app-dash-element>
+            </div>
+        
+
+    </div>
+  </div>
+}
+
+<!--
+<div nz-row class="table-nearest" style="width: 100%;"  >
+
+        @for (item of arrDisplayData; track item) {
+            <ng-container class="environmental-card" style="width: 100%;"  >
+                <div nz-col [nzSpan]="10"   class="environmental-dash" > 
+                    {{item.naam | translate}}
+                    &nbsp;
+                    {{getTotalFeatures(item)}}
+                </div>
+                <div nz-col [nzSpan]="2"   class="environmental-dash" > 
+                    
+                    <i style="cursor: grabbing;" nz-icon nzType="export" nzTheme="outline">    </i> 
+                </div>
+            </ng-container>
+
+            }
+
+ 
+
+
+</div>
+-->
+<!--
+<div class="row">
+    <div class="col-sm-12 col-md-6" *ngFor="let item of arrDisplayData ">
+
+        <nz-card >
+            @for (item of arrDisplayData; track item) {
+                <div [ngStyle]="{'color':getTotalFeatures(item)> 0 ? '#800000' : '#dadada' }"   nz-card-grid>{{item.naam | translate}}</div>
+            }
+            
+    
+          </nz-card>
+          
+        <nz-card style="width:300px;" [nzTitle]="item.naam | translate" [nzExtra]="extraTemplate">
+        </nz-card>
+        <ng-template #extraTemplate>
+            <a>{{item.naam | translate}}</a>
+            <a>{{getTotalFeatures(item)}}</a>
+        </ng-template>
+    </div>
+</div>-->

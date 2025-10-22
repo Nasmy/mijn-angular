@@ -1,0 +1,40 @@
+table {
+    width: 100%;
+    margin: 30px 0;
+}
+
+td {
+    padding: 15px 0;
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #0092DA !important;
+}
+
+a.text-light {
+    color: #999 !important;
+}
+
+#subs td {
+    text-transform: capitalize;
+}
+
+.ant-modal-title .text-warning {
+    float: right;
+}
+
+td.text {
+    opacity: 0.7;
+}
+
+.actionsIco {
+    margin: 0 20px 0 20px; 
+    width: 20px;
+    display: inline-block;
+}
+
+.actionsIco:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,88 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$myapp-theme-primary: mat.m2-define-palette(mat.$m2-orange-palette, A400, A100, A700);
+$myapp-theme-accent: mat.m2-define-palette(mat.$m2-orange-palette);
+$myapp-theme-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$myapp-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $myapp-theme-primary,
+    accent: $myapp-theme-accent,
+    warn: $myapp-theme-warn,
+  )
+));
+
+@include mat.all-component-themes($myapp-theme);
+html {
+  /*@include mat.theme((
+    color: (
+      primary: mat.$cyan-palette,
+      tertiary: mat.$orange-palette,
+      theme-type: light,
+    ),
+    typography: Roboto,
+    density: 0
+  ));*/
+}
+
+
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+mat-card {
+  max-width: 80%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+mat-toolbar-row {
+  justify-content: space-between;
+}
+.mat-mdc-form-field {
+  width: 90%;
+}
+
+.mat-mdc-form-field-infix {
+  padding: 8px 0 !important;
+}
+
+.mat-mdc-form-field-flex {
+  height: 40px !important;
+}
+
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+  top: calc(40px / 2) !important;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+  --mat-mdc-form-field-label-transform: translateY(calc(calc(6.75px + 40px / 2)* -1)) scale(0.75) !important;
+  transform: var(--mat-mdc-form-field-label-transform);
+}
+.app-color-picker .preview .circle,
+.app-color-picker .preview .preview-background,
+.app-color-picker .preview {
+border-radius: 2px!important;
+}
+.app-color-picker .preview{
+  position: relative;
+  overflow: hidden;
+  /*background-image: conic-gradient(rgba(0, 0, 0, .06) 0 25%, transparent 0 50%, rgba(0, 0, 0, .06) 0 75%, transparent 0);*/
+  background-size: 50% 50%;
+  border-radius: 2px!important;
+}
+
+.mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background{
+  border-color: #E43B4E!important;
+  background-color: #E43B4E!important;
+}
+
+
+#description-filemanagment{
+ .mat-mdc-form-field-flex {
+    height: unset !important;
+  }
+}
+

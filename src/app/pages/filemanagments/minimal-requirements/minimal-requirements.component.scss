@@ -1,0 +1,110 @@
+.text-trunc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+
+.mp-button-primary.addmodal {
+    margin-bottom: 15px;
+    display: inline-flex;
+    height: 26px !important;
+    padding: 0px 12px;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    border: 1px solid #CE1C30;
+    background: #E43B4E;
+}
+
+.btn-save{
+    color: #FFF;
+    text-align: center;
+    height: 32px;
+
+    /* Body / Small / Medium */
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 22.4px */
+    background: #E43B4E;
+    border: 1px solid var(--Primary-Border-Default, #E43B4E);
+    border-radius: var(--Radius-XS, 2px);
+}
+
+.btn-cancel{
+    color: var(--Secondary-button-secondary-text-color, #333);
+    text-align: center;
+    height: 32px;
+    /* Medium/text-sm */
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px; /* 157.143% */
+    margin-right: 20px;
+    border-radius: var(--Radius-XS, 2px);
+    border: 1px solid var(--Secondary-button-secondary-border-color, #262626);
+    background: var(--Secondary-button-secondary-bg-color, #FFF);
+}
+
+::ng-deep .ant-progress-success-bg, .ant-progress-bg { 
+    background-color: #2BA267!important;
+}
+
+.text-subtitle{
+    font-family: InterBold;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.card-header-custom{
+    background: #FAFAFA;
+    width: 100%;
+    border-radius: 8px;
+    
+}
+
+.ant-card-head-title {
+    color: #161616;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 27px;
+}
+
+::ng-deep .ant-card-extra .mp-button-light {
+    color: #333;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px !important;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 19px;
+}
+
+.text-subtitle {
+    margin: 5px 0;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+.flex-item {
+    width: 33.33%; /* Makes 3 columns */
+    padding: 3px 0;
+}
+
+::ng-deep .ant-progress-bg {
+    background-color: #2BA267;
+}
+
+::ng-deep .card-header-custom1 .ant-card-head-title {
+    padding-left: 0 !important;
+  }

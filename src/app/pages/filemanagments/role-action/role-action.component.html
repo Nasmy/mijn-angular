@@ -1,0 +1,40 @@
+<!--<div class="example-header">
+    <label>
+
+      <select id="input-selection-mode" (change)="updateRole()">
+        @for (role of this.arrCombos['FILEROLE']; track role) {
+        <option [value]="role.id">{{role.name}}</option>
+        }
+        
+      </select>
+    </label>
+  </div>-->
+
+  <!--<a nz-dropdown [nzDropdownMenu]="menu">
+    Hover me
+    <span nz-icon nzType="down"></span>
+  </a>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+        @for (role of this.arrCombos['FILEROLE']; track role) {
+            <li nz-menu-item>{{role.name}}</li>
+        } 
+
+    </ul>
+  </nz-dropdown-menu>-->
+
+
+
+  <nz-button-group>
+    <button class="dropdown-role" [ngStyle]="colorValue && {'background-color': colorValue}" nz-button nz-dropdown [nzDropdownMenu]="menu_role"> {{ selectedLabel || 'Select an option' }} <i nz-icon nzType="down"></i> </button>
+
+    <nz-dropdown-menu id="role_menu" #menu_role="nzDropdownMenu">
+        <ul nz-menu>
+            @for (role of this.arrCombos['FILEROLE']; track role) {
+                <li nz-menu-item  (click)="selectOption(role)"> {{ role.name |translate}} </li>
+            }            
+       </ul>
+    </nz-dropdown-menu>
+</nz-button-group>
+
+

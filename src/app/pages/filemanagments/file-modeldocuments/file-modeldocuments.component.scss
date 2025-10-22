@@ -1,0 +1,55 @@
+
+.card-header-custom{
+    background: #FAFAFA;
+    width: 100%;
+    border-radius: 8px;
+    
+  }
+  .card-body-round{
+    /* border-radius: 8px;
+    padding: 10px; */
+  }
+  
+ ::ng-deep .ant-card-head-title {
+    color: #161616;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 27px;
+    padding-left: 27px;
+  }
+
+.card-body-round .content {
+  zoom: 0.8;
+}
+
+.modalIco {
+  position: absolute;
+  top: 27px;
+  left: 24px;
+  margin-right: 10px;
+}
+
+.modDocsModalIco {
+  /*left: 203px;*/
+}
+
+.modalIco:hover {
+  cursor: pointer;
+}
+
+.ant-card-extra .mp-button-light {
+  height: 36px !important;
+  padding: 0 auto !important;
+}
+
+::ng-deep .ant-card-extra .mp-button-light span {
+  color: #333;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px !important;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19px;
+}

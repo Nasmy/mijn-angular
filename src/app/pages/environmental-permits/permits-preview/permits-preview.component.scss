@@ -1,0 +1,46 @@
+.textheader{
+    background-color: #f7f9fc;
+    border: 1px solid #cfd5dd;
+    color: #333332;
+    display: block;
+    padding: 0.5rem;
+}
+
+.detail-center{
+    margin:auto;
+}
+
+::ng-deep .tabbed-card-side ul.nav-tabset {
+        background-color: #F9FAFB !important;
+        border-width: 0 !important;
+        border-radius: 5px !important;
+        justify-content: left !important;
+        padding: 5px !important;
+}
+
+.config-popup {
+    display: block;
+    border-bottom: none;
+}
+.extraMenu{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+.dropdown-toggle::after{
+    content:initial;
+}
+.fa-ellipsis-v:hover {
+    cursor: pointer;
+}
+
+.filelistMargin{
+    margin: 5px;
+}
+
+.wraptext{
+    text-overflow: ellipsis!important;
+    white-space: nowrap;
+    overflow: hidden;
+}
+

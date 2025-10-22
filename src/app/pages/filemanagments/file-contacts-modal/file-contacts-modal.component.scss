@@ -1,0 +1,63 @@
+.mp-button-primary.addmodal {
+    margin-bottom: 15px;
+    display: inline-flex;
+    height: 26px !important;
+    padding: 4px 15px;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    border: 1px solid #CE1C30;
+    background: #E43B4E;
+}
+
+::ng-deep .mp-button-primary.addmodal span {
+    color: #fff;
+    text-align: center;
+    font-family: Inter;
+    font-size: 12px !important;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+}
+
+::ng-deep .ant-modal-title {
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+::ng-deep .ant-modal-header {
+    border-radius: 8px;
+}
+
+#addContact{
+    color: #FFF;
+    text-align: center;
+
+    /* Body / Small / Medium */
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 22.4px */
+}
+
+#cancelContact{
+    color: var(--Secondary-button-secondary-text-color, #333);
+    text-align: center;
+
+    /* Medium/text-sm */
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px; /* 157.143% */
+    margin-right: 20px;
+    border-radius: var(--Radius-XS, 2px);
+    border: 1px solid var(--Secondary-button-secondary-border-color, #262626);
+    background: var(--Secondary-button-secondary-bg-color, #FFF);
+}

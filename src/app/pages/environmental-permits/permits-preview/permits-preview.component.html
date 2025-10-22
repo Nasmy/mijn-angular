@@ -1,0 +1,420 @@
+<nz-tabset id="tabdetailspermit" type="pills" class="tabbed-card-side nav-primary mt-4" style="margin:10px" >
+    <nz-tab nzTitle="{{'Project details'|translate}}" nav class="nav-pills nav-primary slidenavcustom" style="justify-content:left!important">
+        <div class="tab-pane fade show">
+            <div class="card">                       
+                <div class="card-body">
+                    <div class="row" style="margin-block-end:15px">
+                        <div class="col-md-4 textheader">
+                            <b>
+                                {{'Projecttype'|translate}}
+                            </b>
+                        </div>
+                        <div class="col-md-8 detail-center">
+                            <p>
+                                {{arrCombosTypes[projectDetails?.projectoverzicht?.projectType.code]}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-block-end:15px">
+                        <div class="col-md-4 textheader">
+                            <b>
+                                {{'Bevoegde overheid'|translate}}
+                            </b>
+                        </div>
+                        <div class="col-md-8 detail-center">
+                            <p>
+                                {{projectDetails?.projectoverzicht?.bevoegdeOverheid}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-block-end:15px">
+                        <div class="col-md-4 textheader">
+                            <b>
+                                {{'Beroepsinstantie'|translate}}
+                            </b>
+                        </div>
+                        <div class="col-md-8 detail-center">
+                            <p>
+                                {{projectDetails?.projectoverzicht?.beroepsInstantie}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-block-end:15px">
+                        <div class="col-md-4 textheader">
+                            <b>
+                                {{'Beslissing in eerste aanleg'|translate}}
+                            </b>
+                        </div>
+                        <div class="col-md-8 detail-center">
+                            <p>
+                                {{projectDetails?.projectoverzicht?.beslissing?.beslissing}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-block-end:15px">
+                        <div class="col-md-4 textheader">
+                            <b>
+                                {{'Datum van de beslissing'|translate}}
+                            </b>
+                        </div>
+                        <div class="col-md-8 detail-center">
+                            <p>
+                                {{projectDetails?.projectoverzicht?.beslissing?.datebeslissing | date: 'dd/MM/yyyy'}}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </nz-tab>
+
+    <nz-tab nzTitle="{{'Procedures'|translate}}" nav class="nav-pills nav-primary slidenavcustom">
+        <div class="tab-pane fade show">
+
+                    <ng-container *ngFor="let procedure of projectDetails?.procedures">
+                        <div class="card">
+                            <h5 class="card-header">{{arrCombosOnderdeel[procedure.inhoud.aard.code]??procedure.inhoud.aard.code}}</h5>
+                            <div class="card-body">
+                                <div class="row" *ngIf="procedure.inhoud.inhoud" >
+                                    <div class="col-md-12 detail-center" style="white-space: pre-line;">
+                                        <p>
+                                            {{procedure?.inhoud?.inhoud}}
+                                        </p>
+                                    </div>
+                                </div>
+                    
+                                <div class="row" *ngFor="let onderdeel of procedure.subOnderdelen" style="margin-block-end:15px">
+                                    <div class="col-md-4 textheader">
+                                        <b>
+                                            {{arrCombosOnderdeel[onderdeel.aard.code]??onderdeel.aard.code}}
+                                        </b>
+                                    </div>
+                                    <div *ngIf="procedure.inhoud.aard.code!='FASE_BEROEPSPERIODE_EA'"class="col-md-8 detail-center" style="white-space: pre-line;">
+                                        <p>
+                                            {{onderdeel?.inhoud}}
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <ng-container *ngFor="let beslissing of procedure?.beslissingen">
+                                    <ng-container *ngFor="let gebeurtenis of beslissing.gebeurtenisen">
+                                        
+                                            <div class="file-content">
+                                                <div class="card">
+                                                    <div class="card-body file-manager ">
+                                                        <h4 class="mb-3"></h4>
+                                                        <ul class="files">
+                                                            <li class="file-box" *ngFor="let file of gebeurtenis.bestanden" >
+                                                                <div id="filedropdown" class="file-top" ngbDropdown container="body" >
+                                                                    <i  [ngClass]="getExtension(file?.bestandsnaam)" class="fa txt-primary"></i>                           
+                                                                        <i  class="fa fa-ellipsis-v f-14 ellips " ngbDropdownToggle  (click)="megaMenuToggle(file.id)"></i>                               
+                                                                        <div ngbDropdownMenu style="overflow-x: unset;">
+                                                                          <button class="extraMenu" ngbDropdownItem (click)="download(file)">{{'Download'| translate}} <i class="fa fa-download mt-1"></i></button>
+                                                                          <div class="dropdown-divider"></div>                                                                          
+                                                                        </div>                                         
+                                                                </div>                  
+                                                                <div class="file-bottom">
+                                                                    <span class="wraptext" nz-tooltip="{{file?.bestandsnaam}}">
+                                                                        <h6>{{file?.bestandsnaam}}</h6>
+                                                                    </span>
+                                                                    <p class="mb-1">{{file?.grootte}}</p>
+                                                                    <p> <b>{{'Upload at' | translate }} : </b>{{file?.datumOpladenFile | date}}</p>                                                                    
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           <!-- <div class="col-md-4 textheader">
+                                                <b>
+                                                    {{bestand.bestandsnaam}}
+                                                </b>
+                                            </div>
+                                            <div class="col-md-8 detail-center" style="white-space: pre-line;">
+                                                <p>
+                                                    {{bestand.downloadUrl}}
+                                                </p>
+                                            </div>  -->      
+                                       
+                                    </ng-container >
+                                </ng-container >
+                            </div>
+                        </div>
+                    
+                    </ng-container>
+
+
+
+        </div>
+    </nz-tab>
+
+    <nz-tab nzTitle="{{'Project content'|translate}}" nav class="nav-pills nav-primary slidenavcustom">
+        <div class="tab-pane fade show">
+            <ng-container *ngFor="let inhoud of projectDetails?.projectInhouden">
+                <ng-container  *ngFor="let details of inhoud?.inhoudDetails">
+
+                    <div class="card">
+                        <h4 class="card-header">{{'Stedenbouwkundige handelingen'|translate}}</h4>
+                        <div class="card-body">
+
+                            
+                            <h6>{{details?.kaartLabel}}</h6>
+                            <div class="row" style="margin-block-end:15px" >
+                                <div class="col-md-4 textheader">
+                                    <b>
+                                        {{'Adres'|translate}}
+                                    </b>
+                                </div>
+                                <div class="col-md-8 detail-center">
+                                    <p>
+                                        {{details?.adres}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-block-end:15px">
+                                <div class="col-md-4 textheader">
+                                    <b>
+                                        {{'BETREFT'|translate}}
+                                    </b>
+                                </div>
+                                <div class="col-md-8 detail-center" style="white-space: pre-line;">
+                                    <p>
+                                        {{details?.betreft}}
+                                        {{loadPolygon(details.wkt,details.uuid)}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 textheader" >
+                                    <canvas #previewMap  class="mapdisplay" ></canvas>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                                      
+                        <div class="card">
+                            <h4 class="card-header">{{'Aanvraag inhoud'|translate}}</h4>
+                            <div class="card-body">    
+                                <ng-container  *ngFor="let aanvraag of details?.inhoudaanvragen">  
+                                    <div class="row" style="margin-block-end:15px" >
+                                        <div class="col-md-4 textheader">
+                                            <b>
+                                                {{arrCombosOnderdeelAard[aanvraag?.inhoud?.aard.code]??aanvraag?.inhoud?.aard.code}}
+                                            </b>
+                                        </div>
+                                        <div class="col-md-8 detail-center" style="white-space: pre-line;">
+                                            <p>
+                                                {{aanvraag?.inhoud?.inhoud}}
+                                            </p>
+                                        </div>
+                                    </div>  
+                                    <!--  DossierStukken -->
+                                    <ng-container *ngIf="aanvraag?.inhoud?.aard.code=='DOSSIERSTUK'">
+                                        <ng-container  *ngFor="let dossierStuk of details?.dossierStukken">  
+                                            <div class="row" style="margin-block-end:15px" >
+                                                <div class="col-md-12 textheader">
+                                                    <b>
+                                                        {{arrCombosDossierStukken[dossierStuk?.dossierstukType?.code]??dossierStuk?.dossierstukType?.code}}
+                                                    </b>
+                                                </div>     
+                                            </div>  
+                                            <ng-container  *ngIf="dossierStuk?.dossierstukType?.code=='NOTAARCHITECT'"> 
+                                                <div class="row" style="margin-block-end:15px" >
+                                                    <div class="col-md-4 textheader">
+                                                        <b>
+                                                            {{'Architect Details'| translate}}
+                                                        </b>
+                                                    </div>
+                                                    <div class="col-md-8 detail-center" style="white-space: pre-line;">
+
+                                                        <ng-container  *ngFor="let datArchitect of dossierStuk.architectDataArray" > 
+                                                            <ng-container *ngIf="datArchitect?.name==undefined">
+                                                                <ng-container  *ngFor="let data of datArchitect.dataKeys" >
+                                                                    <div class="col-md-12">
+                                                                        <div class="row">
+                                                                            <div class="col-md-3">{{data.name}}</div>
+                                                                            <div class="col-md-9" [innerHtml]="safeHTML(data.value)"></div> 
+                                                                        </div>
+                                                                    </div>                                                                    
+                                                                </ng-container>
+                                                                <hr>
+                                                            </ng-container>
+                                                            <ng-container *ngIf="datArchitect?.name!=undefined">
+                                                                <div class="col-md-12">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">{{datArchitect.name}}</div>
+                                                                        <div class="col-md-9" [innerHtml]="safeHTML(datArchitect.value)"></div> 
+                                                                    </div>
+                                                                </div> 
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </div>
+                                                </div>  
+                                            </ng-container>
+                                           
+                                            <ng-container  *ngFor="let resources of dossierStuk?.inzageDatablokResources">                                               
+                                                <ng-container  *ngFor="let inhoud of resources.inhouden">  
+                                                    <div class="row" *ngIf="translationBlockLoaded[resources.blokId]==true" style="margin-block-end:15px; margin-left: 5px;" >
+                                                        <div class="col-md-4 textheader">
+                                                            <b>
+                                                                {{this.arrCombosBlockTranslates[resources.blokId][inhoud.name]}}
+                                                            </b>
+                                                        </div>  
+                                                        <div class="col-md-8" [innerHtml]="safeHTML(inhoud.value)">
+                                                        
+                                                                
+                                                            
+                                                        </div>    
+                                                    </div>  
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <div class="file-content">
+                                                <div class="card">
+                                                    <div class="card-body file-manager ">
+                                                        <h4 class="mb-3"></h4>
+                                                        <ul class="files">
+                                                            <li class="file-box" *ngFor="let file of dossierStuk.bestanden" >
+                                                                <div id="filedropdown" class="file-top" ngbDropdown container="body" >
+                                                                    <i  [ngClass]="getExtension(file?.bestandsnaam)" class="fa txt-primary"></i>                           
+                                                                        <i  class="fa fa-ellipsis-v f-14 ellips " ngbDropdownToggle  (click)="megaMenuToggle(file.id)"></i>                               
+                                                                        <div ngbDropdownMenu style="overflow-x: unset;">
+                                                                          <button class="extraMenu" ngbDropdownItem (click)="download(file)">{{'Download'| translate}} <i class="fa fa-download mt-1"></i></button>
+                                                                          <div class="dropdown-divider"></div>                                                                          
+                                                                        </div>                                         
+                                                                </div>                  
+                                                                <div class="file-bottom">
+                                                                    <h6 class="wraptext" nz-tooltip="{{file?.bestandsnaam}}">{{file?.bestandsnaam}} </h6>
+                                                                    <p class="mb-1">{{file?.grootte}}</p>
+                                                                    <p> <b>{{'Upload at' | translate }} : </b>{{file?.datumOpladenFile | date}}</p>                                                                    
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+
+                                    </ng-container>
+                                    <ng-container *ngIf="aanvraag?.inhoud?.aard.code=='VERORDENING_HEMELWATER_SV'">
+                                        <ng-container  *ngFor="let voorweronderdeel of details?.voorwerpOnderdelen">  
+                                            <ng-container  *ngIf="aanvraag.uuid==voorweronderdeel.uuid">  
+                                                <ng-container  *ngFor="let voorwerpDetails of voorweronderdeel?.details.details"> 
+                                                    <ng-container  *ngFor="let resources of voorwerpDetails?.inzageDatablokResources"> 
+                                                            <ng-container  *ngFor="let inhoud of resources.inhouden">  
+                                                                <div class="row" *ngIf=" this.arrCombosBlockTranslates[resources.blokId]"  style="margin-block-end:15px; margin-left: 5px;" >
+                                                                    <div class="col-md-4 textheader">
+                                                                        <b>
+                                                                            {{this.arrCombosBlockTranslates[resources.blokId][inhoud.name]}}
+                                                                        </b>
+                                                                    </div> 
+
+                                                                    <ng-container *ngIf="isObject(inhoud.value)===false">                                                                       
+                                                                        <div class="col-md-8" [innerHtml]="safeHTML(inhoud.value)"></div>
+                                                                     </ng-container>
+
+                                                                    <ng-container *ngIf="isObject(inhoud.value)==true && arrCombosBlockTranslates[resources.blokId]">
+                                                                        <ng-container  *ngFor="let inhoudObject of getObjectProperyAsArray(inhoud.value)" > 
+
+                                                                            <ng-container *ngIf="isArray(inhoudObject.value)===true">
+                                                                                <ng-container  *ngFor="let inhoudvalueObject of getObjectProperyAsArray(inhoudObject.value)" > 
+                                                                                    <ng-container *ngIf="isArray(inhoudvalueObject.value)===true">
+                                                                                        <ng-container  *ngFor="let inhoudvalueObjectChild of getObjectProperyAsArray(inhoudvalueObject.value)" > 
+                                                                                            <div class="col-md-8">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-3">{{inhoudvalueObjectChild.name}}</div>
+                                                                                                    <div class="col-md-9" [innerHtml]="safeHTML(inhoudvalueObjectChild.value)"></div> 
+                                                                                                </div>
+                                                                                            </div> 
+                                                                                        </ng-container>
+
+                                                                                    </ng-container>
+                                                                                    
+                                                                                </ng-container>
+                                                                            </ng-container>
+
+                                                                            <ng-container *ngIf="isArray(inhoudObject.value)===false">
+                                                                                <ng-container *ngIf="isObject(inhoudObject.value)==true">
+                                                                                    <div class="row">
+                                                                                        <ng-container  *ngFor="let objectDetails of getObjectProperyAsArray(inhoudObject.value)" > 
+                                                                                            <div class="col-md-8">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-3">{{objectDetails.name}}</div>
+                                                                                                    <div class="col-md-9" [innerHtml]="safeHTML(objectDetails.value)"></div> 
+                                                                                                </div>
+                                                                                            </div> 
+                                                                                        </ng-container>
+                                                                                    </div>
+
+                                                                                </ng-container>
+                                                                                <ng-container *ngIf="isObject(inhoudObject.value)==false">
+                                                                                    <div class="col-md-8">
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-3">{{inhoudObject.name}}</div>
+                                                                                            <div class="col-md-9" [innerHtml]="safeHTML(inhoudObject.value)"></div> 
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                </ng-container>
+
+
+                                                                            </ng-container>
+                                                                        </ng-container>
+                                                                    </ng-container>
+
+                                                                        
+
+                                                                        
+                                                                </div> 
+                                                        </ng-container>
+
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+     
+
+                                    <!-- ENd DossierStukken-->
+                                    <hr>
+                                 </ng-container>                              
+                            </div>
+                        </div>
+                   
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ng-container *ngFor="let inhoud of projectDetails?.projectInhouden">                               
+                                <div class="card">
+                                    <h4 class="card-header">{{inhoud?.projectinformatie?.inhoud?.inhoud}}</h4>
+                                    <div class="card-body">
+                                        <div class="row" *ngFor="let detail of inhoud?.projectinformatie?.dossierdetails?.details" style="margin-block-end:15px">
+                                            <div class="col-md-4 textheader " style="white-space: pre-line;">
+                                                <b>
+                                                    {{detail?.titel}}
+                                                </b>
+                                            </div>
+                                            <div class="col-md-8 detail-center" style="white-space: pre-line;">
+                                                <p>
+                                                    {{detail?.inhoud}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                               
+                            </ng-container>
+                          </div>
+                    </div>        
+
+                </ng-container >
+            </ng-container>
+
+        </div>
+    </nz-tab>
+</nz-tabset>
+
+

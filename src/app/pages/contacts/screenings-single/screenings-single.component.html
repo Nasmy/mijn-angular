@@ -1,0 +1,457 @@
+<nz-drawer
+  [(nzVisible)]="isDrawerVisible"
+  [nzPlacement]="'top'"
+  [nzClosable]="false"
+  [nzHeight]="'56px'"
+  [nzMask]="false"
+>
+
+<ng-container *nzDrawerContent>
+    <div class="docked-action-bar">
+        <a routerLink="/contacts" class="me-2"><span nz-icon nzType="left" id="goBack"></span></a>
+
+        @if (addMode) {
+            <div class="docked-action-left">
+
+                <a nz-dropdown [nzDropdownMenu]="menu" id="formSelector">
+                    {{form?.name}}
+                    <span nz-icon nzType="down"></span>
+                </a>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
+                    <ul nz-menu nzSelectable>
+                        @for (form of forms; track form.id) {
+                            <li nz-menu-item (click)="reloadComponent(form.id)">{{form.name}}</li>
+                        }
+                    </ul>
+                </nz-dropdown-menu>
+
+                </div>
+        } @else {
+            <div class="docked-action-left">
+                {{form?.name}}
+            </div>
+        }
+
+      <div class="docked-action-right">
+        @if (submission?.status == 'pass' || submission?.status == 'not accepted') {
+            <small class="text-warning">{{'Submission status'|translate}}: {{submission?.status | translate}}</small> 
+            <button routerLink="/contacts" nz-button nzType="default" class="ms-2">&times;</button>
+        } @else {
+            <button (click)="onCancel()" routerLink="/contacts" nz-button nzType="default" class="me-2">{{'Cancel' | translate}}</button>
+            <button nz-button nzType="default" class="me-2" (click)="onSubmit('draft')">
+                <span nz-icon nzType="edit"></span> {{'Save as draft' | translate}}
+            </button>
+            <button nz-button nzType="primary" nzDanger (click)="onSubmit(state)">
+            <span nz-icon nzType="send"></span> {{'Save' | translate}}
+            </button>
+        }
+      </div>
+      
+    </div>
+</ng-container>
+
+</nz-drawer>
+
+<div class="container-form" *ngIf="!addMode">
+    <nz-collapse nzGhost>
+    <nz-collapse-panel [nzHeader]="'I. Contact details'" [nzActive]="true">
+      <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <!-- <h6 class="mb-1">I. {{'Contact details' }}</h6> -->
+  
+  
+        <div class="row pb-1">
+          <div class="col col-4">
+            <span><strong>{{'Name'| translate }}:</strong> {{contact?.name}}</span><br>
+            <span *ngIf="contact?.contactType == contactType.Individual"><strong>{{'Last name'| translate }}:</strong> {{contact?.lastName}}</span>
+          </div>
+          
+          <div class="col col-4">
+            <span *ngIf="contact?.contactType == contactType.Individual"><strong>{{'Birth place'| translate }}:</strong> {{contact?.birthPlace}}</span><br>
+            <span *ngIf="contact?.contactType == contactType.Company"><strong>{{'Legal form'| translate }}:</strong> {{contact?.legalForm}}</span>
+            <span *ngIf="contact?.contactType == contactType.Individual"><strong>{{'Birth date'| translate }}:</strong> {{contact?.birthDate | date: "MM/dd/yyyy"}}</span><br>
+            <span *ngIf="contact?.contactType == contactType.Company"><strong>{{'Founding date'| translate }}:</strong> {{contact?.foundingDate | date: "MM/dd/yyyy"}}</span>
+          </div>
+  
+          <div class="col col-4">
+            <span><strong>{{'Street'| translate }}:</strong> {{contact?.street}}</span><br>
+            <span><strong>{{'No.' }}:</strong> {{contact?.streetNumber}}</span>
+          </div>
+        </div>
+  
+        <div class="row pb-1">
+  
+          <div class="col col-4">
+            <span><strong>{{'Activity'| translate }}:</strong> {{contact?.activity}}</span><br>
+            <span><strong>{{'Nationality'| translate }}:</strong> {{contact?.nationality}}</span>
+          </div>
+          
+          <div class="col col-4">
+            <span><strong>{{'ZIP Code'| translate }}:</strong> {{contact?.zip}}</span><br>
+            <span><strong>{{'City'| translate}}:</strong> {{contact?.city}}</span>
+          </div>
+  
+          <div class="col col-4">
+            <span><strong>{{'Bus' }}:</strong> {{contact?.bus}}</span><br>
+            <span><strong>{{'Country'| translate }}:</strong> {{contact?.country}}</span>
+          </div>
+        </div>
+  
+        <div class="row pb-1">
+  
+          <div class="col col-4">
+            <div class="col col-4">
+              <span><strong>{{'Street'| translate }}:</strong> {{contact?.email}}</span><br>
+              <span><strong>{{'URL'| translate }}:</strong> {{contact?.url}}</span>
+            </div>
+          </div>
+          
+          <div class="col col-4">
+            <span><strong>{{'Phone'| translate }}:</strong> {{contact?.phone}}</span><br>
+            <span><strong>{{'Mobile'| translate }}:</strong> {{contact?.gsm}}</span>
+          </div>
+  
+          <div class="col col-4">
+            <span><strong>{{'BTW' }}:</strong> {{contact?.vatNumber}}</span><br>
+            <span><strong>{{'FAX' }}:</strong> {{contact?.fax}}</span>
+          </div>
+        </div>
+  
+    </div>
+  </nz-collapse-panel>
+    </nz-collapse>
+  
+    <div>
+        <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let item of parsed | keyvalue:keepOriginalOrder">
+          <div *ngIf="item?.value['contactId']">
+            <nz-collapse nzGhost>
+              <nz-collapse-panel [nzHeader]="item.value['name']" [nzActive]="true">
+              <div>
+                  {{item.key}}
+              </div>
+              <div class="">
+                  <div class="row pb-1">
+                      <div class="col col-6">{{'Name'| translate }}: <strong>{{item.value['name']}}</strong></div>
+                      <div class="col col-6" *ngIf="item?.value['contactType'] == contactType.Individual">{{'Last name'| translate }}: <strong>{{item.value['lastName']}}</strong></div>
+                  </div>
+                  <div class="row pb-1">
+                      <div class="col col-6" *ngIf="item.value['contactType'] == contactType.Individual">{{'Birth place'| translate }}: <strong>{{item.value['birthPlace']}}</strong></div>
+                      <div class="col col-6" *ngIf="item.value['contactType'] == contactType.Company">{{'Legal form'| translate }}: <strong>{{item.value['legalForm']}}</strong></div>
+                      <div class="col col-6" *ngIf="item.value['contactType'] == contactType.Individual">{{'Birth date'| translate }}: <strong>{{item.value['birthDate'] | date: "MM/dd/yyyy"}}</strong></div>
+                      <div class="col col-6" *ngIf="item.value['contactType'] == contactType.Company">{{'Founding date'| translate }}: <strong>{{item.value['foundingDate'] | date: "MM/dd/yyyy"}}</strong></div>
+                  </div>
+                  <div class="row pb-1">
+                      <div class="col col-6">{{'Street'| translate }}: <strong>{{item.value['street']}}</strong></div>
+                      <div class="col col-3">{{'Nr.' }}: <strong>{{item.value['streetNumber']}}</strong></div>
+                      <div class="col col-3">{{'bus' }}: <strong>{{item.value['bus']}}</strong></div>
+                  </div>
+                  <div class="row pb-1">
+                      <div class="col col-4">{{'ZIP Code'| translate }}: <strong>{{item.value['zip']}}</strong></div>
+                      <div class="col col-4">{{'Gemeente'| translate }}: <strong>{{item.value['city']}}</strong></div>
+                      <div class="col col-4">{{'Country'| translate }}: <strong>{{item.value['country']}}</strong></div>
+                  </div>
+                  <div class="row pb-1">
+                      <div class="col col-4">{{'Tel'| translate }}: <strong>{{item.value['phone']}}</strong></div>
+                      <div class="col col-4">{{'Fax'| translate }}: <strong>{{item.value['fax']}}</strong></div>
+                      <div class="col col-4">{{'Mobile'| translate }}: <strong>{{item.value['gsm']}}</strong></div>
+                  </div>
+                  <div class="row pb-1">
+                      <div class="col col-6">{{'Email'| translate }}: <strong><a href="mailto:{{item.value['email']}}">{{item.value['email']}}</a></strong></div>
+                      <div class="col col-6">{{'URL'| translate }}: <strong><a href="{{item.value['url']}}" target="_blank">{{item.value['url']}}</a></strong></div>
+                  </div>
+                  <div class="row pb-1">
+                      <div class="col">{{'Nationality'| translate }}: <strong>{{item.value['nationality']}}</strong></div>
+                  </div>
+                  <div class="row pb-1">
+                      <div class="col">{{'Activity'| translate }}: <strong>{{item.value['activity']}}</strong></div>
+                  </div>
+                  <div class="row">
+                      <div class="col">{{'BTW #' }}: <strong>{{item.value['vatNumber']}}</strong></div>
+                  </div>
+              </div>
+  
+            </nz-collapse-panel>
+          </nz-collapse>
+          </div>
+        </div>
+  
+        <!-- <form *ngIf="!addMode" [formGroup]="formBuild" (ngSubmit)="onSubmit()"> -->
+        <form [formGroup]="formBuild">
+            
+                <div *ngFor="let block of form?.formBlocks" class="list-group-item list-group-item-action flex-column align-items-start">
+            
+            
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">{{block.label}}</h6>
+                    </div>
+                    <p class="mb-2 text-info" *ngIf="block.hint !== ''"><span nz-icon nzType="info-circle"></span> {{block.hint}}</p>
+                    <div *ngFor="let input of block.formBlockInputs; first as isFirst" class="my-3 inputDiv" [ngClass]="isFirst ? 'first' : ''">
+                        
+                <nz-collapse nzGhost>
+                    <nz-collapse-panel [nzHeader]="input.label" [nzActive]="true">
+            
+                            <div *ngIf="input.inputType === 'Boolean'" class="inputContainer">
+                                    <div class="m-t-3 m-checkbox-inline custom-radio-ml text-right">
+                                    <mat-radio-group aria-label="Select an option" [formControlName]="input.label">
+                                        <mat-radio-button value="Ja" style="padding-left: 0;">{{'Ja'}}</mat-radio-button>
+                                        <mat-radio-button value="Neen">{{'Neen'}}</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                            </div>
+                            
+                            <div *ngIf="input.inputType === 'Text'" class="inputContainer">
+                                <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">
+                                        <input type="text" value="" class="form-control" [formControlName]="input.label">
+                                </div>
+                            </div>
+                
+                            <div *ngIf="input.inputType === 'TextArea'" class="inputContainer">
+                                <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">
+                                        <textarea rows="4" class="form-control" [formControlName]="input.label"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div *ngIf="input.inputType === 'Date'" class="inputContainer">
+                                <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">
+                                        <input type="date" class="form-control" [formControlName]="input.label">
+                                </div>
+                            </div>
+                            @if(input.inputType === 'SignaturePad'){
+                                <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">                                                   
+                                    <app-signaturepad [formControlName]="input.label" ></app-signaturepad>                          
+                                </div>
+                            }
+
+                        
+                            <div *ngIf="input.inputType === 'Contact' && input.label!=null && input.label!=undefined">
+                                <div class="m-t-15 text-right">                   
+
+                                <!-- <select  class="form-select" bindValue="contactId" [formControlName]="input.label">
+                                    <option disabled selected ngValue="null">{{'Select' }}</option>
+                                    <option [ngValue]="cont" *ngFor="let cont of contacts" >{{cont.name}} {{cont.lastName}}</option>
+                                </select> -->
+                    
+                                <select class="form-select" [(ngModel)]="arrComboModels[input.label]"  [ngModelOptions]="{standalone: true}" (change)="onFieldsChange($event,input.label)">
+                                    <option  selected ngValue="/">{{'Select'}}</option>
+                                    <option *ngFor="let cont of contacts" [value]="cont.contactId">{{ cont.name }} {{cont.lastName}}</option>
+                                </select>   
+                    
+                                </div>
+                            </div>
+
+                            <div *ngIf="input.inputType === 'Info'">
+                                <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">
+                                    <div class="alert alert-primary">
+                                        <span nz-icon nzType="info-circle"></span> {{input.value}}
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div *ngIf="input.hint && input.hint !== ''" class="text-info"><span ><span nz-icon nzType="info-circle"></span> {{input.hint}}</span></div>
+
+                        </nz-collapse-panel>
+                        </nz-collapse>
+
+                    </div>
+            
+            
+            
+            </div>
+            
+            <!-- <div class="form-group mt-4">
+                <button class="btn btn-success btn-sm me-2" type="submit">
+                    {{'Save' }}
+                </button>
+                <a (click)="addEdit()" class="btn btn-light btn-sm"> {{'Cancel' }}</a>
+            </div> -->
+            
+        </form>
+
+    </div>
+
+    
+    <!-- <nz-collapse nzGhost *ngIf="submission?.status !== 'pass' && submission?.status !== 'fail'" >
+        <nz-collapse-panel [nzHeader]="'Status:'" [nzActive]="true" id="submState"> -->
+            <div class="list-group-item list-group-item-action flex-column align-items-start pe-2w" *ngIf="submission?.status !== 'pass' && submission?.status !== 'not accepted'" >
+                
+                <hr/>
+                
+              <!-- <h6 class="mb-1">{{'Submission'}} {{'Status' }}</h6> -->
+        
+              <div class="inputContainer">
+                <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{'Submission Status' | translate}}</mat-label>
+                            <mat-select [(value)]="state">
+                              <mat-option value="in-progress">{{'In progress'| translate}}</mat-option>
+                              <mat-option value="not accepted">{{'Revoke'| translate}}</mat-option>
+                              <mat-option value="pass">{{'Approve'| translate}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                </div>
+                
+                <p class="text-warning">{{'Saving the form will change the submission state to'| translate}}: <strong>{{state | translate}}</strong></p>
+            </div>
+        
+          </div>
+        <!-- </nz-collapse-panel>
+    </nz-collapse> -->
+
+</div>
+
+<div class="container-form" *ngIf="addMode">
+    <nz-collapse nzGhost>
+        <nz-collapse-panel [nzHeader]="'I. Contact details'" [nzActive]="true">
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+              <!-- <h6 class="mb-1">I. {{'Contact details' }}</h6> -->
+        
+        
+              <div class="row pb-1">
+                <div class="col col-4">
+                  <span><strong>{{'Name' | translate}}:</strong> {{contact?.name}}</span><br>
+                  <span *ngIf="contact?.contactType == contactType.Individual"><strong>{{'Last name' }}:</strong> {{contact?.lastName}}</span>
+                </div>
+                
+                <div class="col col-4">
+                  <span *ngIf="contact?.contactType == contactType.Individual"><strong>{{'Birth place' | translate}}:</strong> {{contact?.birthPlace}}</span><br>
+                  <span *ngIf="contact?.contactType == contactType.Company"><strong>{{'Legal form' | translate}}:</strong> {{contact?.legalForm}}</span>
+                  <span *ngIf="contact?.contactType == contactType.Individual"><strong>{{'Birth date' | translate}}:</strong> {{contact?.birthDate | date: "MM/dd/yyyy"}}</span><br>
+                  <span *ngIf="contact?.contactType == contactType.Company"><strong>{{'Founding date' | translate}}:</strong> {{contact?.foundingDate | date: "MM/dd/yyyy"}}</span>
+                </div>
+        
+                <div class="col col-4">
+                  <span><strong>{{'Street' | translate}}:</strong> {{contact?.street}}</span><br>
+                  <span><strong>{{'No.' }}:</strong> {{contact?.streetNumber}}</span>
+                </div>
+              </div>
+        
+              <div class="row pb-1">
+        
+                <div class="col col-4">
+                  <span><strong>{{'Activity' | translate}}:</strong> {{contact?.activity}}</span><br>
+                  <span><strong>{{'Nationality' | translate}}:</strong> {{contact?.nationality}}</span>
+                </div>
+                
+                <div class="col col-4">
+                  <span><strong>{{'ZIP Code' | translate}}:</strong> {{contact?.zip}}</span><br>
+                  <span><strong>{{'City' | translate}}:</strong> {{contact?.city}}</span>
+                </div>
+        
+                <div class="col col-4">
+                  <span><strong>{{'Bus' }}:</strong> {{contact?.bus}}</span><br>
+                  <span><strong>{{'Country' | translate}}:</strong> {{contact?.country}}</span>
+                </div>
+              </div>
+        
+              <div class="row pb-1">
+        
+                <div class="col col-4">
+                  <div class="col col-4">
+                    <span><strong>{{'Street'| translate }}:</strong> {{contact?.email}}</span><br>
+                    <span><strong>{{'URL'| translate}}:</strong> {{contact?.url}}</span>
+                  </div>
+                </div>
+                
+                <div class="col col-4">
+                  <span><strong>{{'Phone'| translate }}:</strong> {{contact?.phone}}</span><br>
+                  <span><strong>{{'Mobile'| translate }}:</strong> {{contact?.gsm}}</span>
+                </div>
+        
+                <div class="col col-4">
+                  <span><strong>{{'BTW' }}:</strong> {{contact?.vatNumber}}</span><br>
+                  <span><strong>{{'FAX' }}:</strong> {{contact?.fax}}</span>
+                </div>
+              </div>
+        
+          </div>
+        </nz-collapse-panel>
+    </nz-collapse>
+
+    <!-- <div class="row">
+       <div class="col-sm-12 col-xl-12">
+           <div class="card">
+             <div class="card-body">
+               <div class="list-group"> -->
+                
+    <form [formGroup]="formBuild" (ngSubmit)="onSubmit()">
+
+        <div *ngFor="let block of form?.formBlocks" class="list-group-item list-group-item-action flex-column align-items-start">
+                   <div class="d-flex w-100 justify-content-between">
+                     <h6 class="mb-1">{{block.label}}</h6>
+                   </div>
+                   <p class="mb-2 text-info" *ngIf="block.hint !== ''"><span nz-icon nzType="info-circle"></span> {{block.hint}}</p>
+                   <div *ngFor="let input of block.formBlockInputs; first as isFirst" class="my-3 inputDiv" [ngClass]="isFirst ? 'first' : ''">
+                    
+            <nz-collapse nzGhost>
+                <nz-collapse-panel [nzHeader]="input.label" [nzActive]="true">
+
+                       <!-- <span class="inputTitle">{{input.label}}</span><br> -->
+                       <div *ngIf="input.inputType === 'Boolean'">
+                             <div class="m-t-3 m-checkbox-inline custom-radio-ml text-right">
+                                <mat-radio-group aria-label="Select an option" [formControlName]="input.label">
+                                    <mat-radio-button value="Ja">{{'Ja' }}</mat-radio-button>
+                                    <mat-radio-button value="Neen">{{'Neen' }}</mat-radio-button>
+                                  </mat-radio-group>
+                             </div>
+                       </div>
+                       
+                       <div *ngIf="input.inputType === 'Text'">
+                         <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">
+                                 <input type="text" value="" class="form-control" [formControlName]="input.label">
+                         </div>
+                       </div>
+
+                       <div *ngIf="input.inputType === 'TextArea'">
+                         <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">
+                                 <textarea rows="4" class="form-control" [formControlName]="input.label"></textarea>
+                         </div>
+                       </div>
+                       
+                       <div *ngIf="input.inputType === 'Date'">
+                         <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">
+                                 <input type="date" class="form-control" [formControlName]="input.label">
+                         </div>
+                       </div>
+                       @if(input.inputType === 'SignaturePad'){
+                                <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">                                                   
+                                    <app-signaturepad [formControlName]="input.label" ></app-signaturepad>                          
+                                </div>
+                        }
+
+                       <div *ngIf="input.inputType === 'Info'">
+                        <div class="m-t-15 m-checkbox-inline custom-radio-ml text-right">
+                            <div class="alert alert-primary">
+                                {{input.value}}
+                            </div>
+                        </div>
+                      </div>
+                       
+                       <div *ngIf="input.inputType === 'Contact'">
+                        <div class="m-t-15 text-right">
+                          
+                        <select class="form-select" [formControlName]="input.label">
+                          <option disabled selected value="undefined">{{'Select' }}</option>
+                          <option [ngValue]="cont" *ngFor="let cont of contacts">{{cont.name}} {{cont.lastName}}</option>
+                        </select>
+
+                        </div>
+                      </div>
+   
+                       <div *ngIf="input.hint && input.hint !== ''"><span class="text-info"><span nz-icon nzType="info-circle"></span> {{input.hint}}</span></div>
+
+                    </nz-collapse-panel>
+                    </nz-collapse>
+
+                   </div>
+        </div>
+
+        <!-- <div class="form-group mt-2">
+                  <button class="btn btn-success btn-sm me-2" type="submit">
+                      {{'Save' }}
+                  </button>
+                  <a routerLink="/contacts" class="btn btn-light btn-sm"> {{'Cancel' }}</a>
+        </div> -->
+
+    </form>
+
+</div>

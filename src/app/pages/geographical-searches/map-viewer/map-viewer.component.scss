@@ -1,0 +1,203 @@
+@import url('https://js.arcgis.com/4.31/@arcgis/core/assets/esri/themes/light/main.css');
+
+.esri-view {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+:host ::ng-deep .esri-ui-bottom-left.esri-ui-corner {
+  max-width: 100%;
+  display: flex!important;
+  flex-direction: column-reverse !important;
+  align-items: center!important;
+}
+:host ::ng-deep .esri-ui-bottom-right.esri-ui-corner {
+  max-width: 100%;
+  display: flex !important;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+}
+
+:host ::ng-deep .esri-ui-corner .esri-component.esri-widget {
+  margin: 5px;
+}
+
+:host ::ng-deep .esri-component.esri-sketch.esri-widget {
+  background-color: unset;
+}
+:host ::ng-deep calcite-action {
+  margin: 2px;
+ 
+  button{
+    border-radius: 5px;
+  }
+}
+:host ::ng-deep .esri-component.esri-zoom.esri-widget{
+  margin: 13px;  
+}
+:host ::ng-deep .esri-component.esri-zoom.esri-widget button{
+  border-radius: 5px;
+}
+
+.action-button {
+  font-size: 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #d3d3d3;
+  color: #6e6e6e;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  margin: 3px;
+  border-radius: 5px;
+}
+
+.action-button:hover,
+.action-button:focus {
+  background: #0079c1;
+  color: #e4e4e4;
+}
+
+.active {
+  background: #0079c1;
+  color: #e4e4e4;
+}
+
+#mapViewNode {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.capakey{
+  width: 100%;
+  background-color:#FFFFFF;
+  width: 450px;
+  height: 40px;  
+  border-radius:5px;
+}
+
+.capakey-info{
+  width: 100%;
+  background-color:#FFFFFF;
+  width: 450px;
+  max-height: 455px;   
+  margin-top: 55px;
+  margin-left: 2px;
+  display:contents;
+  
+}
+.capakey .mat-mdc-form-field{
+  width: 100%;
+}
+
+::ng-deep .ant-drawer-left .ant-drawer-content-wrapper { 
+  padding: 10px;
+  width: 478px!important;
+  margin-left: 300px!important;
+  margin-top: 175px!important;
+  margin-bottom: 150px!important;
+ }
+
+ ::ng-deep .ant-drawer-close {
+  position: absolute;  
+  right: 10px;
+}
+
+.drawer-dropdown{
+  width: 100%;
+}
+
+
+
+
+
+.accordion--custom .accordion-header {
+  display: flex;
+  column-gap: 1rem;
+  padding-left: 1rem;
+  flex-direction: row;
+  align-items: baseline;
+  height: 55px;
+}
+
+/* small udjustments */
+.accordion--custom .accordion-header .accordion-button {
+  padding-left: 0;
+  background: none;
+}
+
+.accordion--custom .accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+
+.map-name{
+  margin-left: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 350px;
+
+}
+
+
+.capakey-name{
+  margin-left: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 350px;
+}
+
+.capakey-name:hover{
+  font-weight: bold;
+}
+
+.mapname-checkbox{
+  display: flex;
+  align-items: center;
+  height: 35px;
+}
+
+.text-withoutcollapse{
+  width: 100%; 
+  padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x); 
+  padding-left:0px;
+}
+
+#calcite_menu{
+  width: 450px;
+}
+#calcite_menu_environment{
+  width: 450px;
+}
+.loading-container{
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  padding: 30px 50px;
+  margin: 20px 0;
+}
+
+.text-license{
+  font-size: 10px;
+  position: absolute;
+}
+.matblock{
+  width: 100%;
+}
+
+.submit-buttons-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+::ng-deep  .cdk-overlay-container{
+  z-index: 10000!important;
+}
+
+

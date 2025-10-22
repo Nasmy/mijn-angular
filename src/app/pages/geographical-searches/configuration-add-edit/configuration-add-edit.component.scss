@@ -1,0 +1,46 @@
+.mat-mdc-form-field {
+    width: 100%;
+}
+
+.ant-drawer-content-wrapper{
+    width: 780px!important;
+}
+
+
+.link-layer{
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 55px;
+}
+
+
+.btn-link-layer{
+    box-sizing: border-box;
+    border: 2px solid gray;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+::ng-deep .mat-mdc-table{
+    background-color: #FFF!important;
+}
+
+.text-table-header{
+  margin-left: 45px;
+  color:  #777777;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.text-drawer-header{ 
+    color:  #777777;
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  .ant-drawer-content-wrapper {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}

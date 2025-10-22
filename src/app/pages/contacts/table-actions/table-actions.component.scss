@@ -1,0 +1,64 @@
+a {
+    font-weight: bold;
+    margin-right: 15px;
+    text-decoration: none;
+    color: #0092DA !important;
+}
+
+a.del {
+    color: #E43B4E !important;
+}
+
+
+::ng-deep .modal-header .anticon-question-circle {
+    display: none;
+}
+
+::ng-deep .modal-header h6 {
+    text-align: center;
+    font-size: 24px;
+    padding-top: 25px;
+    width: 100%;
+    font-weight: 700;
+    color: #000;
+    font-family: 'Inter', Arial, Tahoma, Verdana, sans-serif;
+}
+
+::ng-deep .modal-content {
+    color: #777;
+    line-height: 22px;
+    font-family: 'Inter', Arial, Tahoma, Verdana, sans-serif;
+}
+
+::ng-deep .modal-lg, .modal-xl {
+    --bs-modal-width: 600px;
+}
+
+::ng-deep .modal-backdrop {
+    z-index: 1055 !important;
+}
+
+::ng-deep .mp-button-light, ::ng-deep .mp-button-primary {
+    height: 40px;
+    border-style: solid;
+    border-radius: 4px;
+}
+
+::ng-deep .ant-btn-default, ::ng-deep .ant-btn-default:hover {
+    color: #000;
+    border-color: #000;
+}
+
+::ng-deep .modal-dialog-centered {
+    zoom: 0.9;
+}
+
+.actionsIco {
+    margin: 0 20px 0 20px; 
+    width: 18px;
+    display: inline-block;
+}
+
+.actionsIco:hover {
+    cursor: pointer;
+}

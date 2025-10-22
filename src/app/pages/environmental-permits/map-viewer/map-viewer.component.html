@@ -1,0 +1,98 @@
+<!--<arcgis-map item-id="05e015c5f0314db9a487a9b46cb37eca" (arcgisViewChange)="arcgisViewChange($event)">
+    <arcgis-zoom position="top-left"></arcgis-zoom>
+ </arcgis-map>-->
+ <div #mapViewNode></div>
+ <div id="topbar">
+  <button  id="areaButton" class="action-button esri-icon-measure-area"  type="button" [title]="'Measure area' |translate"></button>
+  <button  id="distanceButton" class="action-button esri-icon-measure-line" type="button" [title]="'Measure distance between two or more points' |translate"></button>
+  <button  #clear id="clear" class="action-button esri-icon-trash" [title]="'Clear Measurements' |translate"   ></button>
+</div>
+ 
+
+<div id="capakeysearch" class="capakey" [formGroup]="form">   
+    <mat-form-field class="matblock" appearance="outline"   [hideRequiredMarker]="true">
+      <!--<mat-label>{{'Capakey' | translate}}</mat-label>-->
+      <input type="text" placeholder="{{'Enter a Capakey or an Address'| translate}}" matInput formControlName="capakey"
+          [matAutocomplete]="auto" >                 
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let item of autoFilter | async" [value]="item.name"
+              (onSelectionChange)="changeSelection(item)">
+              {{item.name}}
+          </mat-option>
+      </mat-autocomplete>
+      <mat-hint >{{f['capakeyAdress'].value}}</mat-hint>
+     <div *ngIf="submitted && f['capakey'].errors" class="invalid-feedback">
+          <div *ngIf="f['capakey'].errors['required']">{{'Capakey or Address' | translate}} {{'is required' | translate}}</div>
+     </div>
+  </mat-form-field>
+  
+
+</div>
+<div id="radius-slider" class="radius-slider" [formGroup]="form">
+  <div class="radius-label-container">
+    <label id="radius-name-label" class="radius-name-label">Radius (meters)</label>
+    <label class="radius-value-label">{{f['radius'].value}}</label>
+  </div>
+  <mat-slider
+    class="radius-margin"
+    id="radiusSlider"
+    min="0"
+    max="1000"
+    step="10"
+    [displayWith]="formatLabel">    
+    <input matSliderThumb formControlName="radius" />
+  </mat-slider>
+
+    <nz-radio-group [(ngModel)]="displayType" [ngModelOptions]="{standalone: true}" nzButtonStyle="solid" style="margin-bottom:15px" >
+      <label nz-radio-button nzValue="all">{{"All"|translate}}</label>
+      <label nz-radio-button nzValue="history">{{"Archive" |translate}}</label>
+      <label nz-radio-button nzValue="active">{{"Active"|translate}}</label> 
+    </nz-radio-group>
+
+  <button nz-button nzBlock nzType="primary" style="width: 100%;" class="ant-btn ant-btn-primary ant-btn-dangerous" nzDanger (click)="onSubmit()">{{'Search'| translate}}</button>
+       
+</div>
+
+<div style="display:none;visibility: hidden;"> 
+<calcite-shell id="calcite_menu">
+  <calcite-shell-panel slot="panel-start" width-scale="l" id="shell-panel-start">
+      <calcite-panel heading='Informatie'>
+         <!-- <calcite-action icon="print" class="calcBorder" text="Print" slot="footer" (click)="isVisibleCadgisPrint=true ; cadgisSubmitedSuccessfull=false;openCadGisPrint()"></calcite-action>
+          <button nz-button  slot="footer"  class="mp-button-light" style="width: 90%;margin-right: 15px;" (click)="prepareEnvironmentalCheckData()">
+            {{'Environmental check'|translate}}
+          </button>
+          <button nz-button slot="footer" class="mp-button-primary" style="width: 90%;" (click)="addZoneRequest()">
+            {{'Zone request'|translate}}
+          </button>-->
+          <calcite-block heading="Features Widget" resizable>
+          </calcite-block>
+          <div id="features-widget" class="calcite-match-height">
+
+          </div>
+          <calcite-fab slot="fab"></calcite-fab>
+      </calcite-panel>
+  </calcite-shell-panel>
+</calcite-shell>
+</div>
+
+<div style="display:none;visibility: hidden;"> 
+    <calcite-shell id="calcite_menu_environment">
+      <calcite-shell-panel slot="panel-start" width-scale="l" id="shell-panel-start">
+        <calcite-panel heading="Omgevings Check">      
+          @if((onEnvironmentLoading$$|async)==true){
+            <div class="loading-container">
+              <nz-spin nzSimple  nzTip="Loading..."  slot="header-actions-end"></nz-spin>
+            </div>    
+          }@else if((onEnvironmentLoading$$|async)==false){
+            <app-dash-environmentalcheck *ngIf="items.length>0"  [arrDisplayData]="items" (displayLayer)="onAddLayer($event)" ></app-dash-environmentalcheck>
+          }
+        </calcite-panel>               
+     </calcite-shell-panel>  
+    </calcite-shell>
+</div>
+
+
+
+
+
+

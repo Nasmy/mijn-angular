@@ -1,0 +1,221 @@
+table {
+    width: 100%;
+  }
+  
+  mat-form-field{
+      display: block!important;
+      height: 50px;
+    }
+    .btn-danger {
+      background-color: #7e1313 !important;
+      border-color: #bd2130 !important;
+  }
+  .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active {
+      background-color: #c82333 !important;
+      border-color: #bd2130 !important;
+  }
+
+  .mp-button-primary.addmodal {
+    margin-bottom: 15px;
+    display: inline-flex;
+    height: 26px !important;
+    padding: 0px 12px;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    border: 1px solid #CE1C30;
+    background: #E43B4E;
+}
+  
+  
+  .container{
+    @media (min-width: 1200px)
+    {
+        max-width: 1140px;
+    }
+    @media (min-width: 1800px)
+    {
+        max-width: 2140px;
+    }
+  }
+  
+  .highlightTableColor{
+    background-color: #dee2e6
+  }
+  
+  .loader-modal.loderhide {
+    display: none;
+  }
+  .export-container{
+    text-align: right;
+  }
+  
+  ::ng-deep #fileobjects .datatable-body-cell-label {
+    word-break: normal;
+  }
+  #fileobjects th{
+    padding: 5px!important;
+    vertical-align: middle!important;
+  }
+  #fileobjects td{
+    padding: 2px!important;
+    word-break: break-word!important;
+    text-align: center;
+  }
+  
+  
+  ::ng-deep .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__checkmark {
+    height: auto;  
+    width: auto;  
+    padding:0px; 
+    margin-right: unset; 
+    }
+  
+  
+    .column-chooser{
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    .top-20{
+      margin-top: 20px;
+      margin-bottom: -45px;
+      display: initial;
+    }
+    
+  /*  ::ng-deep  .cdk-overlay-container{
+      z-index: 10000;
+  }*/
+
+  
+.card-header-custom{
+  background: #FAFAFA;
+  width: 100%;
+  border-radius: 8px;
+  
+}
+.card-body-round{
+  /* border-radius: 8px;
+  padding: 10px; */
+}
+
+.ant-card-head-title {
+  color: #161616;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 27px;
+  padding-left: 27px;
+}
+
+/*.card-body-round .content {
+  zoom: 0.8;
+}*/
+
+.modalIco {
+  position: absolute;
+  top: 27px;
+  left: 24px;
+}
+
+.modDocsModalIco {
+  /*left: 110px;*/
+}
+
+.modalIco:hover {
+  cursor: pointer;
+}
+
+.ant-card-extra .mp-button-light {
+height: 36px !important;
+padding: 0 auto !important;
+}
+
+::ng-deep .ant-card-extra .mp-button-light span {
+color: #333;
+text-align: center;
+font-family: Inter;
+font-size: 14px !important;
+font-style: normal;
+font-weight: 500;
+line-height: 19px;
+}
+
+.mp-button-light {
+  color: #333;
+  font-size: 14px;
+  border-color: #333;
+  height: 40px;
+  border-width: 1px;
+  border-radius: 4px;
+  padding: 4px 15px;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19px;
+}
+
+.modal-header h6 {
+    text-align: left;
+    padding-top: 0;
+    font-size: 16px;
+}
+
+.invalid-feedback {
+  margin-top: 10px;
+}
+
+::ng-deep .ag-header {
+  background-color: #F0F0F0;
+}
+
+::ng-deep .ag-root-wrapper {
+  border: 0;
+}
+
+#cancelPerceel{
+  color: var(--Secondary-button-secondary-text-color, #333);
+  text-align: center;
+  padding: 4px 15px;
+
+  /* Medium/text-sm */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px; /* 157.143% */
+  margin-right: 20px;
+  border-radius: var(--Radius-XS, 2px);
+  border: 1px solid var(--Secondary-button-secondary-border-color, #262626);
+  background: var(--Secondary-button-secondary-bg-color, #FFF);
+}
+
+#addPerceel{
+  color: #FFF;
+  text-align: center;
+  padding: 4px 15px;
+  border-radius: 2px;
+  border: 1px solid #CE1C30;
+  background: #E43B4E;
+
+  /* Body / Small / Medium */
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 22.4px */
+}
+
+::ng-deep .cdk-overlay-container {
+  z-index: 2000 !important;
+}
+
+.loading-container{
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  padding: 30px 50px;
+  margin: 20px 0;
+}

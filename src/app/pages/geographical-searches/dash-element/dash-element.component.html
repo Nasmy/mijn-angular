@@ -1,0 +1,160 @@
+<!--<div class="card-single collapsed-card">
+    <div class="card-footer p-3">
+       <a *ngIf="getTotalElements(item)==0" class="mb-3 f-right" [ngStyle]="{'color':getTotalElements(item)> 0 ? '#800000' : '#dadada','font-weight': 'normal'  }" >{{'No data found'| translate}}</a>
+      <a *ngIf="getTotalElements(item)!=0" (click)="open(content, item)" class="btn btn-sm btn-primary mb-3 f-right">{{'View'| translate}}</a>
+    </div>
+</div>-->
+          
+<i style="cursor: grabbing;" nz-icon nzType="export" nzTheme="outline" (click)="open(content, item)" ></i> 
+
+
+<div id="{{defaultKey}}">
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h5 class="modal-title" id="modal-basic-title">{{item.naam}}</h5>
+		
+        <span style="cursor: grabbing;" class="close-icon" nz-icon nzType="close" nzTheme="outline" (click)="modal.dismiss()" >    </span> 
+	</div>
+	<div class="modal-body">
+
+				<table>
+                    @for (displayItem of items; track displayItem) {
+                    <tr (click)="expanded(displayItem)">
+        
+                        <td [style.padding-left]="displayItem.index*20+'px'"  >
+                                @if(displayTotalsSubLevel && displayItem.naam!=undefined && type!='dataScrape'){ 
+                                    <div class="mat-column-name" style="display: flex;">
+                                    @if(_displayEye && displayItem.wmsURL){ 
+                                    <!--<i class="me-1" [ngClass]="(displayItem.displayed===false) ? 'far fa-eye-slash':'far fa-eye' "  (click)="onDisplayLayer(displayItem); $event.stopPropagation()" ></i>-->
+                                    <label nz-checkbox [(ngModel)]="displayItem.checked"  (ngModelChange)="onDisplayLayer(displayItem);" ></label> 
+                                    }
+                                    {{displayItem.naam}}
+                                    @if(getTotalFeatures(displayItem)>0){ 
+                                        <i class="fas fa-flag mx-1" style="color: #800000;" ></i>
+                                    }
+                                    @if(displayTotalsSubLevel){ 
+                                    <i>  ( {{getTotalFeatures(displayItem)}} ) &nbsp; </i>
+                                    }
+                                    @if(getTotalFeatures(displayItem)<=0){ 
+                                    
+                                        <label class="unaviable-text" style=" margin-left: auto; margin-right:10px" >{{'unavailable'|translate}}</label>
+                                    }
+                                    @if(displayItem.lagen!=undefined){ 
+                                        <i class="pull-right"  [ngStyle]="{ 'margin-left':getTotalFeatures(displayItem)<=0?'unset':'auto' }" style="cursor: grabbing; margin-right: 0px;" nz-icon [nzType]=" displayItem.expanded===false?'down':'up'" nzTheme="outline" ></i> 
+                                    }
+                                    @if(displayItem.features!=undefined){ 
+                                        <i class="pull-right"  [ngStyle]="{ 'margin-left':getTotalFeatures(displayItem)<=0?'unset':'auto' }"   style="cursor: grabbing; margin-right: 0px;" nz-icon [nzType]=" displayItem.expanded===false?'up':'down'" nzTheme="outline" ></i> 
+                                    }
+                                    
+                                    
+                                </div>
+                            }
+                            @if(displayTotalsSubLevel && displayItem.naam!=undefined && type=='dataScrape'){ 
+                                <div class="mat-column-name"  [innerHTML]="displayItem.naam">
+                                </div>
+                            }
+                            @if(displayItem.naam!=undefined && !displayTotalsSubLevel){ 
+                                <div class="mat-column-name" [innerHTML]="displayItem.naam"  >
+                                    {{displayItem.naam}}
+                                    @if(displayItem.lagen!=undefined){ 
+                                        <i class="pull-right"  style="cursor: grabbing;" nz-icon [nzType]=" displayItem.expanded===false?'down':'up'" nzTheme="outline" ></i> 
+                                    }
+                                    @if(displayItem.features!=undefined){ 
+                                        <i class="pull-right"  style="cursor: grabbing;" nz-icon [nzType]=" displayItem.expanded===false?'up':'down'" nzTheme="outline" ></i> 
+                                    }
+                                </div>
+                            }
+                          <!-- </div> -->
+                          @if(displayItem.naam===undefined){ 
+                                <table class="omgeving-element-detail">
+                                        @if(displayItem.attributen.dossiernr!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Dossier' | translate}}:</td>
+                                            <td>{{displayItem.attributen.dossiernr}}</td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.attributen.ficheURL!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Url' | translate}}:</td>
+                                            <td><a href="{{displayItem.attributen.ficheURL}}" target="_blank">{{displayItem.attributen.ficheURL}}</a></td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.attributen.naam!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Name' | translate}}:</td>
+                                            <td>{{displayItem.attributen.naam}}</td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.attributen.voorschrift!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Voorschrift' | translate}}:</td>
+                                            <td>{{displayItem.attributen.voorschrift}}</td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.attributen.voorschriftURL!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-2">{{'VoorschriftURL' | translate}}:</td>
+                                            <td><a href="{{displayItem.attributen.voorschriftURL}}" target="_blank">{{displayItem.attributen.voorschriftURL}}</a></td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.id!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'ID' | translate}}:</td>
+                                            <td>{{displayItem.id}} </td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.attributen.onnauwkeurigheid!=undefined){ 
+                                        <tr>
+                                            <td stykle="width: 170px" class="omgeving-element-description px-2">{{'Onnauwkeurigheid' | translate}}:</td>
+                                            <td>{{displayItem.attributen.onnauwkeurigheid}}</td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.attributen.overlap!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Overlap' | translate}}:</td>
+                                            <td>{{numerizeRound(displayItem.attributen.overlap)}} &percnt;</td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.overlap!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Overlap' | translate}}:</td>
+                                            <td>{{numerizeRound(displayItem.overlap)}} &percnt;</td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.volledigheid!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Volledigheid' | translate}}:</td>
+                                            <td>{{displayItem.volledigheid}}</td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.attributen.status!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Status' | translate}}:</td>
+                                            <td>{{displayItem.attributen.status}}</td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.status!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Status' | translate}}:</td>
+                                            <td>{{displayItem.status}}</td>
+                                        </tr>
+                                        }
+                                        @if(displayItem.afstand!=undefined){ 
+                                        <tr>
+                                            <td class="omgeving-element-description px-3">{{'Afstand' | translate}}:</td>
+                                            <td>{{displayItem.afstand}}</td>
+                                        </tr>
+                                        }
+                                </table>
+                            }
+                        </td>
+        
+                    </tr>
+                    }
+                </table>
+	</div>
+    <div class="modal-footer">
+		<button type="button" class="btn btn-light f-right" aria-label="Close" (click)="modal.dismiss()">{{'Close' | translate}}</button>
+    </div>
+</ng-template>
+</div>

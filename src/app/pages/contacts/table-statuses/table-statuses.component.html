@@ -1,0 +1,17 @@
+@if (submissionStatus == 'in-progress') {
+    <span class="text text-warning">
+        <span nz-icon nzType="file-text" nzTheme="outline" class="me-2"></span> {{submissionStatus | translate}}
+    </span>
+} @else if (submissionStatus == 'draft') {
+    <span class="text text-info">
+        <span nz-icon nzType="file" class="me-2"></span> {{submissionStatus | translate}}
+    </span>
+} @else if (submissionStatus == 'pass') {
+    <span class="text text-success">
+        <span nz-icon nzType="check-circle" class="me-2"></span> {{submissionDate | date: 'mediumDate'}}
+    </span>
+} @else {
+    <span class="text text-danger">
+        <span nz-icon nzType="warning" class="me-2" *ngIf="submissionStatus" ></span> {{submissionStatus | translate}}
+    </span>
+}

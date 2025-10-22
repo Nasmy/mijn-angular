@@ -1,0 +1,32 @@
+@if(disabledMode==false)
+{
+  <div [class.disabled]="disabled">
+    <canvas
+      #canvas
+      width="400"
+      height="200"
+      style="border:1px solid #000"
+      (mousedown)="startDrawing($event)"
+      (mouseup)="stopDrawing()"
+      (mouseleave)="stopDrawing()"
+      (mousemove)="draw($event)"
+      (touchstart)="startDrawing($event)"
+      (touchend)="stopDrawing()"
+      (touchmove)="draw($event)"
+      
+    ></canvas>  
+    <br />
+    <button (click)="$event.preventDefault(); clear()">Clear</button> 
+  </div>
+
+}@else
+{
+  <img [src]="signatureData" *ngIf="disabledMode" />
+}
+<!-- <div class="signature-container">
+      <canvas #canvas width="400" height="200"></canvas>
+      <div class="button-group">
+        <button type="button" (click)="clear()">Clear</button>
+        <button type="button" (click)="undo()" [disabled]="!canUndo()">Undo</button>
+      </div>
+    </div>-->

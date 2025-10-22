@@ -1,0 +1,144 @@
+::ng-deep .ant-drawer-top > .ant-drawer-content-wrapper {
+    width: auto !important;
+    left: 286px;
+    padding: 0;
+    box-shadow: none;
+}
+
+::ng-deep .ant-drawer-content {
+    background: #464646;
+}
+
+::ng-deep .ant-drawer-body {
+    padding: 16px 15px 12px;
+}
+
+.docked-action-bar {
+    color: #fff;
+}
+
+.docked-action-left {
+    float: left;
+}
+
+.docked-action-right {
+    float: right;
+}
+
+.move-right {
+    margin-right: 15px;
+}
+
+::ng-deep .ant-modal-header {
+    background-color: #464646;
+    color: #fff;
+}
+
+::ng-deep .ant-modal-title {
+    color: #fff;
+}
+
+::ng-deep .ant-modal-close {
+    display: none;
+}
+
+::ng-deep .mat-mdc-radio-touch-target,
+::ng-deep .mat-mdc-radio-button .mdc-radio__native-control,
+::ng-deep .mdc-label, input, textarea, select {
+    pointer-events: none;
+}
+
+::ng-deep .mat-mdc-radio-button .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle, 
+::ng-deep .mat-mdc-radio-button .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__inner-circle {
+    border-color: #E43B4E !important;
+}
+
+.text-info {
+    color: #0092DA !important;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+::ng-deep .mat-mdc-radio-button .mdc-radio {
+    padding-left: 0 !important;
+}
+
+::ng-deep .mdc-label {    
+    padding-left: 0 !important;
+    padding-right: 20px !important;
+}
+
+.inputContainer {
+    margin: 10px 0;
+}
+
+::ng-deep .ant-collapse {
+    background-color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+::ng-deep .ant-collapse-arrow {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+}
+
+::ng-deep .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding: 0px 16px;
+}
+
+::ng-deep .ant-collapse-ghost > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+::ng-deep .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-header-text {
+    max-width: 95%;
+}
+
+::ng-deep html {
+    overflow-y: hidden !important;
+}
+
+::ng-deep .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+::ng-deep .ant-modal-title .text-warning {
+    float: right;
+    text-transform: capitalize;
+    text-decoration: dashed;
+    color: #bbb !important;
+}
+
+
+.no-print {
+    display: none !important;
+  }
+
+@media print {
+  body {
+    background: none !important;
+    color: black !important;
+  }
+
+  .no-print {
+    display: block !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  // Adjust margins and page breaks
+  .page-break {
+    page-break-before: always;
+  }
+
+  .list-group-item {
+    padding: 40px 30px;
+  }
+}

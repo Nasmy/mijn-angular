@@ -1,0 +1,14 @@
+
+    <div nz-row >
+     <div nz-col [nzSpan]="8">
+       <img class="avatar-30" 
+         [src]="columnData.useravatar!='' ? columnData.useravatar  : defFoto" 
+         style="margin-left: 5px;"     
+         [ngStyle]="{'border-color': columnData.useractive == true ? 'green' : 'red' }">
+     </div>    
+      <div nz-col [nzSpan]="16">
+        {{columnData.user}}
+      </div>
+
+   </div> 
+

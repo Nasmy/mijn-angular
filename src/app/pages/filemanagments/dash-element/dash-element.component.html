@@ -1,0 +1,112 @@
+<div class="card-single collapsed-card">
+    <div class="card-footer p-3" style="background-color: #fff !important;">
+       <a *ngIf="getTotalElements(item)==0" class="mb-3 f-right" [ngStyle]="{'color':getTotalElements(item)> 0 ? '#800000' : '#dadada','font-weight': 'normal'  }" >{{'No data found'| translate}}</a>
+       <!-- <a *ngIf="getTotalElements(item)!=0" (click)="open(content, item)" [ngStyle]="{'color':getTotalElements(item)> 0 ? 'var(--theme-deafult-Button)' : 'var(--main-color)' }" >{{'View all'| translate}}</a> -->
+       <a *ngIf="getTotalElements(item)!=0" (click)="open(content, item)" class="btn btn-sm btn-danger mb-3 f-right">{{'View'| translate}}</a>
+    </div>
+</div>
+
+<div id="{{defaultKey}}">
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h5 class="modal-title" id="modal-basic-title">{{item.naam}}</h5>
+		<!-- <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button> -->
+	</div>
+	<div class="modal-body">
+
+				<table>
+                    <tr (click)="expanded(displayItem)" *ngFor="let displayItem of items">
+        
+                        <td [style.padding-left]="displayItem.index*20+'px'" >
+        
+                          <!-- <div *ngIf="displayTotalsSubLevel">
+                            <div class="mat-column-name" *ngIf="displayItem.naam!=undefined"> -->
+                            <div class="mat-column-name" *ngIf="displayTotalsSubLevel && displayItem.naam!=undefined && type!='dataScrape'">
+                                <i class="me-1" *ngIf="_displayEye && displayItem.wmsURL" [ngClass]="(displayItem.displayed===false) ? 'far fa-eye-slash':'far fa-eye' "  (click)="onDisplayLayer(displayItem); $event.stopPropagation()" ></i>
+                                {{displayItem.naam}}
+                                <i *ngIf="getTotalFeatures(displayItem)>0" class="fas fa-flag mx-1" style="color: #800000;" ></i>
+                                <i *ngIf="displayTotalsSubLevel">  ( {{getTotalFeatures(displayItem)}} ) &nbsp; </i>
+
+                                <i class="fa pull-right" *ngIf="displayItem.lagen!=undefined" [ngClass]="displayItem.expanded===false ? 'fa-chevron-down':'fa-chevron-up'"></i>
+                                <i class="fa fa-angle-down pull-right" *ngIf="displayItem.features!=undefined" [ngClass]="displayItem.expanded===false ? '':'fa-angle-up'"></i>
+                            </div>
+                            
+                            <div class="mat-column-name" *ngIf="displayTotalsSubLevel && displayItem.naam!=undefined && type=='dataScrape'" [innerHTML]="displayItem.naam">
+                            </div>
+                          <!-- </div> -->
+        
+                          <!-- <div *ngIf="!displayTotalsSubLevel">
+                            <div class="mat-column-name" *ngIf="displayItem.naam!=undefined" [innerHTML]="displayItem.naam"> -->
+                            <div class="mat-column-name" *ngIf="displayItem.naam!=undefined && !displayTotalsSubLevel" [innerHTML]="displayItem.naam"  >
+                                {{displayItem.naam}}
+
+                                <i class="fa pull-right" *ngIf="displayItem.lagen!=undefined" [ngClass]="displayItem.expanded===false ? 'fa-chevron-down':'fa-chevron-up'"></i>
+                                <i class="fa fa-angle-down pull-right" *ngIf="displayItem.features!=undefined" [ngClass]="displayItem.expanded===false ? '':'fa-angle-up'"></i>
+                            </div>
+                          <!-- </div> -->
+        
+                                <table class="omgeving-element-detail" *ngIf="displayItem.naam===undefined" >
+                                        <tr *ngIf="displayItem.attributen.dossiernr!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Dossier' | translate}}:</td>
+                                            <td>{{displayItem.attributen.dossiernr}}</td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.attributen.ficheURL!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Url' | translate}}:</td>
+                                            <td><a href="{{displayItem.attributen.ficheURL}}" target="_blank">{{displayItem.attributen.ficheURL}}</a></td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.attributen.naam!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Name' | translate}}:</td>
+                                            <td>{{displayItem.attributen.naam}}</td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.attributen.voorschrift!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Voorschrift' | translate}}:</td>
+                                            <td>{{displayItem.attributen.voorschrift}}</td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.attributen.voorschriftURL!=undefined">
+                                            <td class="omgeving-element-description px-2">{{'VoorschriftURL' | translate}}:</td>
+                                            <td><a href="{{displayItem.attributen.voorschriftURL}}" target="_blank">{{displayItem.attributen.voorschriftURL}}</a></td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.id!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'ID' | translate}}:</td>
+                                            <td>{{displayItem.id}} </td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.attributen.onnauwkeurigheid!=undefined">
+                                            <td stykle="width: 170px" class="omgeving-element-description px-2">{{'Onnauwkeurigheid' | translate}}:</td>
+                                            <td>{{displayItem.attributen.onnauwkeurigheid}}</td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.attributen.overlap!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Overlap' | translate}}:</td>
+                                            <td>{{numerizeRound(displayItem.attributen.overlap)}} &percnt;</td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.overlap!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Overlap' | translate}}:</td>
+                                            <td>{{numerizeRound(displayItem.overlap)}} &percnt;</td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.volledigheid!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Volledigheid' | translate}}:</td>
+                                            <td>{{displayItem.volledigheid}}</td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.attributen.status!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Status' | translate}}:</td>
+                                            <td>{{displayItem.attributen.status}}</td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.status!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Status' | translate}}:</td>
+                                            <td>{{displayItem.status}}</td>
+                                        </tr>
+                                        <tr *ngIf="displayItem.afstand!=undefined">
+                                            <td class="omgeving-element-description px-3">{{'Afstand' | translate}}:</td>
+                                            <td>{{displayItem.afstand}}</td>
+                                        </tr>
+                                </table>
+        
+                        </td>
+        
+                    </tr>
+                </table>
+	</div>
+    <div class="modal-footer">
+		<button type="button" class="btn btn-light f-right" aria-label="Close" (click)="modal.dismiss()">{{'Close' | translate}}</button>
+    </div>
+</ng-template>
+</div>

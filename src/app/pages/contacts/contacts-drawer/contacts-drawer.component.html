@@ -1,0 +1,480 @@
+@if (submitted === false) {
+<form nz-form [formGroup]="form" >
+    <p>
+        {{'Fill in the details below to create a contact. Fields with * are required. Once submitted, you can see it in your contact list.' | translate}}
+    </p>
+    <nz-tabset [(nzSelectedIndex)]="getSelectedContactType">
+
+        <!-- <nz-tab nzTitle="Individual" (nzClick)="contactType(0)" [nzForceRender] [nzDisabled]="f['contactType'].value == 1 ? true : false"> -->
+        <nz-tab [nzTitle]="'Individual' | translate" (nzClick)="contactTypeFunc(contactType.Individual)" [nzForceRender] [nzDisabled]="f['contactType'].value == contactType.Individual || isAddMode ? false : true">
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="12">
+                  <nz-form-item>
+                    <!-- <nz-form-label>Name</nz-form-label> -->
+                    <nz-form-control>
+                      <!-- <input nz-input placeholder="{{'First Name*' | translate}}" (ngValue)="this.value['firstName']"/> -->
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Name' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="name" autocomplete="off"/>
+                        <mat-error *ngIf="f['name'].errors">
+                          {{'Name' | translate}} is required
+                        </mat-error>
+                      </mat-form-field>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+                <div nz-col nzSpan="12">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Last name' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="lastName" autocomplete="off"/>
+                        <mat-error *ngIf="f['lastName'].errors">
+                          {{'Last name' | translate}} is required
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="12">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Birth place' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="birthPlace" autocomplete="off"/>
+                        <mat-error *ngIf="f['birthPlace'].errors">
+                          {{'Birthp lace' | translate}} is required
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+                <div nz-col nzSpan="12">
+                  <nz-form-item>
+                    <!-- <nz-form-label>Birthdate*</nz-form-label> -->
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Birth date' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="pickerbirth" formControlName="birthDate">
+                        <mat-hint>DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerbirth"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerbirth></mat-datepicker>
+                        <mat-error *ngIf="f['birthDate'].errors">
+                            {{'Birth date' | translate}} is required
+                          </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Nationality' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="nationality" autocomplete="off"/>
+                        <mat-error *ngIf="f['nationality'].errors">
+                          {{'Nationality' | translate}} is required
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'ID Number' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="vatNumber" autocomplete="off"/>
+                        <mat-error *ngIf="f['vatNumber'].errors">
+                          {{'ID Number' | translate}}{{' is required' | translate}}
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+
+              <nz-divider nzPlain [nzText]="'Personal Address' | translate" nzOrientation="left"></nz-divider>
+
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <!-- <nz-form-control>
+                        <nz-select nzPlaceHolder="Country*"></nz-select>
+                      </nz-form-control> -->
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Country' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="country" autocomplete="off"/>
+                        <mat-error *ngIf="f['country'].errors">
+                          {{'Country' | translate}} is required
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'City' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="city" autocomplete="off"/>
+                        <mat-error *ngIf="f['city'].errors">
+                          {{'City' | translate}} is required
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Street and housenumber' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="street" autocomplete="off"/>
+                        <mat-error *ngIf="f['street'].errors">
+                          {{'Street and housenumber' | translate}} is required
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'ZIP Code' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="zip" autocomplete="off"/>
+                        <mat-error *ngIf="f['zip'].errors">
+                          {{'ZIP Code' | translate}}{{' is required' | translate}}
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <nz-divider nzPlain [nzText]="'Contact details'| translate" nzOrientation="left"></nz-divider>
+
+              <!-- <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <nz-form-control>
+                      <input type="text" nz-input placeholder="{{'Telephone Number' | translate}}" />
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+              </div> -->
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Tel' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="phone" autocomplete="off"/>
+                        <mat-error *ngIf="f['phone'].errors">
+                          {{'Tel' | translate}} is required
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Fax' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="fax" autocomplete="off"/>
+                        <mat-error *ngIf="f['fax'].errors">
+                          {{'Fax' | translate}} is required
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Mobile' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="gsm" autocomplete="off"/>
+                        <mat-error *ngIf="f['gsm'].errors">
+                          {{'Mobile' | translate}} is required
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+    
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Email' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="email" autocomplete="off"/>
+                        <mat-error *ngIf="f['email'].errors">
+                          {{'E-mail' | translate}} is required
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+
+        </nz-tab>
+
+        <!-- Company tab -->
+        <!-- <nz-tab nzTitle="Company" (nzClick)="contactType(1)" [nzDisabled]="f['contactType'].value == 0 ? true : false"> -->
+        <nz-tab [nzTitle]="'Company' | translate" (nzClick)="contactTypeFunc(contactType.Company)" [nzDisabled]="f['contactType'].value == contactType.Company || isAddMode ? false : true">
+
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Company Name' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="name" autocomplete="off"/>
+                        <mat-error *ngIf="f['name'].errors">
+                          {{'Company Name' | translate}} is required
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="12">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Legal form' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="legalForm" autocomplete="off"/>
+                        <mat-error *ngIf="f['legalForm'].errors">
+                          {{'Legal form' | translate}} is required
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+                <div nz-col nzSpan="12">
+                  <nz-form-item>
+                    <!-- <nz-form-label>Founding Date*</nz-form-label> -->
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Founding date' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="foundingDate">
+                        <mat-hint>DD-MM-YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="f['foundingDate'].errors">
+                            {{'Founding date' | translate}} is required
+                          </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Activity' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="activity" autocomplete="off"/>
+                        <mat-error *ngIf="f['activity'].errors">
+                          {{'Activity' | translate}} is required
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'VAT Number' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="vatNumber" autocomplete="off"/>
+                        <mat-error *ngIf="f['vatNumber'].errors">
+                          {{'VAT Number' | translate}}{{'is required' | translate}}
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+
+              <nz-divider nzPlain nzText="Personal Address" nzOrientation="left"></nz-divider>
+
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Country' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="country" autocomplete="off"/>
+                        <mat-error *ngIf="f['country'].errors">
+                          {{'Country' | translate}} is required
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'City' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="city" autocomplete="off"/>
+                        <mat-error *ngIf="f['city'].errors">
+                          {{'City' | translate}} is required
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Street and housenumber' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="street" autocomplete="off"/>
+                        <mat-error *ngIf="f['street'].errors">
+                          {{'Street and housenumber' | translate}} is required
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'ZIP Code' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="zip" autocomplete="off"/>
+                        <mat-error *ngIf="f['zip'].errors">
+                          {{'ZIP Code' | translate}}{{' is required' | translate}}
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <nz-divider nzPlain nzText="Contact details" nzOrientation="left"></nz-divider>
+
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Tel' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="phone" autocomplete="off"/>
+                        <mat-error *ngIf="f['phone'].errors">
+                          {{'Tel' | translate}}{{' is required' | translate}}
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Mobile' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="gsm" autocomplete="off"/>
+                        <mat-error *ngIf="f['gsm'].errors">
+                          {{'Mobile' | translate}} {{'is required' | translate}}
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Fax' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="fax" autocomplete="off"/>
+                        <mat-error *ngIf="f['fax'].errors">
+                          {{'Fax' | translate}}{{' is required' | translate}}
+                        </mat-error>
+                      </mat-form-field> 
+                  </nz-form-item>
+                </div>
+              </div>
+              
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'Email' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="email" autocomplete="off"/>
+                        <mat-error *ngIf="f['email'].errors">
+                          {{'Email' | translate}}{{' is required' | translate}}
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+    
+              <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                  <nz-form-item>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label floatLabel="always" >{{'URL' | translate}}</mat-label>
+                        <input matInput type="text" formControlName="url" autocomplete="off"/>
+                        <mat-error *ngIf="f['url'].errors">
+                          {{'URL' | translate}}{{' is required' | translate}}
+                        </mat-error>
+                      </mat-form-field>
+                  </nz-form-item>
+                </div>
+              </div>
+
+
+        </nz-tab>
+
+
+    </nz-tabset>
+
+    <div nz-row class="ant-drawer-footer px-0" >
+        <div nz-row [nzGutter]="8" style="width: 100%;">
+            <div nz-col nzSpan="12">
+                <button nz-button nzBlock style="width: 100%;" class="ant-btn ant-btn-default" (click)="closed()">{{'Cancel' | translate}}</button>
+            </div>
+            <div nz-col nzSpan="12">
+                <button nz-button nzBlock nzType="primary" style="width: 100%;" class="ant-btn ant-btn-primary ant-btn-dangerous" nzDanger (click)="onSubmit()">{{'Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+    
+  </form>
+
+   
+
+  <!-- <ng-template #footerTpl>
+    <!- <div style="float: right"> ->
+    <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="12">
+                <button nz-button nzBlock style="margin-right: 8px;" (click)="close()">Cancel</button>
+            </div>
+            <div nz-col nzSpan="12">
+                <button nz-button nzBlock nzType="primary" nzDanger (click)="close()">Save</button>
+            </div>
+    </div>
+  </ng-template> -->
+}
+@else {
+  <h2>{{'Contact saved successfully' | translate}}</h2>
+  <p>
+    {{'The contact has been saved successfully and is now available in the table for your reference.'| translate}}
+  </p>
+
+  <img nz-image width="100%" style="margin: 20px 0;" nzSrc="../../../../assets/img/contactSuccess.svg" alt=""/>
+
+  <div nz-row class="ant-drawer-footer px-0" >
+    <div nz-row [nzGutter]="8" style="width: 100%;">
+        <div nz-col nzSpan="24">
+            <button nz-button nzBlock nzType="primary" style="width: 100%;" class="ant-btn ant-btn-primary ant-btn-dangerous" nzDanger (click)="submitted = false;resetContactForm()">{{'Add New Contact'| translate}}</button>
+        </div>
+    </div>
+</div>
+
+
+}

@@ -1,0 +1,85 @@
+
+<nz-card class="card-header-custom"  [nzTitle]='"Objects" | translate' [nzExtra]="editContacts">
+    <div class="card-body-round" >
+      <div class="content" style="width: 100%; height: 180px;">
+        <ag-grid-angular
+          [rowData]="rowData"
+          [enableCellTextSelection]="true"
+          [columnDefs]="colDefs"
+          [defaultColDef]="defaultColDef" 
+          [context]="this"
+        />
+        <!--
+          [pagination]="true"
+          [paginationPageSize]="paginationPageSize"
+          [paginationPageSizeSelector]="paginationPageSizeSelector"
+        -->
+      </div>
+    </div>
+  </nz-card>
+  <ng-template #editContacts>
+    <!--<button nz-button  nzPlacement="bottomRight" class="mp-button-light" (click)="Edit()">-->
+      
+    <!-- <img [src]="'/assets/img/icons/svg/openmodal.svg'" class="modalIco modDocsModalIco" (click)="showModal(fileManagment.id)"> -->
+    <img [src]="'/assets/img/icons/svg/openmodal.svg'" class="modalIco modDocsModalIco" (click)="showModal(fileManagment)">
+    
+    <!-- <button nz-button  nzPlacement="bottomRight" class="mp-button-light" (click)="addDocument(fileManagment.id)"> -->
+    <button nz-button  nzPlacement="bottomRight" class="ant-button mp-button-light" (click)="addNewCapakey()"> 
+        {{'Add object' | translate}}
+    </button>
+  </ng-template>
+
+
+<ng-template #addObjectManual let-modal>
+	<div class="modal-header">	
+        <h6 class="modal-title">{{'New object'| translate}}</h6>	
+		<!-- <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button> -->
+	</div>
+	<div class="modal-body" [formGroup]="form"> 
+          <div class="loader-modal" [class.loderhide]="(loadingnewObject | async)==false">            
+            <div class="loading-container">
+              <nz-spin nzSimple  nzTip="Loading..."  slot="header-actions-end"></nz-spin>
+            </div> 
+          </div>
+        @if ((loadingnewObject | async)==false) {          
+          <div class="row">
+              <div class="col-12">
+              <div class="form-group">
+                <mat-form-field appearance="outline" class="matblock" style="padding-bottom: 25px; width: 100%;">
+                    <mat-label>{{'Capakey or Address' | translate}}</mat-label>
+                    <!-- <input type="text" placeholder="{{'Capakey'| translate}}" matInput formControlName="capakey"
+                        [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': submitted && f['capakey'].errors }"> -->
+                        <input type="text" placeholder="{{'Enter a Capakey or an Address'| translate}}" matInput formControlName="capakey"
+                            [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': f['capakey'].errors }">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let item of autoFilter | async" [value]="item.name"
+                            (onSelectionChange)="changeSelection(item)">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    
+                    <!-- <div *ngIf="submitted && f['capakey'].errors" class="invalid-feedback"> -->
+                    <div *ngIf="f['capakey'].errors" class="invalid-feedback">
+                        <div *ngIf="f['capakey'].errors['required']">{{'Capakey or Address' | translate}} {{'is required' | translate}}</div>
+                        <div class="invalid-feedback" *ngIf="f['capakey'].errors['pattern']">{{'Capakey' | translate}} {{'is invalid' | translate}}</div>
+                    </div>
+                    <mat-hint >{{f['capakeyAdress'].value}}</mat-hint>
+                </mat-form-field>
+            </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="f['capakey'].valid">
+            <div class="col-sm-12 col-md-4 pt-3">
+              <!-- <button [disabled]="loading" class="btn btn-sm btn-block btn-success btn-exon" (click)="addThisCapakey()">         -->
+              <button nz-button nzType="primary" nzDanger id="addPerceel" (click)="addThisCapakey()">        
+                  {{'Add' | translate}}
+              </button>
+            </div>
+          </div>
+        }
+
+    </div>
+    <div class="modal-footer">
+        <button nz-button id="cancelPerceel" (click)="modal.dismiss()">{{'Close' | translate}}</button>
+    </div>
+</ng-template>

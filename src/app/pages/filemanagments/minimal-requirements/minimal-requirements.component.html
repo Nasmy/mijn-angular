@@ -1,0 +1,52 @@
+<nz-card class="card-header-custom card-header-custom1"  [nzTitle]='"Minimal legaly required information" | translate' [nzExtra]="editRequirement">
+    <div class="card-body-round" >
+      <div class="content" style="width: 100%;">
+        <div nz-row> 
+          <div nz-col [nzSpan]="23">
+            <nz-progress [nzPercent]="calculateProcent" [nzShowInfo]="false"></nz-progress>          
+          </div>
+          <div nz-col [nzSpan]="1" style="text-align: center;">
+            {{(FileFolders$$| async).length}}
+          </div>
+        </div>
+        <div nz-row> 
+          <div class="text-subtitle" nz-col [nzSpan]="23">
+           {{'Currently missing' | translate}} {{'('+notLinked.length+')'}}         
+          </div>
+        </div>
+
+        <div class="flex-container">
+          @for (folder of notLinked; track folder.id) { 
+          <div class="flex-item">
+            <p class="text-trunc" nz-tooltip [nzTooltipTitle]="folder.name">• {{folder.name}}  </p> 
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+</nz-card>
+
+<ng-template #editRequirement>
+    
+    <button nz-button nzPlacement="bottomRight" class="ant-btn mp-button-light" (click)="showModal(fileManagment.id,tplFooter)"> 
+        {{'Edit' | translate}}
+    </button>
+  </ng-template>
+
+
+
+    <ng-template #tplFooter let-ref="modalRef">
+        <div nz-row style="height: 100%; margin-top: 20px;">
+            <div nz-col [nzSpan]="12"></div>
+            <div nz-col [nzSpan]="12" style="text-align:right;">
+              <button nz-button  class="btn-cancel" (click)="testFunction()">
+                {{'Cancel'|translate}}
+              </button>
+              <button  nz-button nzType="primary" nzDanger class="btn-save" >
+                {{'Save'|translate}}
+              </button>
+            </div>                             
+          </div>  
+      </ng-template>
+
+

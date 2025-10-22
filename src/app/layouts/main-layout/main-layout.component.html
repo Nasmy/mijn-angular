@@ -1,0 +1,152 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [nzTheme]="'light'"
+    [(nzCollapsed)]="isCollapsed">
+    
+    @if (!isCollapsed) {
+      <div class="logo">
+        <img src="../../../assets/img/logo.png" alt="logo">
+      </div>
+    } @else {
+      <div class="logo" style="text-align: center;">
+        <img src="../../../assets/img/logo_dark.png" class="logoCola" alt="logo">
+      </div>
+    }
+
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      @if(checkPermission('requests')){
+      <li nz-menu-item nzMatchRouter routerLink="/geographical-searches">
+        <span nz-icon><img src="../../../assets/img/geo-search.svg" alt="logo" style="display: inline;"></span>
+        <!--<span nz-icon nzType="file-text"></span> -->
+        <span>{{'Geographical Search' | translate}}</span>
+      </li>
+      }
+      @if(checkPermission('filemanagment')){
+      <li nz-menu-item nzMatchRouter routerLink="/filemanagment">
+        <span nz-icon><img src="../../../assets/img/file-management.svg" alt="logo" style="display: inline;"></span>
+        <!--<span nz-icon nzType="file-text"></span> -->
+        <span >{{'File Management' | translate}}</span>
+      </li>
+      }
+      @if(checkPermission('overview')){
+      <li nz-menu-item nzMatchRouter routerLink="/dashboard">
+        <span nz-icon><img src="../../../assets/img/overview.svg" alt="logo" style="display: inline;"></span>
+        <!--<span nz-icon nzType="file-text"></span> -->
+        <span >{{'Overview' | translate}}</span>
+      </li>
+      }
+      <!-- @if(checkPermission('company')){
+      <li nz-menu-item nzMatchRouter routerLink="/error/401">
+        
+        <span nz-icon><img src="../../../assets/img/company.svg" alt="logo" style="display: inline;"></span>
+        <span >{{'Company' | translate}}</span>
+      </li>
+      }-->
+      @if(checkPermission('datascrapping')){
+      <li nz-menu-item nzMatchRouter routerLink="/error/401">
+        <span nz-icon><img src="../../../assets/img/scraping.svg" alt="logo" style="display: inline;"></span>
+        <!--<span nz-icon nzType="file-text"></span> -->
+        <span >{{'Data Scraping' | translate}}</span>
+      </li>
+      }
+      @if(checkPermission('prospection')){
+      <li nz-menu-item nzMatchRouter routerLink="/error/401">
+        <span nz-icon><img src="../../../assets/img/prospection.svg" alt="logo" style="display: inline;"></span>
+        <!--<span nz-icon nzType="file-text"></span> -->
+        <span >{{'Prospection' | translate}}</span>
+      </li>
+      }
+     @if(checkPermission('environmentalpermits')){
+      <li nz-menu-item nzMatchRouter routerLink="/environmental-permits">
+        <span nz-icon><img src="../../../assets/img/prospection.svg" alt="logo" style="display: inline;"></span>
+        <!--<span nz-icon nzType="file-text"></span> -->
+        <span >{{'Environmental permit' | translate}}</span>
+      </li>
+      }
+      @if(checkPermission('contacts')){
+      
+      <li nz-menu-item nzMatchRouter routerLink="/contacts">
+        <span nz-icon><img src="../../../assets/img/contacts.svg" alt="logo" style="display: inline;"></span>
+        <!--<span nz-icon nzType="mail"></span> -->
+        <span>{{'Contacts/AML' | translate}}</span>
+      </li>
+      }
+      @if(checkPermission('beheerdersmenu')){
+      <li nz-submenu [nzTitle]="'Admin Settings' | translate" nzIcon="setting" style="font-weight: 600;">
+        <ul>
+          <!-- <li nz-menu-item nzMatchRouter nzSelected> -->
+          <li routerLink="/welcome" nz-menu-item>
+            {{'Clients' | translate}}
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            {{'Packages' | translate}}
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            {{'Statistics' | translate}}
+          </li>
+        </ul>
+      </li>
+      }
+    </ul>
+  </nz-sider>
+  
+  <nz-layout>
+
+    <nz-header>
+      <div class="app-header">
+        <span class="pageTitle">{{sTitle}}</span>
+        <div class="topUserMenu">
+          <img src="../../../assets/img/bell.svg" alt="logo" style="display: inline;">
+          <nz-avatar [nzText]="initials" nz-dropdown nzTrigger="click" [nzClickHide]="false" [nzDropdownMenu]="menu"></nz-avatar>
+
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu nzMode="inline" id="topUserMenuDrop">
+              
+              <li nz-menu-item routerLink="/profile">
+                <nz-avatar [nzText]="initials" nzSize="small"></nz-avatar> <span id="userName">{{userName}}</span>
+                <div id="userEmail">{{userEmail}}</div>
+              </li>
+
+              <li nz-menu-item routerLink="/profile">
+                <span nz-icon>
+                  <img src="../../../assets/img/user.svg" alt="logo" style="display: inline;">
+                </span> 
+                {{'Profile' | translate}}
+              </li>
+
+              <li nz-submenu [nzOpen]="true" (nzOpenChange)="onSubmenuOpenChange($event)" nzTitle="Language" nzIcon="translation" nzOpen>
+                <ul>
+                  <li nz-menu-group>
+                    <ul>
+                      <li nz-menu-item (click)="changeLanguage($event, lang)" *ngFor="let lang of languages;">{{lang.language}}</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li nzDanger nz-menu-item (click)="logout();">
+                <span nz-icon>
+                  <img src="../../../assets/img/logout.svg" alt="logo" style="display: inline;">
+                </span> 
+                {{'Log Out' | translate}}
+              </li>
+
+            </ul>
+          </nz-dropdown-menu>
+
+        </div>
+      </div>
+
+    </nz-header>
+
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+
+  </nz-layout>
+</nz-layout>

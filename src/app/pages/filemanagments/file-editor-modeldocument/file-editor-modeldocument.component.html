@@ -1,0 +1,12 @@
+@if(templateLoaded==true){
+    <app-document-editor 
+        [documentName]="loadedTemplate.title" 
+        [readOnly]="readonly" 
+        [templateId]="templateId" 
+        [filemanagment_id]="filemanagmentid" 
+        [category_Id]="category_id"  
+        [mytemplate_id]="modal_id"
+        [status_id]="loadedTemplate.statusId"
+        [(ngModel)]="template">
+    </app-document-editor>
+}

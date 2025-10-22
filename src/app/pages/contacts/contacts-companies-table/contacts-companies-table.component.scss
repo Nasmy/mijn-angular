@@ -1,0 +1,15 @@
+::ng-deep .ag-root-wrapper {
+    border-radius: 3px;
+}
+
+.content {
+    zoom: 0.8;
+}
+
+::ng-deep .ant-layout-content {
+    height: auto;
+}
+
+::ng-deep .ag-row {
+    border-bottom: 1px solid #f7f7f7;
+}

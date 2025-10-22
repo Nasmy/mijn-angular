@@ -1,0 +1,12 @@
+<nz-button-group>
+    <button class="dropdown-role" [ngStyle]="colorValue && {'background-color': colorValue}" nz-button nz-dropdown [nzDropdownMenu]="menu_status"> {{ selectedLabel || 'Select an option' }} <i nz-icon nzType="down"></i> </button>
+    <nz-dropdown-menu id="menu_status" #menu_status="nzDropdownMenu">
+        <ul nz-menu>
+            @for (status of this.arrCombos['DOCUMENTSTATUS']; track status) {
+                <li nz-menu-item  (click)="selectOption(status)"> {{ status.name | translate }} </li>
+            }            
+       </ul>
+    </nz-dropdown-menu>
+</nz-button-group>
+
+

@@ -1,0 +1,20 @@
+<p>{{'To start a screening you must select one of the forms from the list below.' | translate}}</p>
+
+<select [(ngModel)]="formSelector">
+    <option selected disabled value="">{{'Select' | translate}}</option>
+    @for (form of forms; track form.id) {
+        <option [ngValue]="form">{{form.name}}</option>
+    }
+</select>
+
+
+<div *nzModalFooter>
+    <div class="row">
+        <div class="col-6">
+            <button nz-button nzBlock nzType="default" (click)="destroyModal()">{{'Cancel'|translate}}</button>
+        </div>
+        <div class="col-6">
+            <button nz-button nzBlock nzType="primary" nzDanger (click)="formChooser(nzData.value['actions'])">{{'Continue'|translate}}</button>
+        </div>
+    </div>
+  </div>

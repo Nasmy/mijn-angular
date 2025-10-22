@@ -1,0 +1,109 @@
+<div nz-row  style="height: 100%;" >
+    @if(bDetailsExpanded==true){ 
+        @if(requestSubmitedSuccessfull==false){
+            <div nz-col [nzSpan]="15" >      
+                <div nz-row >
+                    <div nz-col [nzSpan]="14">
+                        @if(requestSubmitedSuccessfull==false){ 
+                            <h3>{{'Plot Details' | translate }}</h3>
+                            <div class="table-nearest-base">
+                                    @for (capakey of extraCapakeys; track capakey) {
+                                        
+                                        <div nz-row class="table-nearest" style="width: 100%;" [ngStyle]="{'background-color': (bPreviewCapakey | async) ===capakey ? '#FADBDF':'white' }" >
+                                            <div nz-col [nzSpan]="12"   class="nearest-capakey"  (click)="previewCapakey(capakey)"> 
+                                                {{capakey}}
+                                            </div>
+                                            <div nz-col [nzSpan]="12" > 
+                                                @if(arrCapakeys[capakey]==undefined && capakey!=mainCapakey){   
+                                                    <button  nz-button nzDanger nzType="default" class="mp-button-extra" style="width: 90%;" (click)="AddToRequest(capakey)">
+                                                    <i style="cursor: grabbing;" nz-icon nzType="plus" nzTheme="outline">    </i> 
+                                                        {{'Add to request'|translate}}                                           
+                                                    </button>
+                                                }
+                                                @if(arrCapakeys[capakey]!=undefined && capakey!=mainCapakey){   
+                                                    <button  nz-button nzDanger nzType="default" class="mp-button-extra" style="width: 90%;" (click)="RemoveFromRequest(capakey)">
+                                                    <i style="cursor: grabbing;" nz-icon nzType="minus-circle" nzTheme="outline">    </i> 
+                                                        {{'Remove'|translate}} 
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                            </div>                        
+                        }
+                    </div>
+                    <div nz-col [nzSpan]="8" >
+                        <b>{{'Plot'|translate}} :</b> {{bPreviewCapakey| async}} 
+                        <app-displayparcel-map *ngIf="(bPreviewCapakey | async)!=''" [capakey]=" bPreviewCapakey| async"></app-displayparcel-map>
+                    </div>
+                </div>
+                <div nz-row >
+                    <div nz-col [nzSpan]="24">
+                        <app-mobiscore *ngIf="(bPreviewCapakey| async)!=''" [capaKey]="bPreviewCapakey| async"></app-mobiscore>
+                    </div>
+                </div>
+            </div>    
+            <div nz-col [nzSpan]="1" class="headerdivider"><i class="divider-button" style="cursor: grabbing;" nz-icon nzType="right" nzTheme="outline" (click)="ShowhideDetails()">    </i> </div>
+        }
+    }
+    <div nz-col [nzSpan]="bDetailsExpanded==true?7:24" style="max-width: 100%" >      
+                @if(requestSubmitedSuccessfull==false){ 
+                    <h3>{{'Basic Request' | translate }}
+                        <span class="badge badge-light text-dark">{{oRequestsAcces?.totalRequests}}/{{oRequestsAcces?.totalRequestsAccess}}</span>
+                    </h3>
+                    <p class="text-drawer-header">{{'Fill in the details below to submit a request. Fields with * are required. Once submitted, you can track your request in the table on this page.' | translate}}</p>
+                    <nz-tabset [nzSelectedIndex]="searchType" [ngClass]="totalCreditUsed===true?'fade-backround':''">
+                        <nz-tab nzTitle="Capakey">
+                            <app-capakey-basic (oCapaBasic)="selectionChange($event)" [capaKey]="capakeyReq" [tableRowData]="tableRowData"></app-capakey-basic>
+                        </nz-tab>
+                        <nz-tab [nzTitle]="'Address' |translate" >
+                            <app-capa-adress (oCapaBasic)="selectionChange($event)" [addressReq]="addressReq" [tableRowData]="tableRowData"></app-capa-adress>
+                        </nz-tab>
+                    </nz-tabset>
+                    @if(totalCreditUsed==true){ 
+                        <img nz-image width="337px" height="291px" style="position: absolute; top:250px" nzSrc="../../../../assets/img/icons/svg/upgradeplan.svg" alt=""/>
+                        <p class="text-credits"> {{'You’ve reached the limit of requests for your current plan. Upgrade now to get more!'|translate}}</p>
+                    }
+                }
+                @if(requestSubmitedSuccessfull==true){ 
+                    <h3>{{'Request Submitted Successfully' | translate }}</h3>
+                    <p>{{'Your request has been submitted and is now being processed. View and track the status of it in the table on this page.'|translate}}</p>
+                }
+                
+                @if(requestSubmitedSuccessfull==true){ 
+                    <img nz-image width="435px" height="611px" style="position: absolute; top:250px;padding:25px" nzSrc="../../../../assets/img/icons/svg/Illustration.svg" alt=""/>
+                    
+                }
+                <div nz-row class="ant-drawer-footer modal-right-footer" >
+                    <div nz-col [nzSpan]="12">
+                        @if(requestSubmitedSuccessfull==false){ 
+                            <button nz-button  nzPlacement="bottomRight" class="mp-button-light" (click)="ShowhideDetails()">
+                                {{'More information'|translate}}
+                            </button>
+                        }@else if(requestSubmitedSuccessfull==true){ 
+                            <button nz-button  nzPlacement="bottomRight" class="mp-button-light" (click)="restRequest()">
+                                {{'Create Request'|translate}}
+                            </button>
+                        }
+                    </div>
+                    <div nz-col [nzSpan]="12" >
+                        @if(requestSubmitedSuccessfull==false){ 
+                        <button nz-button nzType="primary" nzDanger class="mp-button-primary" style="width: 100%; margin-left: 10px;" (click)="createRequest()">
+                            {{'Submit'|translate}}
+                        </button>
+                        }@else if(requestSubmitedSuccessfull==true){ 
+                            <button nz-button nzType="primary" nzDanger class="mp-button-primary" style="width: 100%; margin-left: 10px;" (click)="closeDrawer()">
+                                {{'Complete'|translate}}
+                            </button>
+                        }
+                    </div>
+                </div>
+       
+    </div>
+</div>
+
+
+<!--
+
+-->
+

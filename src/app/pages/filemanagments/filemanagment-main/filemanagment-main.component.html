@@ -1,0 +1,28 @@
+
+<div nz-row>
+    <div nz-col [nzSpan]="20">
+            <button nz-button nzType="primary" class="addButton" [nzSize]="'large'" (click)="AddFileManagment()">
+                <span><span nz-icon nzType="plus" nzTheme="outline"></span> {{'Add'|translate}}</span>
+            </button>
+
+            
+            <!-- <button nz-button nzType="primary" [nzSize]="'large'" nzDanger (click)="openTemplate()"> 
+              <span><span nz-icon nzType="plus" nzTheme="outline"> </span> {{'Add'|translate}}</span>
+          </button> -->
+    </div>
+    <div nz-col [nzSpan]="4">
+        <nz-segmented nzBlock nzSize="large" [(ngModel)]="selectedOption" (nzValueChange)="valueChanged($event)" [nzOptions]="options"></nz-segmented>
+    </div>
+</div>
+<div nz-row>
+    <div nz-col [nzSpan]="24">
+        <br>
+    </div>
+</div>
+
+
+@if(selectedOption==0){ 
+  <app-filemanagment-individual></app-filemanagment-individual>
+} @else {
+  <app-filemanagment-all></app-filemanagment-all>
+}

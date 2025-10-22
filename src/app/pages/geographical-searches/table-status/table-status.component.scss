@@ -1,0 +1,154 @@
+::ng-deep .ag-cell{
+    height: auto;
+    vertical-align: middle;
+    position: unset;
+}
+
+.tag {
+    /*width: 70%;*/
+    border-radius: 100px;
+    padding-left: 4px;
+    padding-right: 12px;
+    line-height: 2;
+    font-weight: 500;
+    border: 1.5px solid rgba(91, 91, 91, 0.1);
+    /*display: flex;*/
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .SUCCESSTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }  
+  .OPENTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }
+
+  .FAILEDTag {
+    background-color: rgb(255, 0, 0, 0.05);
+    color: rgb(234, 83, 83);
+    border: 1.5px solid rgb(255, 0, 0, 0.3);
+  }
+
+  .PROGRESSTag {
+    background-color: #caab7036;
+  }
+
+  .PROSPECTTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }   
+  
+  .RESEARSHTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }    
+  .ARCHIVEDTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  } 
+  .LOSTTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }  
+ 
+  .LONGTERMTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }  
+
+  .circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    margin-left: 6px;
+  }
+
+  .SUCCESSCircle {
+    background-color: #6d9b7e;
+  }  
+  .OPENCircle {
+    background-color: #6d9b7e;
+  }
+
+  .FAILEDCircle {
+    background-color: #FADBDF;
+  }
+
+  .PROGRESSCircle {
+    background-color: #FFE3BC;
+  }  
+  .PROSPECTCircle {
+    background-color: #FFE3BC;
+  } 
+  .RESEARSHCircle {
+    background-color: #FFE3BC;
+  }
+  .ARCHIVEDCircle {
+    background-color: #FFE3BC;
+  }
+  .LOSTCircle {
+    background-color: #FFE3BC;
+  }
+  .LONGTERMCircle {
+    background-color: #FFE3BC;
+  }
+
+
+ /* Prospectie Tool*/
+  .PROSPECTIETag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }   
+
+  .TEKOOPTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }    
+  .VERKOCHTTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  } 
+  .TEHUURTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }  
+
+  .VERHUURDTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }  
+  .ONHOLDTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }    
+  .UITVERKOOPTag {
+    background-color: #84ca8130;
+    border: 1.5px solid rgb(70, 227, 114, 0.2);
+  }  
+
+  .PROSPECTIECircle {
+    background-color: #ebeb34;
+  } 
+  .TEKOOPCircle {
+    background-color: #34eb49;
+  }
+  .VERKOCHTCircle {
+    background-color: #d42f2f;
+  }
+  .TEHUURCircle {
+    background-color: #34eb49;
+  }
+  .VERHUURDCircle {
+    background-color: #d42f2f;
+  }  
+  .ONHOLDCircle {
+    background-color: #fa9c05;
+  }  
+  .UITVERKOOPCircle {
+    background-color: #918d8d;
+  }

@@ -1,0 +1,76 @@
+::ng-deep .ant-segmented-item-selected {
+    border-radius: 3px;
+}
+
+::ng-deep label.ant-segmented-item-selected {
+    background-color: #E43B4E!important;
+    color: #fff;
+}
+
+.ant-btn-dangerous.ant-btn-primary{
+    background-color: #E43B4E;
+    color:  #fefefe;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 3px;
+}
+
+::ng-deep .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #323334;
+    text-shadow: 0 0 0.25px currentcolor;
+}
+
+::ng-deep .ant-tabs-ink-bar {
+    background: #E43B4E;
+}
+
+::ng-deep .ant-drawer-close {
+    position: fixed;    
+    right: 0;
+}
+
+::ng-deep .ant-drawer-right>.ant-drawer-content-wrapper {
+    top: 10px;
+    bottom: 10px;
+}
+
+::ng-deep .ant-drawer-mask {
+    background: transparent;
+}
+
+::ng-deep .ant-tabs-tab:hover {
+    color: #E43B4E;
+}
+
+::ng-deep .ant-divider-horizontal.ant-divider-with-text {
+    margin: 0 0 16px 0;
+}
+
+nz-date-picker {
+    display: block;
+  }
+
+::ng-deep .ant-btn-lg {
+    height: 35px;
+    margin-top: 3px;
+}
+
+::ng-deep .mdc-radio__background::before {
+    opacity: 0 !important;
+}
+
+.addContact{
+    border-radius: var(--Radius-XS, 2px);
+    border: 1px solid var(--Primary-button-primary-border-color-hover, #CE1C30);
+    background: var(--Foregroung-color-primary, #E43B4E);
+    color: var(--Foregroung-color-primary-text-color, #FFF);
+    text-align: center;
+    height: 40px;
+
+    /* Medium/text-base */
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */     
+}

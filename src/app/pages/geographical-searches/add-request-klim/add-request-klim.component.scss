@@ -1,0 +1,86 @@
+.mat-mdc-form-field {
+    width: 100%;
+}
+
+.fade-backround{
+    filter: blur(4px);
+}
+.text-credits{
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+    color: #333333;
+    
+}
+
+.table-nearest-base{
+    overflow-y: auto;
+    height: 220px;
+    width: 536px!important;
+}
+.table-nearest{
+    width: 516px!important;
+    padding: 5px;
+    border: solid;
+    border-color: black !important;
+    border-radius: 5px;
+    border-width: 1px;
+    margin-bottom:10px;
+    align-items:center;
+    height: 45px;
+}
+.nearest-capakey{
+    left:10px;
+    color: #333333;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: grabbing;
+}
+
+.headerdivider {
+    border-left: 1px solid #38546d;
+    width: 10px;
+    margin-left: 15px;
+}
+
+.divider-button{
+    border: solid;
+    top: 50%;     
+    border-radius: 50%;
+    position: absolute;  
+    padding: 5px;  
+    left: -15px;
+    background-color: white;    
+}
+.text-drawer-header{ 
+    color:  #777777;
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+.ant-drawer-footer.modal-right-footer .ant-btn-dangerous  {
+    width: 100%;
+    margin-left: 10px;
+}
+
+.mp-button-light, .mp-button-primary {
+  font-size: 15px !important;
+}
+
+.ant-drawer-content-wrapper {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+@media screen and (max-width:1200px) {
+    ::ng-deep .expanded {
+        zoom: 0.7;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    ::ng-deep .expanded {
+        zoom: 0.5;
+    }
+}

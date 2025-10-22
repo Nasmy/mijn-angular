@@ -1,0 +1,27 @@
+<div class="modal-header pb-1">
+            <span nz-icon nzType="question-circle" style="margin-bottom: 10px;"> </span> <h6>{{ title | translate }}</h6>
+            <!--<span nz-icon  nzType="close" data-bs-dismiss="modal" aria-label="Close" (click)="dismiss()"> </span>-->
+            <!--<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" (click)="dismiss()"></button>-->       
+</div>
+<div class="modal-body">
+      <div class="row mt-2 mb-4">
+          <div class="col">
+              <p class="text-message">{{ message | translate }}</p>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <div nz-row style="width: 100%;"  >
+            <div nz-col [nzSpan]="11">
+                <button nz-button  nzPlacement="bottomRight" class="mp-button-light" style="width: 100%;" (click)="decline()">
+                    {{btnCancelText|translate}}
+                </button>
+            </div>
+            <div nz-col [nzSpan]="2">&nbsp;</div>
+            <div nz-col [nzSpan]="11" >
+                <button nz-button nzType="primary" nzDanger class="mp-button-primary" style="width: 100%;" (click)="accept()">
+                    {{btnOkText|translate}}
+                </button>
+            </div>
+        </div>
+      </div>
+</div>

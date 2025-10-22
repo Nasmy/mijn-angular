@@ -1,0 +1,359 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="row" >
+    <div class="col-md-4" nzSpan="8">
+        <div class="labeled">{{'Details' | translate}}</div>
+        <nz-form-item>
+            <!-- <nz-form-label>Name</nz-form-label> -->
+            <nz-form-control>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label floatLabel="always" >{{'Name' | translate}}</mat-label>
+                <input matInput type="text" formControlName="firstname" autocomplete="off"/>
+                <!-- <mat-error *ngIf="f['name'].errors">
+                  {{'Name' | translate}} is required
+                </mat-error> -->
+              </mat-form-field>
+            </nz-form-control>
+          </nz-form-item>
+          
+          <nz-form-item>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label floatLabel="always" >{{'Last name' | translate}}</mat-label>
+                <input matInput type="text" formControlName="lastname" autocomplete="off"/>
+                <!-- <mat-error *ngIf="f['lastName'].errors">
+                  {{'Last name' | translate}} is required
+                </mat-error> -->
+              </mat-form-field> 
+          </nz-form-item>
+
+          <nz-form-item>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label floatLabel="always" >{{'E-mail' | translate}}</mat-label>
+                <input matInput type="text" formControlName="email" autocomplete="off"/>
+                <!-- <mat-error *ngIf="f['email'].errors">
+                  {{'E-mail' | translate}} is required
+                </mat-error> -->
+              </mat-form-field>
+          </nz-form-item>
+
+          <!-- <nz-form-item>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{'Language'| translate}}</mat-label>
+              <mat-select disableRipple formControlName="language">
+                <mat-option value="1"></mat-option>
+                <mat-option *ngFor="let lang of getLangs()" [value]="lang">{{lang | translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </nz-form-item> -->
+
+          <button type="submit" nz-button class="login-form-button">{{'Save' | translate}}</button>
+
+    </div>
+    <div class="col-md-4" nzSpan="8">
+
+        <div id="avatar">
+          <!-- <app-avatar [backgroundBorder]="oUser.active == true ? '#00800030' : '#80000047' " formControlName="avatar"></app-avatar>-->
+            <nz-avatar [nzSize]="100" [nzText]="initials" ></nz-avatar>
+            <div>{{'Profile photo' | translate}}</div>
+            <!-- <div id="uploadClick">{{'Upload' | translate}}</div> -->
+        </div>
+    </div>
+    <div class="col-md-4" nzSpan="8">
+
+      <!-- <ngx-dropzone class="dropzone" (change)="onSelect($event)" [multiple]="false" [maxFileSize]="3000000" accept="image/jpeg,image/jpg,image/png,image/bmp">
+        <ngx-dropzone-label>
+            <div class="dz-message needsclick">
+              <i class="icon-cloud-up"></i>
+              <h6>{{ 'Drop a file here or click to upload.' | translate }}</h6>
+              <span>{{'JPG, PNG or BMP up to 3 MB' | translate }}</span>
+            </div>
+        </ngx-dropzone-label>
+        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>
+        </ngx-dropzone-preview>
+    </ngx-dropzone> -->
+
+    </div>
+</div>
+</form>
+
+<hr>
+
+<form [formGroup]="pwdForm"  (ngSubmit)="onSubmit()">
+<div class="row" >
+    <div class="col-md-4">
+        <div class="labeled">{{'Password' | translate}}</div>
+        <nz-form-item>
+            <nz-form-control>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label floatLabel="always" >{{'Current' | translate}} {{'Password' | translate}}</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="old_password" autocomplete="off"/>
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Toggle password visibility'">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                  </button>
+                <!-- <mat-error *ngIf="f['name'].errors">
+                  {{'Name' | translate}} is required
+                </mat-error> -->
+              </mat-form-field>
+            </nz-form-control>
+          </nz-form-item>
+          
+          <nz-form-item>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label floatLabel="always" >{{'New' | translate}} {{'Password' | translate}}</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="new_password" autocomplete="off" (keyup)="validatePassword()" />
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Toggle password visibility'">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                  </button>
+                <!-- <mat-error *ngIf="f['lastName'].errors">
+                  {{'Last name' | translate}} is required
+                </mat-error> -->
+              </mat-form-field> 
+          </nz-form-item>
+
+          <nz-form-item>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label floatLabel="always" >{{'Confirm' | translate}} {{'Password' | translate}}</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="conf_password" autocomplete="off"/>
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Toggle password visibility'">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                  </button>
+                <!-- <mat-error *ngIf="f['email'].errors">
+                  {{'E-mail' | translate}} is required
+                </mat-error> -->
+              </mat-form-field>
+          </nz-form-item>
+
+          
+    <button nz-button class="login-form-button">{{'Update' | translate}}</button>
+
+    </div>
+    <div class="col-md-4">
+
+        <div id="passCard">
+            <div id="labeled">{{'Password' | translate}}  {{'requirements' | translate}}</div>
+            <ul>
+                <li [class.valid]="passwordConditions.hasLetter">
+                    <span nz-icon [nzType]="passwordConditions.hasLetter ? 'check' : 'close'"></span>  {{'At least one letter' | translate}}</li>
+                <li [class.valid]="passwordConditions.hasUppercase">
+                    <span nz-icon [nzType]="passwordConditions.hasUppercase ? 'check' : 'close'"></span> {{'At least one capital' | translate}}</li>
+                <li [class.valid]="passwordConditions.hasNumber">
+                    <span nz-icon [nzType]="passwordConditions.hasNumber ? 'check' : 'close'"></span> {{'At least one number' | translate}}</li>
+                <li [class.valid]="passwordConditions.hasMinLength">
+                    <span nz-icon [nzType]="passwordConditions.hasMinLength ? 'check' : 'close'"></span> {{'At least 8 characters' | translate}}</li>
+              </ul>
+        </div>
+
+    </div>
+    <div class="col-md-4" >
+    </div>
+</div>
+</form>
+
+<hr>
+
+<div class="row" >
+    <div class="col-md-4" >
+        <div class="labeled">{{'Two-factor authentication (2FA)' | translate}}</div>
+        <p>{{'Protect your account with an extra layer of security by enabling two-factor authentication using Google or Microsoft Authenticator. This ensures only you can access your account, even if your password is compromised.' | translate}}</p>
+        <button nz-button class="login-form-button" (click)="show2faModal()" *ngIf="form.controls['twoFactorEnabled'].value==false">{{'Set up' | translate}}</button>
+
+        <div class="row TwofaBtns" *ngIf="form.controls['twoFactorEnabled'].value==true">
+          <!-- <div class="col-xs-12 col-sm-3">                
+           
+          </div> -->
+          <div class="col-xs-12 col-sm-6" >
+            <button nz-button class="login-form-button"  (click)="$event.preventDefault(); disable2FA();" >{{'Disable 2FA' |translate}}</button>
+          </div>      
+          <div class="col-xs-12 col-sm-6">
+            <button nz-button class="login-form-button"  (click)="$event.preventDefault(); resetRecoveryCodes()">{{'Reset Recovery codes' |translate}}</button>
+          </div>       
+        </div>
+        <div class="row TwofaBtns" *ngIf="form.controls['twoFactorEnabled'].value==true">
+          <!-- <div class="col-xs-12 col-sm-3">               
+          </div> -->
+          <div class="col-xs-12 col-sm-6">
+            <button nz-button class="login-form-button"  (click)="$event.preventDefault();configureAuthenticatorApp()">{{'Configure authenticator app' |translate}}</button>
+          </div>      
+          <div class="col-xs-12 col-sm-6">
+            <button nz-button class="login-form-button"  (click)="$event.preventDefault(); resetAuthenticatorKey()">{{'Reset Authenticator key' |translate}}</button>
+          </div>       
+        </div>
+
+    </div>
+    <div class="col-md-4" nzSpan="8">
+    </div>
+    <div class="col-md-4" nzSpan="8">
+    </div>
+</div>
+
+<ng-template #twofactorsetup let-modal>
+	<div class="modal-header">	
+        <h6 class="modal-title"><i class="fa fa-cogs font-primary f-22 p-2">&nbsp;{{'Configure 2FA'| translate}}</i></h6>	
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+	</div>
+	<div class="modal-body">
+        <!-- <div class="loader-modal" [class.loderhide]="(loadingAddEdit | async)==false">
+            <div class="loader-index"><span></span></div>
+            <svg>
+              <defs></defs>
+              <filter id="goo">
+                <fegaussianblur in="SourceGraphic" stddeviation="11" result="blur"></fegaussianblur>
+                <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"> </fecolormatrix>
+              </filter>
+            </svg>
+          </div> -->
+
+          <div>
+            <p *ngIf="twofaSuccessEnabled==false">{{'To use an authenticator app go through the following steps:' | translate}}</p>           
+            <ul class="list">
+                <li *ngIf="twofaSuccessEnabled==false" >
+                    <p>
+                       {{'Download a two-factor authenticator app like'|translate}} {{'Microsoft Authenticator'| translate }} {{'for' | translate}}
+                        <a href="https://go.microsoft.com/fwlink/?Linkid=825071" target="_blank">{{'Windows Phone'| translate}}</a>,
+                        <a href="https://go.microsoft.com/fwlink/?Linkid=825072" target="_blank">{{'Android' | translate}}</a> {{'and' | translate}}
+                        <a href="https://go.microsoft.com/fwlink/?Linkid=825073" target="_blank">{{'iOS' | translate}}</a> {{'or' | translate}}
+                        {{'Google Authenticator' | translate }} {{'for' | translate}}
+                        <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en" target="_blank">{{'Android'| translate}}</a> {{'and' | translate}}
+                        <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8" target="_blank">{{'iOS' | translate}}</a>.
+                    </p>
+                  </li>
+                  <li *ngIf="twofaSuccessEnabled==false" >
+                        <p>{{'Scan the QR Code or enter this key'|translate }} <b>{{sharedKey}}</b> {{'into your two factor authenticator app. Spaces and casing do not matter.' | translate }}</p>
+                        <div class="alert alert-info">{{'To enable QR code generation please read our' | translate }} <a href="https://go.microsoft.com/fwlink/?Linkid=852423" target="_blank">{{'documentation'|translate}}</a>.</div>                    
+                  </li>
+                  <li  >
+                        <p *ngIf="twofaSuccessEnabled==false">
+                            {{'Once you have scanned the QR code or input the key above, your two factor authentication app will provide you with a unique code. Enter the code in the confirmation box below.'  | translate }}
+                        </p> 
+                          <div class="row">
+                            <div class="col-md-12" *ngIf="twofaSuccessEnabled==false" style="text-align:center" >
+                              <qrcode [qrdata]="qrcode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+                            </div>
+                            <div class="col-md-12 twofactorcodes" *ngIf="twofaSuccessEnabled==true" >
+                              <ul class="list">
+                                <li>
+                                  <p *ngIf="twofaSuccessEnabled==true">{{'Two factor successfully enabled:'| translate }}</p>
+                                  <strong>{{'Put these codes in a safe place.' | translate }}</strong>
+                                </li>
+                                <li>
+                                  <p>
+                                    {{'If you lose your device and don\'t have the recovery codes you will lose access to your account.'| translate }}
+                                  </p>
+                                </li>
+                              </ul>                             
+
+                              <ul class="list" *ngIf="recoveryCodes.length>0">
+                                <li *ngFor="let recoveryCode of recoveryCodes">
+                                  {{recoveryCode}}
+                                </li>
+                              </ul>
+                            </div>
+                          </div>                     
+
+                  </li>
+
+                  <li [formGroup]="form2fa" *ngIf="twofaSuccessEnabled==false" >
+                    <div class="form-group" >
+                      <label for="twoFactorCode" style="text-transform: capitalize;"> {{ 'Two Factor Code' |
+                          translate }} </label>
+                      <input type="text" formControlName="twoFactorCode" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted2fa && f2fa['twoFactorCode'].errors }" />
+                      <div *ngIf="submitted2fa && f2fa['twoFactorCode'].errors" class="invalid-feedback">
+                          <div *ngIf="f2fa['twoFactorCode'].errors['required']"> {{ 'twoFactorCode is required' | translate }}</div>
+                          <div *ngIf="f2fa['twoFactorCode'].errors['incorrect']"> {{ 'twoFactorCode is incorrect' | translate }}</div>
+                      </div>
+                    </div>
+                </li>
+              </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button  *ngIf="twofaSuccessEnabled==false" (click)="$event.preventDefault(); verifyAuthenticatorApp()" class="btn btn-primary btn-round mat-elevation-z3" style="background-color:#E83C4E  !important; border-color: #E83C4E  !important;">
+          <span *ngIf="ontwofactorenable" class="spinner-border spinner-border-sm mr-1"></span>
+          {{ 'Submit' | translate }}
+        </button>
+        <button type="button" class="btn btn-light f-right" aria-label="Close" (click)="modal.dismiss()">{{'Close' | translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #twofactorreset let-modal>
+	<div class="modal-header">	
+        <h6 class="modal-title"><i class="fa fa-cogs font-primary f-22 p-2">&nbsp;{{'Configure 2FA'| translate}}</i></h6>	
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+	</div>
+	<div class="modal-body">
+        <!-- <div class="loader-modal" [class.loderhide]="(loadingAddEdit | async)==false">
+            <div class="loader-index"><span></span></div>
+            <svg>
+              <defs></defs>
+              <filter id="goo">
+                <fegaussianblur in="SourceGraphic" stddeviation="11" result="blur"></fegaussianblur>
+                <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"> </fecolormatrix>
+              </filter>
+            </svg>
+          </div> -->
+
+          <div>              
+            <ul class="list">
+                <li *ngIf="resetAuthKey==true" >
+                  <div class="alert alert-warning" role="alert">
+                    <p>
+                        <span class="fas fa-exclamation-triangle"></span>
+                        <strong>{{'If you reset your authenticator key your authenticator app will not work until you reconfigure it.'| translate }}</strong>
+                    </p>
+                    <p>
+                       {{'This process disables 2FA until you verify your authenticator app and will also reset your 2FA recovery codes. If you do not complete your authenticator app configuration you may lose access to your account.' | translate}}
+                    </p>
+                  </div>
+                </li>
+                <li *ngIf="resetAuthKey==false" >
+                  <div *ngIf="resetSuccess==false" class="alert alert-warning" role="alert">
+                        <p>
+                            <span class="fas fa-exclamation-triangle"></span>
+                            <strong>{{'This action generates new recovery codes.'| translate }}</strong>
+                        </p>
+                        <p>
+                            {{'If you lose your device and don\'t have the recovery codes you will lose access to your account.'| translate}}
+                        </p>
+                        <p>
+                            {{'Generating new recovery codes does not change the keys used in authenticator apps.'| translate}}
+                        </p>
+                  </div>
+
+                  <div *ngIf="resetSuccess==true" class="alert alert-warning" role="alert">
+                    <p>
+                        <span class="fas fa-exclamation-triangle"></span>
+                        <strong>{{'Put these codes in a safe place.' | translate }}</strong>
+                    </p>
+                    <p>
+                        {{'If you lose your device and don\'t have the recovery codes you will lose access to your account.' | translate}}
+                    </p>
+                  </div>
+                  <div class="col-md-12 twofactorcodes">
+                    <ul class="list" *ngIf="recoveryCodes.length>0">
+                      <li *ngFor="let recoveryCode of recoveryCodes">
+                        {{recoveryCode}}
+                      </li>
+                    </ul>
+                  </div>
+
+
+                </li>
+               </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+      
+        <button  *ngIf="resetAuthKey==true && resetSuccess==false" (click)="$event.preventDefault(); confirmResetAuthKey()" class="btn btn-primary btn-round mat-elevation-z3" style="background-color:#E83C4E  !important; border-color: #E83C4E  !important;">
+            <span *ngIf="ontwofactorenable" class="spinner-border spinner-border-sm mr-1"></span>
+            {{ 'Reset authenticator key' | translate }}
+        </button>
+
+        <button  *ngIf="resetAuthKey==false && resetSuccess==false" (click)="$event.preventDefault(); confirmRecoveryCodes()" class="btn btn-primary btn-round mat-elevation-z3" style="background-color:#E83C4E  !important; border-color: #E83C4E  !important;">
+          <span *ngIf="ontwofactorenable" class="spinner-border spinner-border-sm mr-1"></span>
+          {{ 'Generate Recovery Codes' | translate }}
+        </button>
+      
+        <button type="button" class="btn btn-light f-right" aria-label="Close" (click)="modal.dismiss()">{{'Close' | translate}}</button>
+    </div>
+</ng-template>

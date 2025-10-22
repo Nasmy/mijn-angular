@@ -1,0 +1,69 @@
+[nz-menu]{    
+    width: 245px;
+    :hover{
+        background-color: #FADBDF;
+    }
+}
+
+::ng-deep .ant-drawer-close{
+    position: fixed;
+    right: 0;
+}
+::ng-deep .ant-drawer-header{
+    border-bottom:none;
+}
+
+.map-options{
+    border-color: #E43B4E;
+    color: #E43B4E;
+}
+  
+.ant-btn-group .ant-btn-primary, 
+.ant-btn-group .ant-btn-primary + .ant-btn:not(.ant-btn-primary):not([disabled]) {
+    border-color: #e43b4e;
+}
+
+.ant-btn-group .ant-btn-primary:hover,
+.ant-btn-group .ant-btn-primary + .ant-btn:hover {
+    background-color: #e43b4fc9;
+}
+
+.button-left-radius {
+    border-radius: 4px 0 0 4px !important;
+}
+
+.button-right-radius {
+    border-radius: 0 4px 4px 0 !important;
+}
+
+.switch-menu {
+    border-radius: 4px !important;
+}
+
+.ant-segmented {
+    font-size: 16px;
+}
+
+.componentHead {
+    margin-bottom: 22px;
+}
+
+.geo-buttons {
+    border-radius: var(--Radius-XS, 2px);
+    border: 1px solid var(--Primary-button-primary-border-color-hover, #CE1C30);
+    background: var(--Foregroung-color-primary, #E43B4E);
+    color: var(--Foregroung-color-primary-text-color, #FFF);
+    text-align: center;
+
+    /* Medium/text-base */
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+}
+
+#basic-request {
+    margin-right: 20px;
+}
+

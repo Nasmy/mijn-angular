@@ -1,0 +1,45 @@
+
+
+<div nz-row>
+    <div nz-col [nzSpan]="18">
+        <!-- @if(editName==false){
+            <h4 id="fileTitle">{{(FileManagment$$| async)?.name}}  <i class="material-icons" (click)="SetName();editName=true">edit</i></h4> 
+        }@else if(editName==true){
+            <input style="width: 80%;" type="text" nz-input [(ngModel)]="name" placeholder="Title" />
+        } -->
+                
+    </div>
+  
+    <div nz-col [nzSpan]="6" style="max-width: 100%; text-align: right" class="btn-right-corner">
+            <button nz-button class="mp-button-light" style="margin-right: 15px;" (click)="navigateToFilesList()">
+              {{'Back'|translate}}
+            </button>
+    </div>
+
+   
+</div>
+
+
+<div nz-row class="mt-4" [nzGutter]="20">
+    <div nz-col [nzSpan]="10">
+        <app-file-summary  [fileManagment]="FileManagment$$ | async"  (oFileManagment)="SaveSummary($event)"></app-file-summary>
+        <br>
+        <app-minimal-requirements [fileManagment]="FileManagment$$ | async"></app-minimal-requirements>
+        <br>
+        <app-file-attachments [fileManagment]="FileManagment$$ | async" [file_managmentId]="idNum"></app-file-attachments>
+
+    </div>
+    <div nz-col [nzSpan]="14">
+        <app-file-contacts [fileManagment]="FileManagment$$ | async"></app-file-contacts>
+        <br/>
+        <app-file-modeldocuments [id]="idNum" [fileManagment]="FileManagment$$ | async"></app-file-modeldocuments>
+    </div>
+</div>
+
+<div nz-row class="mt-4" [nzGutter]="20">
+    <div nz-col [nzSpan]="24">
+
+        <app-file-objects [fileManagment]="FileManagment$$ | async" [file_managmentId]="idNum" [reference]="f['file_number'].value"></app-file-objects>
+
+    </div>
+</div>

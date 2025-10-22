@@ -1,0 +1,50 @@
+<div nz-row>
+    <div nz-col nzSpan="24" style="max-width: 100%" >      
+        
+            <h3>{{'Configurations' | translate }}
+                <span class="badge badge-light text-dark">{{(lstConfiguration$$| async)?.length}}</span>
+            </h3>
+            <p class="text-drawer-header">{{'Manage your configurations by creating a new one or updating existing ones by switching them on/off or editing their details.' | translate}}</p>                    
+    </div>
+</div>
+<div nz-row >
+    <div nz-col nzSpan="24">  
+        <button nz-button class="mp-group-button right-margin" id="add-configuration-button" (click)="openConfigurationAddDrawer()">
+            <span><span nz-icon nzType="plus" nzTheme="outline"> </span> {{'Create configuration'|translate}}</span>
+        </button>
+    </div>
+    <div nz-col nzSpan="24">  
+        @for (config of lstConfiguration$$|async; track config) { 
+            <div nz-row   class="row-configuration" style="height: 75px;">
+                <div id="config-name" nz-col nzSpan="10" style="max-width: 100%" >{{config.name}} </div>
+                <div nz-col nzSpan="4" style="max-width: 100%" > 
+                    <div class="mp-icon">
+                        <nz-switch [ngModel]="config.active" (ngModelChange)="config.active =!config.active;changeStatus(config)"  style="font-size: 20px; color: #E43B4E;"></nz-switch>
+                        <label class="primary--text" style="margin-top: 5px;">{{'active' |translate}}</label>
+                    </div>
+                    
+                </div>
+                <div nz-col nzSpan="5">
+                    <div class="mp-icon">
+                        <div class="v-avatar mb-2 primary lighten-1" (click)="openConfigurationAddDrawer(config.id)"> 
+                            <!--<span nz-icon class="v-icon notranslate theme--light primary--text" [nzType]="'edit'" style="font-size: 20px;" ></span>-->
+                            <span nz-icon><img src="../../../assets/img/icons/svg/edit.svg" alt="logo" style="display: inline;"></span>
+                        </div>
+                        <label class="primary--text">{{'edit' |translate}}</label>
+                    </div>
+    
+                </div>
+                <div nz-col nzSpan="5">
+                    <div class="mp-icon">
+                        <div class="v-avatar mb-2 primary lighten-1" (click)="onDelete(config.id)"> 
+                            <span nz-icon [nzType]="'trash_custom'" style="font-size: 20px; " ></span>
+                        </div>
+                        <label class="primary--text">{{'delete' |translate}}</label>
+                    </div>
+               
+                </div>
+            </div>
+            
+        }
+   </div>
+</div>

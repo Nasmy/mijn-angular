@@ -1,0 +1,42 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submitForm()">
+    <mat-form-field appearance="outline" class="matblock" style="padding-bottom: 25px;">
+        <mat-label>{{'Capakey' | translate}}</mat-label>
+        <input type="text" placeholder="{{'Capakey'| translate}}" matInput formControlName="capakey"
+            [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': submitted && f['capakey'].errors }">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let item of autoFilter | async" [value]="item.name"
+                (onSelectionChange)="changeCapakey(item.name)">
+                {{item.name}}
+            </mat-option>
+        </mat-autocomplete>
+          <!--<mat-icon matSuffix (click)="displayMap(f['capakey'].value)">remove_red_eye</mat-icon>-->
+        <div *ngIf="submitted && f['capakey'].errors" class="invalid-feedback">
+            <div *ngIf="f['capakey'].errors['required']">{{'Capakey' | translate}} {{'is required' | translate}}</div>
+            <div class="invalid-feedback" *ngIf="f['capakey'].errors['pattern']">{{'Capakey' | translate}} {{'is invalid' | translate}}</div>
+        </div>
+        <mat-hint >{{f['capakeyAdress'].value}}</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="matblock">
+        <mat-label>{{'Reference' | translate}}</mat-label>
+        <input type="text" placeholder="{{'Reference'| translate}}" matInput formControlName="reference" autocomplete="off"  [ngClass]="{ 'is-invalid': submitted && f['reference'].errors }">
+
+        <div *ngIf=" bKlim && submitted && f['reference'].errors" class="invalid-feedback">
+            <div *ngIf="f['reference'].errors['required']">{{'Reference' | translate}} {{'is required' | translate}}</div>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="matblock">
+      <mat-label>{{'Dossier' | translate}}</mat-label>
+      <input type="text" placeholder="{{'Dossier'| translate}}" matInput formControlName="filenumber" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="matblock">
+       <mat-label>{{'Configuration' | translate}}</mat-label>
+        <mat-select multiple formControlName="config_array">
+          <mat-option *ngFor="let conf of this.arrCombos['CONFIGURATION']" [value]="conf.id">{{conf.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</form>
+

@@ -1,0 +1,30 @@
+:host {
+    display: flex;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    justify-content: center;
+  }
+
+/* Make the body take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .login-form-wrapper {
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);*/
+    border-radius: 8px; /* Optional */
+  }

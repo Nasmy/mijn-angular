@@ -1,0 +1,51 @@
+<a id="newDoc" (click)="navigateToEditor()">{{'Create a new document' | translate}}</a>
+<br/>
+<label id="catsHeader">{{'Documents' | translate}}</label>
+<br/>
+<form  [formGroup]="form" class="form-inline" action="#" method="get">
+    <div class="form-group mb-0"> <!-- <i class="fa fa-search"></i> -->
+      <input class="form-control-plaintext" style="color:black!important"  type="text" [placeholder]='"Search..." | translate' data-original-title="" formControlName="title"
+        title="">
+    </div>
+  </form>
+
+
+<nz-collapse nzAccordion style="margin-top: 20px;">
+    @for (category of arrCombos['DOCUMENTTYPE']; track category) {
+      <nz-collapse-panel [nzHeader]="category.name+' ('+arrCombosAmount[category.id]+')'" (click)="searchByCategory(category.id)" [nzActive]="false">
+        
+        <ng-container *ngFor="let template of modelDocumentsService._lstTemplates$$ | async ">
+          <div class="template-icon">
+            <img [src]="'/assets/img/icons/svg/preview.svg'" class="actionsIco " style="margin: unset;display: unset;">
+            <a (click)="navigateToEditor(template.id)"> {{template.title}}.docx  </a>
+          </div>
+            
+            
+        </ng-container>
+        
+        <!-- <ng-container *ngFor="let template of modelDocumentsService._lstTemplates$$ | async ">
+            <mat-checkbox
+            [checked]="selectedItems[category.name][template.title] || false"
+            (change)="updateSelection(category.name, template.title, $event)">{{template.title}}.docx</mat-checkbox>
+        </ng-container>-->
+
+      </nz-collapse-panel>
+    }
+ </nz-collapse>
+
+
+
+ <nz-modal [(nzVisible)]="showSelectCategory" [nzTitle]="'Select a category'|translate"  nzOkText="null"  nzCancelText="null">
+  <ng-container *nzModalContent>
+    <button class="dropdown-category" [ngStyle]="colorValue && {'background-color': colorValue}" nz-button nz-dropdown [nzDropdownMenu]="menu_category"> {{ selectedLabel || 'Select an option' }} <i nz-icon nzType="down"></i> </button>
+    <nz-dropdown-menu id="menu_category" #menu_category="nzDropdownMenu">
+        <ul nz-menu>
+            @for (category of this.arrCombos['DOCUMENTTYPE']; track category) {
+                <li nz-menu-item  (click)="selectCategory(category)"> {{ category.name }} </li>
+            }            
+       </ul>
+    </nz-dropdown-menu>
+  </ng-container>
+</nz-modal>
+
+

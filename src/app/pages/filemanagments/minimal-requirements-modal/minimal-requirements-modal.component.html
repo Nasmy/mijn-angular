@@ -1,0 +1,49 @@
+
+
+<div class="content" style="width: 100%;">
+        <div nz-row>
+                @for (folder of notLinked; track folder) { 
+                    <div nz-col [nzSpan]="2" >
+                        <div class="mp-icon">
+                            <div class="v-avatar mb-2 primary lighten-1" (click)="onAdd(folder)"> 
+                                <span nz-icon nzType="plus"></span>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <div nz-col [nzSpan]="22" >
+                        {{folder.name}} 
+                    </div>          
+                }          
+        </div>
+
+        <nz-divider [nzText]="textDivider"></nz-divider>
+        <div nz-row>
+            @for (folder of Linked; track folder.id) { 
+                <div nz-col [nzSpan]="2" >
+                    <div class="mp-icon">
+                        <div class="v-avatar  mb-2 green"> 
+                            <span nz-icon nzType="check"></span>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div nz-col [nzSpan]="18" >
+                    {{folder.name}} 
+                </div>   
+                <div nz-col [nzSpan]="2" >
+                    <img [src]="'/assets/img/icons/svg/preview.svg'" (click)="showAttachments(folder)" class="actionsIco">
+                    
+                </div>   
+                <div nz-col [nzSpan]="2" >                    
+                    <span nz-icon [nzType]="'trash_custom'" style="font-size: 20px;" (click)="removeAttachments(folder)" ></span>
+                </div> 
+                
+                
+            }          
+    </div>
+</div>
+   
+

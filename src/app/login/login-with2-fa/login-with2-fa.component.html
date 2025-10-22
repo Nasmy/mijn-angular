@@ -1,0 +1,82 @@
+<div class="cardLogin"> 
+    <img class="login-form-logo" src="../../assets/img/logo.png"/>
+    @if(allertMessage.message){ 
+        <nz-alert  [nzType]="allertMessage.type" [nzMessage]="allertMessage.message" nzShowIcon></nz-alert>
+    } @else {
+        <nz-alert  [nzType]="'info'" [nzMessage]="'Your log in is protected with the authenticator app.' | translate" nzShowIcon></nz-alert>
+    }
+
+    <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()">
+        <!-- <div class="form-group">
+            <p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
+        </div> -->
+        <nz-form-label nzFor="twoFactorCode">{{ 'Two Factor Code' | translate }}</nz-form-label>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your 2 factor code!">
+                <!-- <nz-input-group nzPrefixIcon="user"> /
+                <nz-input-group>
+                <input type="text" nz-input formControlName="twoFactorCode" placeholder="Enter your 2 factor code" />
+                </nz-input-group> -->
+
+                
+            <nz-input-group id="two-factor-input" nzCompact >
+                <input type="text" id="id_1" maxlength="1" (keyup)="onKeyUp($event,'id_2')" nz-input  formControlName="code1" style="width:15%; margin: 0px 5px 20px 0px" />
+                <input type="text" id="id_2" maxlength="1" (keyup)="onKeyUp($event,'id_3')" nz-input  formControlName="code2" style="width:15%; margin: 0px 5px 20px 0px" />
+                <input type="text" id="id_3" maxlength="1" (keyup)="onKeyUp($event,'id_4')" nz-input  formControlName="code3" style="width:15%; margin: 0px 5px 20px 0px" />
+                <input type="text" id="id_4" maxlength="1" (keyup)="onKeyUp($event,'id_5')" nz-input  formControlName="code4" style="width:15%; margin: 0px 5px 20px 0px" />
+                <input type="text" id="id_5" maxlength="1" (keyup)="onKeyUp($event,'id_6')" nz-input  formControlName="code5" style="width:15%; margin: 0px 5px 20px 0px"/>
+                <input type="text" id="id_6" maxlength="1" (keyup)="onKeyUp($event,'id_submit')" nz-input  formControlName="code6" style="width:15%; margin: 0px 5px 20px 0px" />
+              </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <div nz-row class="login-form-margin">
+            <div nz-col [nzSpan]="24">
+                <p class="grayed">{{'Don`t have access to your authenticator device?' | translate}} <br/>
+                    <a (click)="loginWithSecurityCodes()" class="btn-link">{{'Use recovery code' | translate}}</a>.
+                </p>
+            </div>
+        </div>
+        <button nz-button class="login-form-button login-form-margin">{{'Log in' | translate}}</button>
+        <!-- Or
+        <a>register now!</a> -->
+        </form>
+
+
+
+<!--
+    <div class="card-body ">
+        @if(allertMessage.message){ 
+            <nz-alert  [nzType]="allertMessage.type" [nzMessage]="allertMessage.message" nzShowIcon></nz-alert>
+        }
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" style="width: 100%;">
+            <div class="form-group">
+                <p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
+            </div>
+            <div class="form-group">
+                <label for="twoFactorCode" style="text-transform: capitalize;"> {{ 'login.twoFactorCode' |
+                    translate }} </label>
+                <input type="text" formControlName="twoFactorCode" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['twoFactorCode'].errors }" />
+                <div *ngIf="submitted && f['twoFactorCode'].errors" class="invalid-feedback">
+                    <div *ngIf="f['twoFactorCode'].errors?.['required']"> {{ 'login.twoFactorCode is required' |
+                        translate }}</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p>
+                    Don't have access to your authenticator device? You can
+                    <a (click)="loginWithSecurityCodes()" class="btn-link">log in with a recovery code</a>.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-round mb-3 mat-elevation-z3" style="background-color:#E83C4E  !important; border-color: #E83C4E  !important;">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    {{ 'login.login' | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+    -->
+</div>

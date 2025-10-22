@@ -1,0 +1,46 @@
+ .ant-tabs-ink-bar {
+    background: #E43B4E;
+}
+ 
+.ant-tabs-tab:hover {
+    color: #E43B4E;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #323334;
+    text-shadow: 0 0 0.25px currentcolor;
+}
+
+.ant-tabs-ink-bar {
+    background: #E43B4E;
+}
+
+.ant-drawer-close {
+    position: fixed;    
+    right: 0;
+}
+
+.ant-drawer-right>.ant-drawer-content-wrapper {
+    top: 10px;
+    bottom: 10px;
+    background-color: #fff;
+}
+
+.ant-drawer-mask {
+    background: transparent;
+}
+.ant-checkbox-checked .ant-checkbox-inner{
+    background: #E43B4E;
+}
+.ant-checkbox-indeterminate .ant-checkbox-inner::after{
+    background: #E43B4E;
+}
+.ant-modal-content {
+    border-radius: 10px;
+}
+.ant-modal-close-x{
+    margin-top: 10px;
+}
+.ant-switch-checked {
+    background-color: #E43B4E;
+}

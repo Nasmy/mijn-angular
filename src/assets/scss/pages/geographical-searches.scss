@@ -1,0 +1,166 @@
+
+.mp-group-button {
+    /*width: auto;*/
+    height: 36px;
+    background-color: #E43B4E;
+    border-radius: 4px;    
+    color:  #fefefe;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Inter, Arial, Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.mp-button-light {
+    /*width: auto;*/
+    height: 36px;
+    background-color: #FFFFFF00;
+    border-radius: 2px;    
+    color:  #333333;
+    font-size: 16px;
+    font-weight: 600;
+    border-color: black;
+}
+
+.mp-button-primary:hover,
+.mp-button-primary:focus,
+.mp-button-light:hover,
+.mp-button-light:focus {
+    border-color: #E43B4E;
+    color: #E43B4E;
+}
+
+.mp-button-primary {
+    /*width: auto;*/
+    height: 36px;
+    background-color: #E43B4E;
+    border-radius: 2px;    
+    color:  #fefefe;
+    font-size: 16px;
+    font-weight: 600;
+    border-color: #E43B4E;
+}
+
+.mp-button-extra{
+    height: 26px!important;
+    background-color: #fefefe;
+    border-radius: 2px;    
+    color:  #E43B4E;
+    font-size: 12px;
+    font-weight: 500;
+    border-color: #E43B4E;
+}
+
+.mp-group-button.right-margin{
+    margin-right:2px;
+}
+
+.switch-menu{
+    height: 36px;
+    label.ant-segmented-item-selected{
+        background-color: #E43B4E!important;
+        height: 36px;  
+        path {
+            fill: white; /* changes the color to red */
+            stroke: white;
+          }
+          [data-icon="map_custom"]{
+            path {
+                fill: white; /* changes the color to red */
+                stroke: #999999;
+              }
+        }
+        span{
+            vertical-align: middle;
+        }
+    } 
+
+    label{
+        background-color:white;
+        height: 36px;
+        path {
+            stroke: #999999; /* changes the color to red */
+          }
+          span{
+            vertical-align: middle;            
+        }
+    }
+}
+
+::ng-deep .an.ant-drawer-right>.ant-drawer-content-wrapper { 
+    top: 10px!important;
+    bottom: 10px;
+}  
+
+.ant-drawer-content-wrapper { 
+ padding: 10px;
+ width: 478px;
+} 
+.expanded{
+    width: 1600px!important;
+}
+
+.configuration{
+    width: 780px!important;
+}
+
+ant-drawer-wrapper-body{
+    border-radius: 5px !important;
+}
+.modal-right-footer{
+    /*position: absolute;*/
+    padding: 10px;
+}
+
+
+.modal-right-footer button {
+    width: 100%;
+}
+
+.print-cadgis{
+    width: 850px;
+}
+
+::ng-deep .cdk-overlay-connected-position-bounding-box {
+    z-index: 10000 !important;
+    }
+     
+::ng-deep .cdk-global-overlay-wrapper {
+    z-index: 1000 !important;
+    }
+
+.drawer-left-position{
+        padding: 10px;
+        width: 478px!important;
+        margin-left: 300px!important;
+        margin-top: 175px!important;
+        margin-bottom: 150px!important;
+}
+
+.mp-button-primary, .mp-button-group, .ant-btn-dangerous.ant-btn-primary {
+    color: #fff;
+    border-color: #E43B4E;
+    background: #E43B4E;
+}
+
+.mp-group-button {
+    background-color: #E43B4E;
+    color: #fff;
+}
+ 
+.mp-group-button:hover,
+.mp-group-button:focus {
+    border-color: #E43B4E;
+    color: #E43B4E;
+}
+
+.ant-segmented-item-label {
+    margin-top: 4px;
+    margin-left: 4px;
+}
+
+.ant-drawer-header-title,
+.ant-drawer h3 {
+  font-family: InterBold, Arial, Helvetica, sans-serif;
+}

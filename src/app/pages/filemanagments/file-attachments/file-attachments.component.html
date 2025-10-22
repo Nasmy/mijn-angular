@@ -1,0 +1,51 @@
+<nz-card class="card-header-custom" [nzTitle]='"Attachments"| translate' [nzExtra]="attachmentLinks" >
+    <div class="card-body-round">
+        <div nz-row [nzGutter]="16">
+
+            <div nz-col [nzSpan]="6" class="uploader">
+                <div class="dropzone dropzone-primary" 
+                [dropzone]="config1" 
+                (init)="onUploadInit($event)"
+                (error)="onUploadError($event)" 
+                (success)="onUploadSuccess($event)">
+                    <div class="dz-message needsclick text-center">
+                        <span nz-icon nzType="plus"></span>
+                        <h6>{{'Upload'| translate }}</h6>
+                    </div>
+                </div>
+            </div>
+            @for (file of FileAttachments$$ |async; track file.id) { 
+            <div nz-col [nzSpan]="6" class="filesListed">
+                <div class="file-top">
+                        <span nz-icon class="fileType" [nzType]="getExtension(file?.file_extension)"></span>
+                        <div class="fileActions">
+
+                            @if (getExtension(file?.file_extension) == 'file-pdf') {
+                                <span nz-icon nzType="eye" (click)="showPreview(file)" class="eyeAction"></span>
+                            } @else if (getExtension(file?.file_extension) == 'file-word') {
+                                <span nz-icon nzType="eye" (click)="showPreview(file)" class="eyeAction"></span>
+                            } @else if (getExtension(file?.file_extension) == 'file-image') {
+                                <span nz-icon nzType="eye" (click)="showImage(file)" class="eyeAction"></span>
+                            } @else {
+                                <span nz-icon nzType="eye" (click)="download(file)" class="eyeAction"></span>
+                            }
+                            <span nz-icon nzType="close" (click)="deleteConfirm(file.id)"></span>
+                        </div>   
+                        <span class="attachmentTimecode">{{file?.created_at | date: 'short'}}</span>                                 
+                </div>                  
+                <div class="file-bottom" nz-typography nzEllipsis nz-tooltip [nzTooltipTitle]='file?.name'>
+                    {{file?.name}} 
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
+  </nz-card>
+  <ng-template #attachmentLinks>
+    <!-- <img [src]="'/assets/img/icons/svg/openmodal.svg'" class="modalIco modDocsModalIco" (click)="showModal(fileManagment.id)"> -->
+    <img [src]="'/assets/img/icons/svg/openmodal.svg'" class="modalIco modDocsModalIco" (click)="showModal()">
+
+    <a href="https://bodemattest.ovam.be/" target="_blank">{{'OVAM attest' | translate}}</a>
+    <a href="https://financien.belgium.be/nl/particulieren/woning/kadaster/kadastraal-uittreksel/myminfin#q1" target="_blank">{{'Kadastrale legger' | translate}}</a>
+  </ng-template>

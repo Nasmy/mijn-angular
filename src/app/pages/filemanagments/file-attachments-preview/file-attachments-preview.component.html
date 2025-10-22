@@ -1,0 +1,11 @@
+
+@if (nzData['fileType'] == '.pdf') {
+
+    <iframe [src]="pdfSafe" style="width: 100%; height: 500px;"></iframe>
+
+}
+@else {
+    
+    <app-document-editor [dockxBlob]="docXSrc" [readOnly]="true" [hideButtons]="true"></app-document-editor>
+
+}

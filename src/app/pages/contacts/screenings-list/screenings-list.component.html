@@ -1,0 +1,65 @@
+<div>
+    <button nz-button nzType="primary" nzDanger (click)="startScreening(nzData.value)">{{'Start Screening' | translate}}</button>
+</div>
+
+<div>
+    <table id="subs">
+        <thead>
+            <tr>
+                <th>{{'Forms' | translate}}</th>
+                <th>{{'Date' | translate}}</th>
+                <th>{{'Status' | translate}}</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (submission of submissions; track submission.id) {
+                <tr>
+                    <td><strong>{{submission.form.name}}</strong></td>
+                    <td>{{submission.submittedOn | date: 'mediumDate'}}</td>
+
+                    @if (submission.status == 'in-progress') {
+                        <td class="text text-warning">
+                            <span nz-icon nzType="file-text" nzTheme="outline"></span> {{submission.status | translate}}
+                        </td>
+                    } @else if (submission.status == 'draft') {
+                        <td class="text text-info">
+                            <span nz-icon nzType="file"></span> {{submission.status | translate}}
+                        </td>
+                    } @else if (submission.status == 'pass') {
+                        <td class="text text-success">
+                            <span nz-icon nzType="check-circle"></span> {{submission.status | translate}}
+                        </td>
+                    } @else if (submission.status == 'not accepted') {
+                        <td class="text text-danger">
+                            <span nz-icon nzType="warning"></span> {{submission.status | translate}}
+                        </td>
+                    } @else {
+                        <td class="text text-danger">
+                            <span nz-icon nzType="warning"></span> {{submission.status | translate}}
+                        </td>
+                    }
+
+                    @if (submission.status == 'pass' || submission.status == 'not accepted') {
+                        <td style="text-align: center" ><img [src]="'/assets/img/icons/svg/edit.svg'" class="actionsIco" style="opacity: 0.3; cursor: unset;"/></td>
+                    } @else if(nzData.filemanagment_id!=undefined){
+                        <td style="text-align: center" (click)="destroyModal()"  routerLink="/contacts/{{nzData.value['actions']}}/submission/{{submission.form.id}}/{{submission.id}}/filemanagment/{{nzData.filemanagment_id}}"><img [src]="'/assets/img/icons/svg/edit.svg'" class="actionsIco"></td>
+                    }@else {
+                        <td style="text-align: center" (click)="destroyModal()"  routerLink="/contacts/{{nzData.value['actions']}}/submission/{{submission.form.id}}/{{submission.id}}"><img [src]="'/assets/img/icons/svg/edit.svg'" class="actionsIco"></td>
+                    }
+                    <td style="text-align: center" (click)="previewScreening(submission.id, submission.form.name, submission.status)"><img [src]="'/assets/img/icons/svg/preview.svg'" class="actionsIco"/></td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+<!-- <ng-template #modalFooter>
+    <span>Modal Footer:</span>
+    <button nz-button nzType="default">{{'Cancel'}}</button>
+    <button nz-button nzType="primary" nzDanger>{{'Continue'}}</button>
+</ng-template> -->

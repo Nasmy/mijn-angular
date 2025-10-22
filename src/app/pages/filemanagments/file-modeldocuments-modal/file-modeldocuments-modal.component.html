@@ -1,0 +1,17 @@
+
+<button nz-button  nzPlacement="bottomRight" class="mp-button-primary addmodal" (click)="addDocument(fileManagment.id)">
+    {{'Add document'|translate}}
+</button>
+      
+<div class="content" style="width: 100%; height: 400px;">
+        <ag-grid-angular
+          [rowData]="rowDataModelDocuments"
+          [enableCellTextSelection]="true"
+          [columnDefs]="colDefs"
+          [defaultColDef]="defaultColDef" 
+          [context]="this"
+          [pagination]="true"
+          [paginationPageSize]="paginationPageSize"
+          [paginationPageSizeSelector]="paginationPageSizeSelector"
+        />
+</div>

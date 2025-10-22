@@ -1,0 +1,27 @@
+.btn-right-corner{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#fileTitle {
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: -0.3px;
+}
+
+::ng-deep .ant-card-head {
+    border-bottom-width: 0;
+}
+
+::ng-deep .ant-card-body {
+    padding: 0 24px 24px 24px;
+}
+
+::ng-deep .anticon-close {
+    vertical-align: 0.2em;
+}

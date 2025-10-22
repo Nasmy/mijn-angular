@@ -1,0 +1,21 @@
+<app-map-viewer-env ></app-map-viewer-env>
+
+
+<nz-segmented [nzOptions]="options" class="switch-menu-env" (nzValueChange)="handleValueChange($event)"></nz-segmented>
+
+
+<!--<nz-tabset (nzSelectedIndexChange)="onTabChange($event)" [nzAnimated]="false">
+  <nz-tab nzTitle="Active">
+    <app-environmentalpermit-table #activeTable></app-environmentalpermit-table>
+  </nz-tab>
+  <nz-tab nzTitle="Archive">
+    <app-environmentalpermit-table-archive #archiveTable></app-environmentalpermit-table-archive>
+  </nz-tab>
+</nz-tabset>-->
+
+
+@if(selectedTabIndex==0) {
+   <app-environmentalpermit-table #activeTable (onFocusPoint)="focusOnPoint($event)"></app-environmentalpermit-table>
+} @else if(selectedTabIndex==1) {
+   <app-environmentalpermit-table-archive #archiveTable (onFocusPoint)="focusOnPoint($event)"></app-environmentalpermit-table-archive>
+} 

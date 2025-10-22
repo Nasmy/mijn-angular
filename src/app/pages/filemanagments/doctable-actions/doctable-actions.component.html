@@ -1,0 +1,10 @@
+<!-- <a (click)="openDrawer(valueFormatted)">{{ 'Edit' }}</a>
+<a class="del" (click)="deleteContact(valueFormatted)">{{ 'Delete' }}</a> -->
+
+<div nz-row >
+    <div nz-col [nzSpan]="24" style="text-align: right;">
+      <img [src]="'/assets/img/icons/svg/preview.svg'" (click)="openDrawerRead(valueFormatted)" class="actionsIco" style="margin-left: 0">
+      <img [src]="'/assets/img/icons/svg/edit.svg'" (click)="openDrawerEdit(valueFormatted)" class="actionsIco">
+      <img [src]="'/assets/img/icons/svg/trash.svg'" (click)="delete(valueFormatted)" class="actionsIco">
+    </div>
+  </div> 

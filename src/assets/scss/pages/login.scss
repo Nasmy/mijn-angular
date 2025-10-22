@@ -1,0 +1,121 @@
+
+@font-face {
+    font-family: Inter;
+    src: url(/assets/font/Inter-Regular.otf) format("opentype");
+  }
+  
+@font-face {
+      font-family: InterBold;
+      src: url(/assets/font/Inter-Bold.otf) format("opentype");
+  }
+
+body {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+.login-form {
+    max-width: 500px;
+    width: 450px;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+  }
+
+.login-form-logo {
+    width: 300px;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 40px;
+}
+.login-form-authenticator-icon {
+    width: 150px;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 20px;
+}
+img {
+    margin: 0 auto;
+    display: block;
+}
+
+.login-form-forgot {
+    float: left;
+}
+
+.login-form-margin {
+    margin-bottom: 16px;
+}
+
+.login-form-forgot {
+    float: left;
+}
+
+.login-form-button {
+    width: 100%;
+    height: 44px;
+    background-color: #E43B4E;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.login-form-button:hover,
+.login-form-button:focus {
+    border-color: #E43B4E;
+    color: #E43B4E;
+}
+
+.login-form-download {
+    width: 100%;
+    background-color: #fefefe;
+    height: 44px;
+    border-radius: 6px;
+    border-color: #E43B4E;
+}
+
+.ant-form-item-label > label {
+    color: #333;
+}
+
+.ant-form-item-label > label::after {
+    display: none;
+}
+
+.login-form-forgot {
+    margin: 10px 0 15px 1px;
+    color: #E43B4E;
+}
+
+.ant-input-affix-wrapper {
+    padding: 0px 11px 0px 0px;
+    border: 1px solid #999 !important;
+    border-radius: 6px;
+}
+
+.pwdInput {
+    border: none !important;
+}
+
+.ant-alert-info {
+    background-color: #E8F7FE;
+    border-width: 0;
+    font-family: InterBold, Impact, 'Arial Narrow Bold', sans-serif;
+    font-size: 14px;
+    line-height: 25px;
+    margin-bottom: 30px;
+    height: 29px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+.ant-alert-info span {
+    color: #0092DA !important;
+}
+
+.ant-form-item {
+    margin-bottom: 25px;
+}
+
+.ant-input {
+    border: 1px solid #999;
+    border-radius: 6px !important;
+    padding: 10px 15px !important;
+    height: 56px;
+}
+

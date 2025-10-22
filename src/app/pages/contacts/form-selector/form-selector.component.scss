@@ -1,0 +1,31 @@
+p {
+    text-align: center;
+}
+
+select {
+    width: 100%;
+    padding: 5px;
+}
+
+::ng-deep .ant-modal-title {
+    text-align: center;
+    padding-top: 25px;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Inter', Arial, Verdana, Tahoma, sans-serif;
+}
+
+::ng-deep .ant-modal-body {
+    color: #777;
+    line-height: 22px;
+    font-family: 'Inter', Arial, Verdana, Tahoma, sans-serif;
+}
+
+::ng-deep .ant-modal-footer {
+    padding-bottom: 30px;
+}
+
+::ng-deep .ant-btn {
+    height: 40px;
+    border-radius: 4px;
+}

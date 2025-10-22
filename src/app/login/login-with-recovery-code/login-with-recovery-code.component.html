@@ -1,0 +1,66 @@
+<div class="cardLogin">
+    <img class="login-form-logo" src="../../assets/img/logo.png" />
+
+    @if(allertMessage.message){ 
+        <nz-alert  [nzType]="allertMessage.type" [nzMessage]="allertMessage.message" nzShowIcon></nz-alert>
+    } @else {
+        <nz-alert  [nzType]="'info'" [nzMessage]="'Your log in is protected with the authenticator app.'| translate" nzShowIcon></nz-alert>
+    }
+
+    <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()">
+        <!-- <div class="form-group">
+            <p>You have requested to login with a recovery code. This login will not be remembered until you provide
+                an authenticator app code at login or disable 2FA and login again.</p>
+        </div> -->
+        <nz-form-label nzFor="recoveryCode">{{ 'Recovery Code' | translate }}</nz-form-label>
+        <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your recovery code!">
+                <!-- <nz-input-group nzPrefixIcon="user"> -->
+                <nz-input-group>
+                    <input type="text" nz-input formControlName="recoveryCode"
+                        [placeholder]="'Enter your recovery code'| translate" />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin">{{'Log in'|translate}}</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="cardLogin"> 
+    <img class="img-fluid for-light" src="assets/images/logo/logo.png" alt="" style="width: 250px; margin: 10px auto;">
+    <div class="card-body ">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" style="width: 100%;">
+            <div class="form-group">
+                <p>You have requested to login with a recovery code. This login will not be remembered until you provide
+                    an authenticator app code at login or disable 2FA and login again.</p>
+            </div>
+            <div class="form-group">
+                <label for="RecoveryCode" style="text-transform: capitalize;"> {{ 'login.recoveryCode' |
+                    translate }} </label>
+                <input type="text" formControlName="recoveryCode" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['recoveryCode'].errors }" />
+                <div *ngIf="submitted && f['recoveryCode'].errors" class="invalid-feedback">
+                    <div *ngIf="f.recoveryCode.errors.required"> {{ 'login.recoveryCode is required' |
+                        translate }}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-round mb-3 mat-elevation-z3" style="background-color:#E83C4E  !important; border-color: #E83C4E  !important;">Log in</button>
+            </div>
+        </form>
+    </div>
+</div>-->

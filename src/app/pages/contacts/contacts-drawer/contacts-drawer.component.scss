@@ -1,0 +1,64 @@
+
+::ng-deep .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #323334;
+    text-shadow: 0 0 0.25px currentcolor;
+}
+
+::ng-deep .ant-tabs-ink-bar {
+    background: #E43B4E;
+}
+
+::ng-deep .ant-drawer-close {
+    position: fixed;    
+    right: 12px;
+}
+
+::ng-deep .ant-drawer-right>.ant-drawer-content-wrapper {
+    top: 10px;
+    bottom: 10px;
+}
+
+::ng-deep .ant-drawer-mask {
+    background: transparent;
+}
+
+::ng-deep .ant-tabs-tab:hover {
+    color: #E43B4E;
+}
+
+::ng-deep .ant-divider-horizontal.ant-divider-with-text {
+    margin: 0 0 16px 0;
+}
+
+nz-date-picker {
+    display: block;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+    padding: 8px 0 !important;
+}
+
+::ng-deep .mat-mdc-form-field-flex {
+    height: 40px !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+    top: calc(var(--mat-form-field-container-height, 40px) / 2) !important;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+    --mat-mdc-form-field-label-transform: translateY(calc(calc(6.75px + var(--mat-form-field-container-height, 40px) / 2)* -1)) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75)) !important;
+    transform: var(--mat-mdc-form-field-label-transform);
+}
+
+nz-form-item {
+    margin-bottom: 5px;
+}
+
+/* ::ng-deep .ant-drawer-right > .ant-drawer-content-wrapper {
+    box-shadow: 3px 0 12px 6px rgba(0, 0, 0, 0.1), -9px 4px 4px 5px rgba(0, 0, 0, 0.04), -12px 0 48px 4px rgba(0, 0, 0, 0.03);
+} */
+
+::ng-deep .ant-drawer-content-wrapper {
+    padding: 0;
+}
